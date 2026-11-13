@@ -1,0 +1,29 @@
+{
+  "title": "Best Use of Gemma",
+  "org": "Google DeepMind",
+  "task": "Awarded to the team that demonstrates the most innovative and impactful use of Google's Gemma open models. We're looking for creative applications, strong technical execution, and solutions that showcase the potential of open AI models to solve real-world problems.",
+  "prizes": "Top 3: €1,000 per team for the top 3 teams, with no ranking between winners.",
+  "sections": [
+    {
+      "title": "The Challenge",
+      "html": "<div><div><p>Awarded to the team that demonstrates the most innovative and impactful use of Google's Gemma open models. We're looking for creative applications, strong technical execution, and solutions that showcase the potential of open AI models to solve real-world problems.</p></div></div>",
+      "sidebar": false
+    },
+    {
+      "title": "Resources",
+      "html": "<div><div><h4>How to Access Gemma</h4>\n<p>Gemma is Google's family of open AI models, available for developers to build with.</p>\n<p>You can access and run Gemma through several platforms, including our Junction 2026 partners:</p>\n<ul>\n<li><strong><a href=\"https://featherless.ai/models?families=gemma\">Featherless AI</a></strong> – Access hosted Gemma models through an API.</li>\n<li><strong><a href=\"https://modal.com/\">Modal</a></strong> – Deploy and run Gemma models on serverless GPU infrastructure.</li>\n<li><strong><a href=\"https://verda.com/\">Verda</a></strong> – Use cloud GPU resources to deploy and run Gemma yourself.</li>\n<li><strong><a href=\"https://aistudio.google.com/\">Google AI Studio</a></strong> – Experiment with Gemma in your browser.</li>\n<li><strong><a href=\"https://huggingface.co/google\">Hugging Face</a></strong> – Download Gemma models and integrate them into your project.</li>\n</ul>\n<p>For setup instructions and technical resources, check out the <a href=\"https://ai.google.dev/gemma/docs\">official Gemma documentation</a>.</p>\n<p>Be sure to check the partner resources available in the Junction Hackerpack for any event-specific credits or access instructions.</p></div></div>",
+      "sidebar": false
+    },
+    {
+      "title": "Google DeepMind",
+      "eyebrow": "Company Info",
+      "html": "<div><div><p><span>Website:</span> <a href=\"https://deepmind.google/\">https://deepmind.google/</a></p></div></div>",
+      "sidebar": true
+    },
+    {
+      "title": "Prizes",
+      "html": "<div><ul><li><div>Top 3 </div><p>€1,000 per team for the top 3 teams, with no ranking between winners.</p></li></ul></div>",
+      "sidebar": true
+    }
+  ]
+}
