@@ -253,6 +253,9 @@ function reshape(main: Element, page: { url: URL; title: string }) {
       (first as Element).tagName = "h2";
       first.children = [txt(name)];
     }
+    // Full partner sections may intentionally repeat prizes or criteria from the brief.
+    // They must keep every word; only the legacy summary sidebar needs deduplication.
+    if (select(".challenge-prose", aside)) continue;
     const outside = structuredClone(main);
     for (const copy of selectAll("aside", outside)) detach(outside, copy);
     const seen = new Set(selectAll("p, li, div", outside).filter((n) => !hasBlockDescendant(n)).map(textOf));

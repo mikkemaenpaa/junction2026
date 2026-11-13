@@ -14,6 +14,15 @@ const escape = (text) => text.replaceAll("&", "&amp;").replaceAll("<", "&lt;").r
 const allowed = new Set("p div span h1 h2 h3 h4 h5 h6 ul ol li blockquote pre code strong em b i u s del a br hr table thead tbody tfoot tr td th sub sup kbd".split(" "));
 const drop = new Set(["script", "style", "svg", "button", "input", "iframe", "template", "noscript"]);
 
+function sourceHref(value) {
+  const href = String(value ?? "");
+  // Some partner links omit the scheme. Keep their wording and point to the actual site
+  // instead of interpreting the hostname as a relative path on junction2026.com.
+  if (/^[a-z0-9-]+(?:\.[a-z0-9-]+)+(?:[/?#].*)?$/i.test(href)) return `https://${href}`;
+  assert.match(href, /^(https?:\/\/|mailto:)/i, `Unsupported source link: ${href}`);
+  return href;
+}
+
 /** Keep semantic content and safe links, dropping dashboard styling and active code. */
 function html(node) {
   if (node.type === "text") return escape(node.value);
@@ -24,8 +33,7 @@ function html(node) {
   const tag = /^h[1-6]$/.test(node.tagName) ? `h${Math.min(6, Math.max(3, Number(node.tagName[1]) + 1))}` : node.tagName;
   let attributes = "";
   if (tag === "a") {
-    const href = String(node.properties.href ?? "");
-    assert.match(href, /^(https?:\/\/|mailto:)/i, `Unsupported source link: ${href}`);
+    const href = sourceHref(node.properties.href);
     attributes = ` href="${escape(href)}"`;
   }
   if (tag === "ol" && node.properties.start) attributes = ` start="${Number(node.properties.start)}"`;
@@ -37,7 +45,7 @@ function html(node) {
   return ["br", "hr"].includes(tag) ? `<${tag}${attributes}>` : `<${tag}${attributes}>${children}</${tag}>`;
 }
 
-const links = (node) => selectAll("a", node).map((a) => [a.properties.href, toString(a)]);
+const links = (node) => selectAll("a", node).map((a) => [sourceHref(a.properties.href), toString(a)]);
 
 export function extractChallenge(source) {
   const document = parser.parse(source);
