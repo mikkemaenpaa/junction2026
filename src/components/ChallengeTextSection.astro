@@ -1,17 +1,19 @@
 ---
 import type { ChallengeTextSection } from "../data/challenge-text";
+import { formatMarkdownMarkers } from "./challenge-html";
 
 interface Props {
   section: ChallengeTextSection;
 }
 
 const { section } = Astro.props;
+const html = formatMarkdownMarkers(section.html);
 ---
 
 <section class="border-t border-border py-6">
   {section.eyebrow && <p class="mb-2 text-xs uppercase tracking-wider text-muted-foreground">{section.eyebrow}</p>}
   <h2 class="mb-5 text-2xl font-semibold">{section.title}</h2>
-  <div class="challenge-prose leading-relaxed text-muted-foreground" set:html={section.html} />
+  <div class="challenge-prose leading-relaxed text-muted-foreground" set:html={html} />
 </section>
 
 <style>
