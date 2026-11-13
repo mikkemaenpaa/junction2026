@@ -1,0 +1,29 @@
+{
+  "title": "Best Use of MongoDB Atlas",
+  "org": "Major League Hacking",
+  "task": "MongoDB Atlas takes the leading modern database and makes it accessible in the cloud! Get started with a $50 credit for students or sign up for the Atlas free forever tier (no credit card required). Along with a suite of services and functionalities, you’ll have everything you need to manage all of your data, and you can get a headstart with free resources from MongoDB University! Build a hack using MongoDB Atlas for a chance to win a M5Stack IoT Kit for you and each member of your group.",
+  "prizes": "Best Overall: M5Stack IoT Kit",
+  "sections": [
+    {
+      "title": "The Challenge",
+      "html": "<div><div><p>MongoDB Atlas takes the leading modern database and makes it accessible in the cloud! Get started with a $50 credit for students or sign up for the Atlas free forever tier (no credit card required). Along with a suite of services and functionalities, you’ll have everything you need to manage all of your data, and you can get a headstart with free resources from MongoDB University! Build a hack using MongoDB Atlas for a chance to win a M5Stack IoT Kit for you and each member of your group.</p></div></div>",
+      "sidebar": false
+    },
+    {
+      "title": "Resources",
+      "html": "<div><div><p>Check how to build with MongoDB at <a href=\"https://mlh.link/mongodb\">https://mlh.link/mongodb</a></p></div></div>",
+      "sidebar": false
+    },
+    {
+      "title": "Major League Hacking",
+      "eyebrow": "Company Info",
+      "html": "<div><p>Major League Hacking (MLH) is a community-focused organization that empowers student developers through hackathons, technical workshops, and hands-on learning experiences. Serving as the official student hackathon league, MLH supports events around the world by providing resources, mentorship, and a platform for students to collaborate, build innovative projects, and strengthen their technical skills. By fostering an inclusive and enthusiastic environment, MLH helps students grow as developers, leaders, and creators while connecting them with a global network of peers and industry partners.</p><div></div></div>",
+      "sidebar": true
+    },
+    {
+      "title": "Prizes",
+      "html": "<div><ul><li><div>Best Overall</div><p>M5Stack IoT Kit</p></li></ul></div>",
+      "sidebar": true
+    }
+  ]
+}

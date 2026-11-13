@@ -54,6 +54,7 @@ export const partnerLogos: Record<string, { url: string; dark: boolean }[]> = {
   "MariaDB": [{ url: mariadb.src, dark: false }],
   "Verda": [{ url: verda.src, dark: false }],
   "MLH": [{ url: mlh.src, dark: false }],
+  "Major League Hacking": [{ url: mlh.src, dark: false }],
   "OpenAI": [{ url: openai.src, dark: false }],
   "Google DeepMind": [{ url: google.src, dark: false }],
   "NVIDIA": [{ url: nvidia.src, dark: false }],
