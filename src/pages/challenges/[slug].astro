@@ -7,6 +7,7 @@ import BaseLayout from "../../layouts/BaseLayout.astro";
 import AbstractBackdrop from "../../components/AbstractBackdrop.astro";
 import PartnerIdentity from "../../components/PartnerIdentity.astro";
 import TextSection from "../../components/TextSection.astro";
+import ChallengeTextSection from "../../components/ChallengeTextSection.astro";
 import LucideIcon from "../../components/LucideIcon.astro";
 import { buttonClass } from "../../components/ui/button";
 import { challengeDirectory } from "../../data/challenge-directory";
@@ -37,6 +38,9 @@ const title = `${c.title} – Junction 2026`;
       </header>
       <div class="grid items-start gap-10 pt-8 lg:grid-cols-[minmax(0,2fr)_minmax(260px,1fr)] lg:gap-16">
         <div class="min-w-0">
+          {c.fullText ? c.fullText.sections.filter((section) => !section.sidebar).map((section) => (
+            <ChallengeTextSection section={section} />
+          )) : <>
           <section class="pb-8">
             <h2 class="mb-5 text-2xl font-semibold">The Challenge</h2>
             <p class="leading-relaxed text-muted-foreground">{c.task}</p>
@@ -46,11 +50,17 @@ const title = `${c.title} – Junction 2026`;
           <TextSection title="Optional" paragraphs={c.optional} />
           <TextSection title="Judging" paragraphs={c.judging ? [c.judging] : undefined} />
           <TextSection title="Prizes" paragraphs={[c.prizes]} />
+          </>}
         </div>
-        <aside class="border-t border-border pt-6 lg:sticky lg:top-24">
+        <aside class:list={["min-w-0 border-t border-border pt-6", { "lg:sticky lg:top-24": !c.fullText }]}>
           <p class="text-sm text-muted-foreground">CHALLENGE PARTNER</p>
           <div class="mt-5 max-w-56"><PartnerIdentity name={c.org} /></div>
           <p class="mt-4 text-sm text-muted-foreground">{track}</p>
+          {c.fullText ? <div class="mt-6">
+            {c.fullText.sections.filter((section) => section.sidebar).map((section) => (
+              <ChallengeTextSection section={section} />
+            ))}
+          </div> : <>
           {c.links?.length ? (
             <div class="mt-6 flex flex-col items-start gap-3">
               {c.links.map((l) => (
@@ -62,6 +72,7 @@ const title = `${c.title} – Junction 2026`;
             <p class="mb-3 text-sm font-semibold">Prizes</p>
             <p class="text-sm leading-relaxed text-muted-foreground">{c.prizes}</p>
           </div>
+          </>}
         </aside>
       </div>
     </div>

@@ -3,8 +3,8 @@
 // entry at /challenges/<slug> (src/pages/challenges/[slug].astro).
 import { tracks, techChallenges } from "./challenges";
 
-export function challengeSlug(c: { org: string; title: string }) {
-  return `${c.org}-${c.title}`.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
+export function challengeSlug(c: { org: string; title: string; slug?: string }) {
+  return c.slug ?? `${c.org}-${c.title}`.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
 }
 
 export const challengeDirectory = [

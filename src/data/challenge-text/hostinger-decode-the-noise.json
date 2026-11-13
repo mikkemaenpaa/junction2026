@@ -1,0 +1,39 @@
+{
+  "title": "Decode the Noise",
+  "org": "Hostinger",
+  "task": "Build an AI-powered tool that detects propaganda, bots and bad actors online – and deploy it live on Hostinger's infrastructure.",
+  "prizes": "All three winning teams: All three winning teams will also receive **one year of Hostinger hosting and a domain** to keep their project live, **Hostinger swag**, and a **spotlight on Hostinger's social media channels**. · 1st Place: 2000 € · 2nd Place: 1000 € · 3rd Place: 500 €",
+  "sections": [
+    {
+      "title": "The Challenge",
+      "html": "<div><div><p>Build an AI-powered tool that detects propaganda, bots and bad actors online – and deploy it live on Hostinger's infrastructure.</p>\n<h3>Introduction</h3>\n<p>The internet was built to connect people, but it has also become the world's most powerful manipulation machine. Propaganda spreads faster than facts, bot networks shape public opinion at scale, and bad actors exploit the open web with growing sophistication. At Hostinger we host millions of websites, so we see this noise up close – and we believe the same technology that powers the web can also protect it. We're bringing this challenge to Junction because the best detection ideas won't come from one company; they'll come from builders who can go from idea to a live tool in 48 hours.</p>\n<h3>The challenge</h3>\n<p>Build a tool that analyses text, social content or web-traffic patterns to detect signs of coordinated propaganda, bot-driven amplification or bad-actor behaviour online. Solutions can take many forms: an API, a dashboard, a classifier with an explainable verdict, or a monitoring service for site owners.</p>\n<p>Whatever you build, it <strong>must be deployed and running live on Hostinger's infrastructure</strong> by the end of the hackathon, with a public URL the judges can open. We care more about the strength and honesty of your detection logic – including how you handle false positives – than a polished front end.</p></div></div>",
+      "sidebar": false
+    },
+    {
+      "title": "Insight",
+      "html": "<div><div><p><strong>Directions we'd love to see tackled</strong> (pick one, or combine them):</p>\n<ul>\n<li>\n<p><strong>Spot the swarm</strong> – detect coordinated inauthentic behaviour (bot networks, astroturfing, brigading) from posting timing, account similarity, text reuse and amplification patterns rather than from any single post.</p>\n</li>\n<li>\n<p><strong>Name the technique</strong> – classify manipulation techniques in text (loaded language, fear appeals, whataboutism, fabricated authority) and explain the verdict in plain language, so a reader learns <em>why</em> something is propaganda, not just <em>that</em> it is.</p>\n</li>\n<li>\n<p><strong>Clean the traffic</strong> – tell malicious bots, scrapers and credential-stuffing attempts apart from real visitors in web-server logs, and give site owners a clear, actionable view of what's hitting their site.</p>\n</li>\n<li>\n<p><strong>Trust the source</strong> – score the provenance of a page or account (domain age, cloned content, AI-generated text, link networks) to help users judge who is really behind what they're reading.</p>\n</li>\n</ul>\n<p>We're especially interested in approaches that are <strong>transparent and measurable</strong> – show your precision and false-positive rate, not just a demo that works on the happy path.</p></div></div>",
+      "sidebar": false
+    },
+    {
+      "title": "Resources",
+      "html": "<div><div><h3>What we'll bring</h3>\n<p>Every team working on this challenge gets a full Hostinger environment, <strong>free for 1 month</strong>, so &quot;deployed live&quot; is a realistic requirement, not a stretch goal. Use any language, framework or model – open-source or hosted – as long as the final product runs on Hostinger.</p>\n<ul>\n<li><strong>Hostinger VPS (KVM 2) per team</strong> – 2 vCPU cores, 8 GB RAM, 100 GB NVMe storage, 8 TB bandwidth, full root access, Docker support and a free domain, with one-click templates for Ollama, n8n, Node.js and Python stacks.</li>\n<li><strong>Hostinger AI Router credits</strong> for every team – one API key and one shared credit balance for 150+ leading models (Anthropic, OpenAI, DeepSeek, Mistral, xAI and more), OpenAI- and Anthropic-SDK compatible.</li>\n<li><strong>Hostinger AI Builder</strong> 1-month plan to vibe-code a front end, dashboard or landing page and publish it live for free.</li>\n<li><strong>Hostinger Connector, API and CLI</strong> – connect Claude Code, Cursor, VS Code or any MCP client to your Hostinger account and deploy, manage your server and connect a domain from your editor.\n<ul>\n<li>Docs: <a href=\"https://docs.hostinger.com/hostinger-connector\">docs.hostinger.com/hostinger-connector</a></li>\n<li>API reference: <a href=\"https://developers.hostinger.com\">developers.hostinger.com</a></li>\n<li>Open-source MCP server: <a href=\"https://github.com/hostinger/api-mcp-server\">github.com/hostinger/api-mcp-server</a></li>\n</ul>\n</li>\n<li><strong>On-site mentors</strong> at the Hostinger booth for deployment, scaling, model choice and detection strategy, plus a dedicated Hostinger help channel for the whole weekend (link shared at kick-off and at our booth).</li>\n</ul>\n<h3>Mentors</h3>\n<p><strong>Minijus Savickas</strong> (VPS Product) and <strong>Emilis Strimaitis</strong> (Innovations, AI agents) – at the Hostinger booth throughout the event.</p>\n<h3>Extra</h3>\n<p>Don't miss our talk <strong>&quot;Vibe Coding Solved Building. Now Comes the Hard Part&quot;</strong> on <strong>Saturday at 13:00</strong> – on shipping, securing and running your code in the real world. Teams that build something promising will have a path to continue the conversation with our engineering team after the event.</p></div></div>",
+      "sidebar": false
+    },
+    {
+      "title": "Hostinger",
+      "eyebrow": "Company Info",
+      "html": "<div><div><p><span>Website:</span> <a href=\"https://www.hostinger.com/\">https://www.hostinger.com/</a></p></div></div>",
+      "sidebar": true
+    },
+    {
+      "title": "Judging Criteria",
+      "html": "<div><ul><li><div><span>Detection quality (accuracy, false-positive handling, explainability)</span><span>(40%)</span></div></li><li><div><span>Technical execution &amp; live deployment on Hostinger </span><span>(25%)</span></div></li><li><div><span>Originality &amp; real-world impact</span><span>(20%)</span></div></li><li><div><span>Demo clarity</span><span>(15%)</span></div></li></ul></div>",
+      "sidebar": true
+    },
+    {
+      "title": "Prizes",
+      "html": "<div><ul><li><div>All three winning teams</div><p>All three winning teams will also receive **one year of Hostinger hosting and a domain** to keep their project live, **Hostinger swag**, and a **spotlight on Hostinger's social media channels**.</p></li><li><div>1st Place</div><p>2000 €</p></li><li><div>2nd Place</div><p>1000 €</p></li><li><div>3rd Place</div><p>500 €</p></li></ul></div>",
+      "sidebar": true
+    }
+  ]
+}

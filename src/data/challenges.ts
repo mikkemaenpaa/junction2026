@@ -1,9 +1,13 @@
 // Challenge tracks, tech challenges, partners and the event timeline.
-// Copied verbatim from the original src/lib/challenges.ts; edit content here.
+// Summaries for challenges without a full partner source, partners and event timeline.
+// Full partner sources in challenge-text/ override the corresponding summaries below.
+import { challengeText, type ChallengeText } from "./challenge-text";
 
 export type Link = { label: string; url: string };
 
 export type Challenge = {
+  slug?: string;
+  fullText?: ChallengeText;
   org: string;
   title: string;
   task: string;
@@ -328,6 +332,18 @@ export const tracks: Track[] = [
     ],
   },
 ];
+
+// Apply partner wording across detail pages, cards and llms.txt, keeping existing URLs even
+// when a partner's full title differs from the old abbreviated title.
+for (const track of tracks) {
+  for (const challenge of track.challenges) {
+    const slug = `${challenge.org}-${challenge.title}`.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
+    const fullText = challengeText[slug];
+    if (fullText) {
+      Object.assign(challenge, { slug, fullText, title: fullText.title, org: fullText.org, task: fullText.task, prizes: fullText.prizes });
+    }
+  }
+}
 
 export type TechChallenge = {
   org: string;

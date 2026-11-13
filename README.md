@@ -49,6 +49,7 @@ redeploying an earlier commit or using Cloudflare's version history for the Work
 | What | Where |
 | --- | --- |
 | Tracks, challenges, tech challenges, partners, event timeline | `src/data/challenges.ts` |
+| Full partner challenge wording, resources, judging and prizes | `src/data/challenge-text/*.json` |
 | Challenge URL slugs (`/challenges/<slug>`) | `src/data/challenge-directory.ts` |
 | Partner logos | `src/data/partner-logos.ts` and `src/assets/partner-logos/` |
 | Pages | `src/pages/` (`index`, `challenges`, `challenges/[slug]`, `about`, `privacy`, `404`) |
@@ -67,14 +68,29 @@ redeploying an earlier commit or using Cloudflare's version history for the Work
 ## Updating content
 
 Edit the files above and run `npm run build` (or keep `npm run dev` running) to check the
-result, then deploy. Challenge text, prizes and links live in `src/data/challenges.ts`; the
+result, then deploy. Full partner challenge wording lives in `src/data/challenge-text/*.json`;
+`src/data/challenges.ts` supplies the remaining challenges and fallback summaries. The
 home page cards, the `/challenges` listing, the detail pages and `sitemap.xml` are all built
 from it, so a new challenge appears everywhere at once. Event info (schedule and FAQ) is in
 `src/data/challenges.ts` (`timeline`) and `src/pages/about.astro`.
 
 Each challenge gets its own page automatically. The slug is built from the organisation and
-the title, so changing either one changes the challenge's URL. The build fails if two
-challenges end up with the same slug.
+the title. Full partner sources retain the original slug even when their title changes.
+The build fails if two challenges end up with the same slug.
+
+To import the complete wording from a saved partner challenge page, run:
+
+```sh
+node scripts/import-challenge.mjs /path/to/saved-page.html existing-challenge-slug
+```
+
+The importer retains the complete challenge, insight, resources, company information,
+judging criteria and prizes, including lists, code samples and links. It strips dashboard
+navigation, account details, countdowns, scripts and source styling, and checks that no text
+or links change during extraction. Review and commit each challenge separately. Cards and
+`llms.txt` use the imported title, opening summary and prizes; detail pages and their generated
+Markdown twins contain the full wording. Challenges without a supplied source keep their
+existing content.
 
 ## Markdown for AI agents
 
