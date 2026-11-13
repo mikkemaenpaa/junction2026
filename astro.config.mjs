@@ -1,6 +1,7 @@
 // @ts-check
 import { defineConfig, fontProviders } from "astro/config";
 import tailwindcss from "@tailwindcss/vite";
+import markdownTwins from "./src/integrations/markdown-twins.ts";
 
 // Google Fonts' "latin" unicode-range (also used by @fontsource), so each face is applied to
 // exactly the same characters as with the original Google Fonts stylesheet.
@@ -41,6 +42,10 @@ export default defineConfig({
   },
 
   devToolbar: { enabled: false },
+
+  // After the build, writes a Markdown twin next to every page (about.html -> about.md) and
+  // llms-full.txt. Build-time only: the output is static files (src/integrations/markdown-twins.ts).
+  integrations: [markdownTwins()],
 
   image: {
     service: {

@@ -21,6 +21,11 @@ interface Props {
    * (at most two or three, so they do not compete with the hero image).
    */
   preloadFonts?: { titilliumWeb?: Weight[]; spaceMono?: (400 | 700)[] };
+  /**
+   * Whether the page has a Markdown twin (built by src/integrations/markdown-twins.ts) to
+   * announce with <link rel="alternate">. Only the 404 page has none.
+   */
+  markdown?: boolean;
 }
 
 const {
@@ -31,7 +36,13 @@ const {
   keywords,
   jsonLd,
   preloadFonts = {},
+  markdown = true,
 } = Astro.props;
+
+// The page's Markdown twin: /index.md for the home page, otherwise the page URL plus ".md".
+// (In the build, Astro.url.pathname is the output file, e.g. /about.html or /index.html.)
+const pagePath = Astro.url.pathname.replace(/\.html$/, "").replace(/\/(index)?$/, "");
+const markdownHref = markdown ? new URL(`${pagePath || "/index"}.md`, Astro.site).href : undefined;
 
 // Every configured face is latin/normal (astro.config.mjs), so weight alone selects a file.
 const toPreload = (weights: readonly number[] = []) =>
@@ -59,6 +70,7 @@ const speculationRules = {
     {ogDescription && <meta property="og:description" content={ogDescription} />}
     {keywords && <meta name="keywords" content={keywords} />}
     <link rel="icon" href="/favicon.ico" type="image/x-icon" />
+    {markdownHref && <link rel="alternate" type="text/markdown" href={markdownHref} />}
     <Font cssVariable="--font-titillium-web" preload={toPreload(preloadFonts.titilliumWeb)} />
     <Font cssVariable="--font-space-mono" preload={toPreload(preloadFonts.spaceMono)} />
     {jsonLd && <script is:inline type="application/ld+json" set:html={JSON.stringify(jsonLd)} />}

@@ -11,6 +11,10 @@
    utilities (e.g. from class attributes inside the downloaded SVGs). */
 @source not "../assets";
 @source not "../data";
+/* The build-time Markdown and llms.txt code is not markup either (its words, e.g. "static",
+   would become utilities). */
+@source not "../integrations";
+@source not "../pages/llms.txt.ts";
 
 @theme inline {
   --font-display: var(--font-titillium-web);

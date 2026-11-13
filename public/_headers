@@ -1,12 +1,28 @@
 # Custom response headers for Cloudflare Workers static assets. This file is parsed by
-# Cloudflare and is not served itself.
+# Cloudflare and is not served itself. Rules apply in file order; a request matching several
+# rules gets all their headers, and "! Name" removes a header added by an earlier rule.
 # https://developers.cloudflare.com/workers/static-assets/headers/
 
-# Fingerprinted build output (images, fonts): the filename changes whenever the content does.
-/_astro/*
-  Cache-Control: public, max-age=31536000, immutable
-
+# Every response. Vary: a page URL returns HTML or its Markdown twin depending on the Accept
+# header (the zone's URL rewrite rules, see README), so caches must keep the two apart.
 /*
   X-Content-Type-Options: nosniff
   Referrer-Policy: strict-origin-when-cross-origin
   X-Frame-Options: DENY
+  Vary: Accept
+
+# Fingerprinted build output (images, fonts): the filename changes whenever the content does.
+# Never negotiated, so the Vary from the rule above is removed.
+/_astro/*
+  Cache-Control: public, max-age=31536000, immutable
+  ! Vary
+
+# Markdown twins of the pages (built by src/integrations/markdown-twins.ts) and the llms files.
+/*.md
+  Content-Type: text/markdown; charset=utf-8
+
+/llms.txt
+  Content-Type: text/plain; charset=utf-8
+
+/llms-full.txt
+  Content-Type: text/plain; charset=utf-8
