@@ -1,0 +1,18 @@
+---
+// Collapsible section on a challenge detail page (native <details>, no JS). Ported from
+// `TextSection` in the original src/routes/challenges_.$slug.tsx: open by default only for
+// "Requirements" and "Prizes"; not rendered at all without content.
+interface Props {
+  title: string;
+  paragraphs: string[] | undefined;
+}
+
+const { title, paragraphs } = Astro.props;
+---
+
+{paragraphs?.length ? (
+  <details open={title === "Requirements" || title === "Prizes"} class="group border-t border-border py-6">
+    <summary class="flex cursor-pointer list-none items-center justify-between gap-4 text-xl font-semibold"><h2>{title}</h2><span class="text-muted-foreground group-open:rotate-45" aria-hidden="true">+</span></summary>
+    <div class="mt-5 space-y-4 leading-relaxed text-muted-foreground">{paragraphs.map((text) => <p>{text}</p>)}</div>
+  </details>
+) : null}

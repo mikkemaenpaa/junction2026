@@ -1,0 +1,19 @@
+---
+// Inline <svg> with the same markup lucide-react 0.575.0 renders for <ArrowLeft /> and
+// <ArrowUpRight /> (path data copied from that version). Sized by the parent's CSS, e.g. the
+// button's `[&_svg]:size-4`. Static markup, no JS.
+const icons = {
+  "arrow-left": ["m12 19-7-7 7-7", "M19 12H5"],
+  "arrow-up-right": ["M7 7h10v10", "M7 17 17 7"],
+} as const;
+
+interface Props {
+  name: keyof typeof icons;
+  /** Extra classes, appended after lucide-react's own (as its `className` prop does). */
+  class?: string;
+}
+
+const { name, class: extra } = Astro.props;
+---
+
+<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class={`lucide lucide-${name}${extra ? ` ${extra}` : ""}`} aria-hidden="true">{icons[name].map((d) => <path d={d} />)}</svg>

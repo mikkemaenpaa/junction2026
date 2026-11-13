@@ -1,0 +1,19 @@
+---
+// External links under a challenge card. Ported from `Links` in the original
+// src/routes/challenges.tsx; renders nothing when there are no links.
+import type { Link } from "../data/challenges";
+
+interface Props {
+  links: Link[] | undefined;
+}
+
+const { links } = Astro.props;
+---
+
+{links?.length ? (
+  <div class="mt-3 flex flex-wrap gap-x-5 gap-y-1">
+    {links.map((l) => (
+      <a href={l.url} target="_blank" rel="noreferrer" class="py-1 text-sm text-muted-foreground underline decoration-border underline-offset-4 transition hover:text-foreground">{l.label} ↗</a>
+    ))}
+  </div>
+) : null}

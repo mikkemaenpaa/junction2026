@@ -1,57 +1,87 @@
 ---
+// Ported from the original src/routes/challenges.tsx: every challenge as a card, grouped by
+// track, then tech challenges, partners and judging. Each card links to /challenges/<slug>.
 import BaseLayout from "../layouts/BaseLayout.astro";
-import Section from "../components/Section.astro";
-import { tracks, partners } from "../data/challenges";
+import AbstractBackdrop from "../components/AbstractBackdrop.astro";
+import ChallengeCard from "../components/ChallengeCard.astro";
+import { buttonClass } from "../components/ui/button";
+import { tracks, techChallenges, partners, challengeCount } from "../data/challenges";
 
-const judging = [["Partner tracks", "Each Challenge Partner picks its own track winners."], ["Top 5 peer review", "Face-to-face peer review selects the top 5 projects."], ["Live pitch & grand jury", "The top 5 pitch live; the grand jury picks the winner."]] as const;
+const navLink = buttonClass({ variant: "ghost", className: "h-auto rounded-md border border-border px-3 py-2 text-sm font-normal text-muted-foreground" });
+const judging = [
+  ["Partner tracks", "Each Challenge Partner picks its own track winners from the submissions."],
+  ["Top 5 peer review", "Face-to-face peer review selects the top 5 projects of the event."],
+  ["Live pitch & grand jury", "The top 5 pitch live; the grand jury picks the overall winner."],
+] as const;
 ---
 
 <BaseLayout
   title="Challenges – Junction 2026"
-  description="Junction 2026 tracks: Hardware, Healthcare, AI Infrastructure, FinTech, Agentic AI and Data."
+  description="All 38 Junction 2026 challenges: 19 main challenges across six tracks plus 19 tech challenges, with briefs, requirements, judging and prizes."
   ogTitle="Challenges – Junction 2026"
-  ogDescription="Six tracks and tech challenges at Europe's biggest hackathon."
-  preloadFonts={{ titilliumWeb: [300, 700], spaceMono: [400] }}
+  ogDescription="19 main challenges in six tracks and 19 tech challenges at Europe's biggest hackathon."
+  keywords="Junction 2026 challenges, Junction 2026 hackathon prizes, Agentic AI track, Hardware track Arduino, FinTech track, Healthcare track, Data track"
+  preloadFonts={{ titilliumWeb: [300] }}
 >
-  <main class="pt-20">
-    <Section label="Challenge tracks" title="Ways to move the center of gravity">
-      <div class="grid gap-px border border-border bg-border md:grid-cols-3">
-        {tracks.map((t, i) => (
-          <div id={t.slug} class="scroll-mt-24 bg-background p-8">
-            <p class="label-mono">0{i + 1} · by {t.by}</p>
-            <h3 class="mt-4 font-display text-2xl font-bold uppercase">{t.name}</h3>
-            <p class="mt-4 font-mono text-sm text-highlight">Challenge revealed at opening ceremony</p>
-          </div>
+  <main class="challenge-directory min-h-screen pt-28 text-foreground">
+    <AbstractBackdrop />
+    <header class="mx-auto max-w-6xl px-5 pb-10 sm:px-8">
+      <p class="text-sm text-muted-foreground">Junction 2026 / {challengeCount} challenges</p>
+      <h1 class="mt-3 text-4xl font-semibold md:text-5xl">Challenges</h1>
+      <nav aria-label="Challenge tracks" class="mt-7 flex flex-wrap gap-2">
+        {tracks.map((t) => (
+          <a href={`#${t.slug}`} class={navLink}>{t.name.replace(" Track", "")} · {t.challenges.length}</a>
+        ))}
+        <a href="#tech" class={navLink}>Tech challenges · {techChallenges.length}</a>
+      </nav>
+    </header>
+
+    {tracks.map((t) => (
+      <section id={t.slug} class="mx-auto max-w-6xl scroll-mt-24 px-5 pb-12 sm:px-8">
+        <div class="flex flex-wrap items-baseline justify-between gap-3 pb-5">
+          <h2 class="text-xl font-semibold md:text-2xl">{t.name}</h2>
+          <p class="text-sm text-muted-foreground">{t.by ? `by ${t.by} · ` : ""}{t.challenges.length} challenge{t.challenges.length > 1 ? "s" : ""}</p>
+        </div>
+        <div class="grid gap-4">
+          {t.challenges.map((c) => (
+            <ChallengeCard c={c} />
+          ))}
+        </div>
+      </section>
+    ))}
+
+    <section id="tech" class="mx-auto max-w-6xl scroll-mt-24 px-5 pb-12 sm:px-8">
+      <div class="flex flex-wrap items-baseline justify-between gap-3 pb-5">
+        <h2 class="text-2xl font-semibold">Tech challenges</h2>
+        <p class="text-sm text-muted-foreground">{techChallenges.length} · combine with any main challenge</p>
+      </div>
+      <div class="grid gap-4">
+        {techChallenges.map((t) => (
+          <ChallengeCard c={t} />
         ))}
       </div>
-      <p class="label-mono mt-16">// Challenge & tech partners</p>
-      <div class="mt-6 flex flex-wrap gap-3">
-        {partners.map(([n, u]) => (
-          <a href={u} target="_blank" rel="noreferrer" class="border border-border px-4 py-2 font-mono text-sm hover:border-highlight hover:text-highlight">{n}</a>
+    </section>
+
+    <section class="mx-auto max-w-6xl px-5 py-10 sm:px-8">
+      <h2 class="mb-6 text-2xl font-semibold">Partners</h2>
+      <div class="flex flex-wrap gap-3">
+        {partners.map(([name, url]) => (
+          <a href={url} target="_blank" rel="noreferrer" class="py-1 text-sm text-muted-foreground transition hover:text-foreground">{name}</a>
         ))}
       </div>
-      <div class="mt-10 grid gap-6 md:grid-cols-2">
-        <div class="border border-border p-8">
-          <p class="label-mono">Tech challenges</p>
-          <p class="mt-3 text-muted-foreground">Companies provide credits to their platforms and award prizes for the best use of their tech. They run across every track.</p>
-        </div>
-        <div class="border border-border p-8">
-          <p class="label-mono">Featured · Cala</p>
-          <h3 class="mt-3 font-display text-xl font-bold uppercase">Make Unicorns Real</h3>
-          <p class="mt-2 text-muted-foreground">Build a product for founders or VCs, powered by reliable public data on companies, people, investors and funding rounds.</p>
-        </div>
-      </div>
-    </Section>
-    <Section label="Judging" title="How the winner is chosen">
+    </section>
+
+    <section class="mx-auto max-w-6xl px-5 py-10 sm:px-8">
+      <h2 class="mb-6 text-2xl font-semibold">Judging</h2>
       <ol class="grid gap-6 md:grid-cols-3">
         {judging.map(([t, d], i) => (
-          <li class="border-t border-foreground pt-4">
-            <p class="label-mono">Step 0{i + 1}</p>
-            <h3 class="mt-2 font-display text-xl font-bold uppercase">{t}</h3>
+          <li class="border-t border-border pt-4">
+            <p class="text-sm text-muted-foreground">0{i + 1}</p>
+            <h3 class="mt-2 text-lg font-semibold">{t}</h3>
             <p class="mt-2 text-muted-foreground">{d}</p>
           </li>
         ))}
       </ol>
-    </Section>
+    </section>
   </main>
 </BaseLayout>

@@ -1,0 +1,69 @@
+---
+// Challenge detail page, one per entry of challengeDirectory, built to
+// dist/challenges/<slug>.html and served at /challenges/<slug>. Ported from the original
+// src/routes/challenges_.$slug.tsx. Unknown slugs have no file, so Cloudflare serves the
+// 404 page (`not_found_handling: "404-page"`).
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import AbstractBackdrop from "../../components/AbstractBackdrop.astro";
+import PartnerIdentity from "../../components/PartnerIdentity.astro";
+import TextSection from "../../components/TextSection.astro";
+import LucideIcon from "../../components/LucideIcon.astro";
+import { buttonClass } from "../../components/ui/button";
+import { challengeDirectory } from "../../data/challenge-directory";
+import type { Challenge } from "../../data/challenges";
+
+export function getStaticPaths() {
+  return challengeDirectory.map((entry) => ({ params: { slug: entry.slug }, props: { entry } }));
+}
+
+interface Props {
+  entry: (typeof challengeDirectory)[number];
+}
+
+const { challenge: source, track } = Astro.props.entry;
+const c: Challenge = source;
+const title = `${c.title} – Junction 2026`;
+---
+
+<BaseLayout title={title} description={c.task} ogTitle={title} ogDescription={c.task} preloadFonts={{ titilliumWeb: [300] }}>
+  <main class="challenge-directory min-h-screen px-5 pb-16 pt-24 text-foreground sm:px-8">
+    <AbstractBackdrop />
+    <div class="mx-auto max-w-6xl">
+      <a href="/challenges" class={buttonClass({ variant: "ghost", className: "mb-6 px-0 text-muted-foreground hover:bg-transparent hover:text-foreground" })}><LucideIcon name="arrow-left" /> All challenges</a>
+      <header class="challenge-cover border-b border-border px-6 py-10 sm:px-10 sm:py-12">
+        <p class="mb-4 text-sm text-muted-foreground">Junction 2026 · {track}</p>
+        <h1 class="max-w-4xl text-4xl font-semibold leading-tight sm:text-5xl">{c.title}</h1>
+        <p class="mt-5 text-xl text-muted-foreground">by {c.org}</p>
+      </header>
+      <div class="grid items-start gap-10 pt-8 lg:grid-cols-[minmax(0,2fr)_minmax(260px,1fr)] lg:gap-16">
+        <div class="min-w-0">
+          <section class="pb-8">
+            <h2 class="mb-5 text-2xl font-semibold">The Challenge</h2>
+            <p class="leading-relaxed text-muted-foreground">{c.task}</p>
+          </section>
+          <TextSection title="Insight" paragraphs={c.brief} />
+          <TextSection title="Requirements" paragraphs={c.must} />
+          <TextSection title="Optional" paragraphs={c.optional} />
+          <TextSection title="Judging" paragraphs={c.judging ? [c.judging] : undefined} />
+          <TextSection title="Prizes" paragraphs={[c.prizes]} />
+        </div>
+        <aside class="border-t border-border pt-6 lg:sticky lg:top-24">
+          <p class="text-sm text-muted-foreground">CHALLENGE PARTNER</p>
+          <div class="mt-5 max-w-56"><PartnerIdentity name={c.org} /></div>
+          <p class="mt-4 text-sm text-muted-foreground">{track}</p>
+          {c.links?.length ? (
+            <div class="mt-6 flex flex-col items-start gap-3">
+              {c.links.map((l) => (
+                <a href={l.url} target="_blank" rel="noreferrer" class={buttonClass({ variant: "link", className: "h-auto max-w-full whitespace-normal p-0 text-left text-foreground" })}>{l.label}<LucideIcon name="arrow-up-right" /></a>
+              ))}
+            </div>
+          ) : null}
+          <div class="mt-8 border-t border-border pt-6">
+            <p class="mb-3 text-sm font-semibold">Prizes</p>
+            <p class="text-sm leading-relaxed text-muted-foreground">{c.prizes}</p>
+          </div>
+        </aside>
+      </div>
+    </div>
+  </main>
+</BaseLayout>

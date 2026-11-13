@@ -1,12 +1,16 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
 import Section from "../components/Section.astro";
+import AbstractBackdrop from "../components/AbstractBackdrop.astro";
+import { timeline } from "../data/challenges";
 
-const schedule = [["Fri 18:00", "Opening ceremony & keynotes"], ["Fri 19:30", "Hacking starts"], ["Sun 14:00", "Final ceremony & top 5 pitches"], ["Sun 17:00", "Event ends"]] as const;
+const schedule = timeline;
 const faq = [
   ["Is it an AI hackathon?", "Not only — but AI is where most 2026 challenges sit, alongside software and hardware."],
   ["Where is it?", "Hype Areena, Espoo, Finland. 13–15 November 2026."],
-  ["How big is it?", "2,000 builders, 48 hours, €100,000 in prizes."],
+  ["How big is it?", "2,000 builders, 48 hours, €100,000+ in prizes."],
+  ["How many people per team?", "1 to 4. Solo is fine."],
+  ["Can we do two challenges?", "Yes — every main challenge can be combined with any tech challenge."],
 ] as const;
 ---
 
@@ -17,11 +21,12 @@ const faq = [
   ogDescription="48 hours of building, 13–15 November 2026, Espoo."
   preloadFonts={{ titilliumWeb: [600, 700], spaceMono: [400] }}
 >
-  <main class="pt-20">
+  <main class="challenge-directory pt-20">
+    <AbstractBackdrop />
     <Section label="Schedule" title="48 hours. One weekend.">
       <div class="divide-y divide-border border-y border-border">
         {schedule.map(([t, e]) => (
-          <div class="flex gap-8 py-5"><span class="w-28 font-mono text-sm text-muted-foreground">{t}</span><span class="font-display text-lg font-semibold uppercase">{e}</span></div>
+          <div class="flex flex-col gap-1 py-5 sm:flex-row sm:gap-8"><span class="w-44 shrink-0 font-mono text-sm text-muted-foreground">{t}</span><span class="font-display text-lg font-semibold uppercase">{e}</span></div>
         ))}
       </div>
     </Section>

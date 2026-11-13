@@ -1,0 +1,25 @@
+---
+// Partner logo(s) on a light or dark surface, plus the partner name. Ported from the original
+// src/components/partner-identity.tsx. Partners without a logo show only the name.
+import { partnerLogos } from "../data/partner-logos";
+
+interface Props {
+  name: string;
+}
+
+const { name } = Astro.props;
+const logos = partnerLogos[name];
+---
+
+<div class="flex w-full flex-col items-center gap-3">
+  {logos?.length ? (
+    <div class="flex w-full items-center justify-center gap-2">
+      {logos.map((logo) => (
+        <div class={logo.dark ? "partner-logo-surface partner-logo-dark" : "partner-logo-surface"}>
+          <img src={logo.url} alt={`${name} logo`} loading="lazy" width={160} height={64} class="h-14 w-full object-contain" />
+        </div>
+      ))}
+    </div>
+  ) : null}
+  <span class="text-center text-sm font-semibold text-foreground">{name}</span>
+</div>

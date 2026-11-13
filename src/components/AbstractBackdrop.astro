@@ -1,0 +1,39 @@
+---
+// Fixed full-viewport decorative image behind the challenge directory pages (styled by
+// .abstract-backdrop in global.css: 32% opacity under a gradient). Ported from the original
+// src/components/abstract-backdrop.tsx.
+import { getImage } from "astro:assets";
+import texture from "../assets/junction-abstract.jpg";
+
+// object-cover in a fixed full-viewport box: the 1536x1024 source (aspect 1.5) covers at
+// max(100vw, 150vh), so portrait screens use a wider image than the viewport. It is shown at
+// 32% opacity under a gradient, so it is compressed much harder than the hero: rendered
+// screenshots at these qualities match the source with no visible banding or blocking (the
+// fine texture is what costs bytes; WebP is kept below the JPEG size). Quality is part of the
+// hashed filenames, so changing it here also changes the long-cached URLs.
+// No loading/fetchpriority attribute by default, as in the original: eager, normal priority.
+// On the home page the backdrop belongs to the challenge list under the hero
+// (`.landing-challenges .abstract-backdrop` is position: absolute) and is lazy-loaded there,
+// so it never competes with the hero image.
+// That section is several viewports tall, so cover-scaling always needs more than the
+// largest source: the caller passes sizes="1536px" to pick it, as the original always did.
+interface Props {
+  lazy?: boolean;
+  sizes?: string;
+}
+const { lazy = false, sizes = "max(100vw, 150vh)" } = Astro.props;
+const widths = [640, 960, 1280, 1536];
+const [avif, webp, jpg] = await Promise.all([
+  getImage({ src: texture, widths, format: "avif", quality: 30 }),
+  getImage({ src: texture, widths, format: "webp", quality: 35 }),
+  getImage({ src: texture, widths, format: "jpg", quality: 50 }),
+]);
+---
+
+<div class="abstract-backdrop" aria-hidden="true">
+  <picture>
+    <source type="image/avif" srcset={avif.srcSet.attribute} sizes={sizes} />
+    <source type="image/webp" srcset={webp.srcSet.attribute} sizes={sizes} />
+    <img src={jpg.src} srcset={jpg.srcSet.attribute} sizes={sizes} alt="" width={1536} height={1024} class="h-full w-full object-cover" loading={lazy ? "lazy" : undefined} decoding={lazy ? "async" : undefined} />
+  </picture>
+</div>
