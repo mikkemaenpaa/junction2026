@@ -1,0 +1,29 @@
+{
+  "title": "Best Use of Codex",
+  "org": "OpenAI",
+  "task": "OpenAI challenges you to push the boundaries of what's possible with AI-powered software development.",
+  "prizes": "1st Overall: $10 000 API Credits · 2nd Overall: $5000 API Credits · 3rd Overall: $2500 API Credits",
+  "sections": [
+    {
+      "title": "The Challenge",
+      "html": "<div><div><p>OpenAI challenges you to push the boundaries of what's possible with AI-powered software development.</p>\n<p>Use Codex as part of your development process to build, iterate, and ship an ambitious project during Junction 2026.</p>\n<p>Whether you're building AI agents, complex applications, or entirely new products, show us how Codex can accelerate your development and help you achieve more in just 48 hours.</p>\n<p>This is an open challenge: You can participate alongside any other Junction challenge. The key is demonstrating how you've meaningfully used Codex in building your solution.</p></div></div>",
+      "sidebar": false
+    },
+    {
+      "title": "Resources",
+      "html": "<div><div><p>OpenAI Codex: <a href=\"https://developers.openai.com/codex\">https://developers.openai.com/codex</a></p>\n<p>Codex documentation: <a href=\"https://developers.openai.com/codex/quickstart\">https://developers.openai.com/codex/quickstart</a></p>\n<p>OpenAI developer platform: <a href=\"https://platform.openai.com/docs\">https://platform.openai.com/docs</a></p>\n<p>Exclusive Junction 2026 offer: OpenAI is providing $100 in credits per participant through unique redemption links distributed by Junction. The redemption links can be found <a href=\"https://hackjunction.app/participate/45/hackerpacks\">here</a>.</p></div></div>",
+      "sidebar": false
+    },
+    {
+      "title": "OpenAI",
+      "eyebrow": "Company Info",
+      "html": "<div><p>OpenAI is a leading artificial intelligence research and deployment company focused on building safe, powerful AI systems that expand human capabilities. The organization prioritizes alignment, reliability, and real-world impact, ensuring that advanced models benefit individuals, companies, and society at scale. With world-class research talent, robust compute infrastructure, and cutting-edge model APIs, OpenAI empowers developers to build transformative applications. OpenAI takes part in Junction to support frontier innovation, collaborate with ambitious builders, and accelerate the creation of practical, high-impact AI solutions.</p><div><p><span>Website:</span> <a href=\"https://openai.com/\">https://openai.com/</a></p></div></div>",
+      "sidebar": true
+    },
+    {
+      "title": "Prizes",
+      "html": "<div><ul><li><div>1st Overall</div><p>$10 000 API Credits</p></li><li><div>2nd Overall</div><p>$5000 API Credits</p></li><li><div>3rd Overall</div><p>$2500 API Credits</p></li></ul></div>",
+      "sidebar": true
+    }
+  ]
+}
