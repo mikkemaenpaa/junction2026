@@ -60,6 +60,7 @@ export const partnerLogos: Record<string, { url: string; dark: boolean }[]> = {
   "NVIDIA": [{ url: nvidia.src, dark: false }],
   "Aiven": [{ url: aiven.src, dark: true }],
   "CRACI": [{ url: craci.src, dark: false }],
+  "Craci": [{ url: craci.src, dark: false }],
   "Cloudinary": [{ url: cloudinary.src, dark: false }],
   "Modal": [{ url: modal.src, dark: false }],
   "Oxylabs": [{ url: oxylabs.src, dark: false }],
