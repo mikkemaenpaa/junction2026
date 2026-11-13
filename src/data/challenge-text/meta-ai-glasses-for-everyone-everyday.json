@@ -1,0 +1,39 @@
+{
+  "title": "AI Glasses for Everyone, Everyday",
+  "org": "Meta",
+  "task": "Demonstrate how a first-person field of view enables new or better interactions in everyday scenarios.",
+  "prizes": "Best overall: Each member of the winning team will receive a pair of Ray-Ban Meta glasses.",
+  "sections": [
+    {
+      "title": "The Challenge",
+      "html": "<div><div><p>Demonstrate how a first-person field of view enables new or better interactions in everyday scenarios.</p>\n<h3>Introduction</h3>\n<p>AI glasses from Meta offer a first-person view that can make everyday interactions more useful, hands-free, and in the moment. At Junction, we invite you to explore where this perspective creates value beyond simply mirroring a phone screen. Help us turn a clear everyday need into an intuitive, inclusive experience for people with all abilities.</p>\n<h3>The Challenge</h3>\n<p>Build the best everyday use case using AI glasses from Meta, showing how a first-person field of view enables new or better interactions in everyday scenarios.</p>\n<p>Best entries will clearly articulate the problem and intended audience, and deliver a functional prototype and deck to materialize their concepts. Creativity, technical execution, real-world impact, and inclusive interaction design for people with all abilities will be key criteria.</p>\n<p>Both display and audio-first experiences will be considered on equal footing, as will web apps and Device Access Toolkit mobile integrations.</p>\n<p>Show an original, relevant use case with a clear wearable benefit and a focused, plausible path to adoption or a pilot, backed by a functional prototype that handles permissions, errors, performance trade-offs, connectivity, and device state changes.</p>\n<p>Interactions should be intuitive and inclusive for people with all abilities, with appropriate consent and safe data practices within the demo’s scope.</p></div></div>",
+      "sidebar": false
+    },
+    {
+      "title": "Insight",
+      "html": "<div><div><p>We are interested in focused everyday problems where wearables unlock hands-free, in-the-moment value beyond basic mirroring. Show a plausible path to adoption or a pilot, and make accessibility, appropriate consent, and safe data practices part of the demo.</p>\n<h4>Teams with the best submissions may be invited to join Meta on Wednesday, 18 November 2026, for an AI forum where leading industry professionals from various companies will explore the future of wearable AI.</h4></div></div>",
+      "sidebar": false
+    },
+    {
+      "title": "Resources",
+      "html": "<div><div><p>Meta will provide shared AI glasses and on-site developer support for teams taking part in the challenge.</p>\n<ul>\n<li>10 x Meta Ray-Ban Display for use during the hackathon</li>\n<li>10 x RBM Gen 2 for use during the hackathon</li>\n<li>Charging and hygiene materials for the devices</li>\n<li>Developer support at the Meta booth to help teams with technical questions, with Amanda Le as the challenge mentor and point of contact</li>\n</ul>\n<h4>Mentors</h4>\n<ul>\n<li><strong>Ming Lin</strong>, Software Engineer: Web Apps</li>\n<li><strong>William La</strong>, Software Engineer: Web Apps</li>\n<li><strong>Amy Lee</strong>, Software Engineer: Web Apps</li>\n<li><strong>Odil Nikadambaev</strong>, Software Engineer: Web Apps</li>\n<li><strong>Dennis Punjabi</strong>, Software Engineer: DAT (iOS)</li>\n<li><strong>Amanda Le</strong>, Product Marketing: DAT (Android)</li>\n</ul></div></div>",
+      "sidebar": false
+    },
+    {
+      "title": "Meta",
+      "eyebrow": "Company Info",
+      "html": "<div><div></div></div>",
+      "sidebar": true
+    },
+    {
+      "title": "Judging Criteria",
+      "html": "<div><ul><li><div><span>Creativity and use case</span><span>(25%)</span></div></li><li><div><span>Technical execution</span><span>(25%)</span></div></li><li><div><span>Real-world value and feasibility</span><span>(25%)</span></div></li><li><div><span>User experience: input, accessibility and trust</span><span>(25%)</span></div></li></ul></div>",
+      "sidebar": true
+    },
+    {
+      "title": "Prizes",
+      "html": "<div><ul><li><div>Best overall</div><p>Each member of the winning team will receive a pair of Ray-Ban Meta glasses.</p></li></ul></div>",
+      "sidebar": true
+    }
+  ]
+}
