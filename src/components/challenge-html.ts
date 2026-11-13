@@ -45,3 +45,32 @@ export function formatMarkdownMarkers(html: string): string {
 export function stripMarkdownMarkers(text: string): string {
   return text.replace(BOLD, "$1");
 }
+
+// The source platform cuts the text of its structured sidebar fields (judging criteria) at this
+// many characters, often mid-word.
+const CUT_OFF_LENGTH = 200;
+const ENTITY: Record<string, string> = { amp: "&", lt: "<", gt: ">", quot: '"', "#39": "'", "#x27": "'", nbsp: " " };
+const textLength = (html: string) => html.replace(/&(amp|lt|gt|quot|#39|#x27|nbsp);/g, (_, e: string) => ENTITY[e]).length;
+
+/**
+ * Completes sidebar paragraphs that the source platform cut off. A paragraph qualifies only if
+ * it is plain text of exactly CUT_OFF_LENGTH characters ending in a letter or digit, and that
+ * text occurs verbatim exactly once in another section of the same challenge. It is then
+ * completed with the rest of that passage, up to the end of its line or paragraph and never
+ * past a tag. Anything else renders unchanged.
+ */
+export function completeCutOffText(section: { html: string; sidebar: boolean }, sections: readonly { html: string }[]): string {
+  if (!section.sidebar) return section.html;
+  const others = sections.filter((other) => other !== section).map((other) => other.html);
+  return section.html.replace(/<p>([^<]*)<\/p>/g, (paragraph, text: string) => {
+    if (textLength(text) !== CUT_OFF_LENGTH || !/[\p{L}\p{N}]$/u.test(text)) return paragraph;
+    const matches = others.flatMap((html) => {
+      const ends: string[] = [];
+      for (let i = html.indexOf(text); i !== -1; i = html.indexOf(text, i + 1)) ends.push(html.slice(i + text.length));
+      return ends;
+    });
+    if (matches.length !== 1) return paragraph;
+    const rest = /^([^<\n]+?)\s*(?=\n|<\/(?:p|li)>)/.exec(matches[0]);
+    return rest ? `<p>${text}${rest[1]}</p>` : paragraph;
+  });
+}

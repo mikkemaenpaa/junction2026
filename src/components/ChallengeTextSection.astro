@@ -1,13 +1,15 @@
 ---
 import type { ChallengeTextSection } from "../data/challenge-text";
-import { formatMarkdownMarkers } from "./challenge-html";
+import { completeCutOffText, formatMarkdownMarkers } from "./challenge-html";
 
 interface Props {
   section: ChallengeTextSection;
+  /** All sections of the same challenge, used to complete text the source platform cut off. */
+  sections: readonly ChallengeTextSection[];
 }
 
-const { section } = Astro.props;
-const html = formatMarkdownMarkers(section.html);
+const { section, sections } = Astro.props;
+const html = formatMarkdownMarkers(completeCutOffText(section, sections));
 ---
 
 <section class="border-t border-border py-6">
