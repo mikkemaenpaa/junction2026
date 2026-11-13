@@ -19,7 +19,7 @@ const code = "font-mono text-sm text-foreground";
 
 <BaseLayout
   title="Privacy and cookies – Junction 2026"
-  description="How the Junction 2026 website handles cookies and personal data: no cookies without consent, Google Analytics only if you accept, and your rights under the GDPR."
+  description="How the Junction 2026 website handles cookies and personal data: no cookies without consent, Google Analytics and Google advertising only if you accept, and your rights under the GDPR."
   ogTitle="Privacy and cookies – Junction 2026"
   preloadFonts={{ titilliumWeb: [300] }}
 >
@@ -31,8 +31,9 @@ const code = "font-mono text-sm text-foreground";
       <section class={section}>
         <h2 class={h2}>Without your consent</h2>
         <p class={text}>
-          This site sets no cookies unless you accept them. It only remembers your answer to the
-          cookie notice, in your browser's local storage, for {CONSENT_MONTHS} months.
+          This site sets no cookies unless you accept them. It only remembers your answers to the
+          cookie notice (yes or no to analytics and to advertising, and when you answered), in your
+          browser's local storage, for {CONSENT_MONTHS} months.
         </p>
       </section>
 
@@ -48,16 +49,49 @@ const code = "font-mono text-sm text-foreground";
         <h2 class={h2}>With your consent: Google Analytics</h2>
         <div class="space-y-4">
           <p class={text}>
-            If you accept, Google Tag Manager loads Google Analytics 4, provided by Google Ireland
-            Limited. It sets the cookies <code class={code}>_ga</code> and <code class={code}>_ga_</code> followed
-            by an ID, which last up to two years. It collects the pages you view, the
-            referrer (the page you came from), your approximate location derived from your IP
+            If you accept analytics, Google Tag Manager loads Google Analytics 4, provided by Google
+            Ireland Limited, from <code class={code}>www.googletagmanager.com</code>. It sets the
+            cookies <code class={code}>_ga</code> and <code class={code}>_ga_</code> followed by an
+            ID, which last up to two years, and sends its data to <code
+            class={code}>region1.google-analytics.com</code>. It collects the pages you view,
+            the referrer (the page you came from), your approximate location derived from your IP
             address, and information about your browser and device.
           </p>
           <p class={text}>Data may be transferred to the United States under the EU-US Data Privacy Framework.</p>
           <p class={text}>
             The legal basis is your consent. You can withdraw it at any time with the Cookie
-            settings button at the bottom of every page, with the same effect as rejecting.
+            settings button at the bottom of every page, for analytics and advertising separately,
+            with the same effect as rejecting: this site deletes its Google Analytics cookies and
+            stops loading Google Analytics.
+          </p>
+        </div>
+      </section>
+
+      <section class={section}>
+        <h2 class={h2}>With your consent: advertising</h2>
+        <div class="space-y-4">
+          <p class={text}>
+            If you also accept advertising, Google may use the data collected on this site through
+            Google Analytics for advertising: measuring ads and showing personalised ads. The
+            provider is Google Ireland Limited. Google Analytics then sends its data to <code
+            class={code}>stats.g.doubleclick.net</code>, and your browser also contacts a
+            Google domain such as <code class={code}>www.google.fi</code>. No cookies are set on
+            this site beyond the Google Analytics ones above.
+          </p>
+          <p class={text}>
+            Google Analytics is the only Google service this site loads, so advertising consent
+            only takes effect together with analytics consent. If you accept advertising alone,
+            nothing is loaded.
+          </p>
+          <p class={text}>Data may be transferred to the United States under the EU-US Data Privacy Framework.</p>
+          <p class={text}>
+            The legal basis is your consent, which you can withdraw at any time with Cookie
+            settings. This site can only delete cookies on its own domain. Cookies that Google sets
+            on its own domains can be deleted in your browser settings, and you can manage ad
+            personalisation on Google's side in <a href="https://myadcenter.google.com/" class={link}>My Ad Center</a>.
+          </p>
+          <p class={text}>
+            Google explains how it uses this data in <a href="https://policies.google.com/technologies/partner-sites" class={link}>How Google uses information from sites or apps that use our services</a>.
           </p>
         </div>
       </section>

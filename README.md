@@ -7,7 +7,7 @@ every page also has a Markdown version, indexed by `llms.txt` (see
 [Markdown for AI agents](#markdown-for-ai-agents)).
 
 - Static [Astro](https://astro.build) site styled with Tailwind CSS v4.
-- One small client-side script: the cookie notice and Google Tag Manager loader (about 1.7 KB
+- One small client-side script: the cookie notice and Google Tag Manager loader (about 2.1 KB
   minified, inlined into each page as a module script, so it never blocks rendering). No
   framework, no islands, no runtime dependencies. The other `<script>` tags are inert data
   blocks (speculation rules for prefetching, and JSON-LD on the home page). See
@@ -135,39 +135,62 @@ header. `Vary: Accept` keeps browser and other caches from mixing up the two ver
 ## Analytics and the cookie notice
 
 The site counts visits with Google Analytics 4, run from the Google Tag Manager container
-`GTM-P55PJ28X`, but only for visitors who accept the cookie notice. The container ID is set in
-one place, `GTM_CONTAINER_ID` in `src/data/privacy.ts`; the GA4 tag itself is configured in
-Tag Manager, not in this repository.
+`GTM-P55PJ28X`, but only for visitors who accept analytics in the cookie notice. Visitors can
+also allow advertising, which lets Google use that Analytics data for advertising (measuring
+and personalising Google ads). The container ID is set in one place, `GTM_CONTAINER_ID` in
+`src/data/privacy.ts`; the GA4 tag itself is configured in Tag Manager, not in this repository.
 
+- **Two purposes, chosen separately.** The notice (`src/components/CookieNotice.astro`) is a
+  bar fixed to the bottom of the viewport with "Accept all" and "Reject all" as two identical
+  buttons, neither preselected, and a "Choose" disclosure (`<details>`) with two unticked
+  checkboxes, "Analytics" and "Advertising", and "Save choice". Saving with nothing ticked is
+  the same as "Reject all". The notice is in every page's HTML with `hidden`, first in `<body>`
+  and outside `<main>`, so it never reaches the Markdown twins.
 - **Before an answer** nothing is requested from Google, no cookie is set and nothing is
-  stored. The notice (`src/components/CookieNotice.astro`) is a bar fixed to the bottom of the
-  viewport, with "Accept" and "Reject" as two identical buttons. It is in every page's HTML
-  with `hidden`, first in `<body>` and outside `<main>`, so it never reaches the Markdown twins.
-- **Accept** stores the answer, then pushes the Consent Mode v2 defaults (`ad_storage`,
-  `ad_user_data`, `ad_personalization` and `analytics_storage` all denied), an update granting
-  `analytics_storage`, and the `gtm.start` / `gtm.js` event, and loads `gtm.js` async. The
-  three advertising signals always stay denied.
-- **Reject** stores the answer; nothing loads.
+  stored.
+- **What each answer does** (`src/scripts/consent.ts`): the answer is stored, then the Consent
+  Mode v2 defaults are pushed (`ad_storage`, `ad_user_data`, `ad_personalization` and
+  `analytics_storage` all denied), then one update with the answer: analytics sets
+  `analytics_storage`, advertising sets the other three. Then the `gtm.start` / `gtm.js` event
+  is pushed and `gtm.js` loads async.
+- **Tag Manager loads only if analytics is granted.** With advertising alone nothing loads.
+  Once the container is loaded, Google Analytics sends cookieless pings even with
+  `analytics_storage` denied, and the rule here is that nothing goes to Google for a purpose
+  the visitor has not accepted; not acting on a permission is always allowed. This is right
+  while the container's only tag is Google Analytics. **If advertising tags that should run
+  without analytics are ever added to the container, revisit this** (the `analytics && !loaded`
+  condition in `src/scripts/consent.ts`), and the privacy page with it.
 - **The answer** is kept in `localStorage` under `junction2026-consent` as
-  `{"choice":"granted"|"denied","at":<ms>}` and asked again after 6 months (`CONSENT_MONTHS`).
-  Without storage there is no answer: the notice shows on every page and nothing loads.
-- **"Cookie settings"** in the footer reopens the notice and moves focus to it. Rejecting after
-  accepting stores the denial, sends a consent update denying `analytics_storage`, deletes the
-  `_ga` and `_ga_*` cookies at every domain level, and from the next page on nothing loads.
+  `{"analytics":true|false,"advertising":true|false,"at":<ms>}` and asked again after 6
+  months (`CONSENT_MONTHS`). Anything else, including the earlier single-purpose
+  `{"choice":"granted"|"denied",...}`, counts as no answer, so everyone who answered the old
+  question is asked again. Without storage there is no answer: the notice shows on every page
+  and nothing loads.
+- **"Cookie settings"** in the footer reopens the notice with the disclosure open and the
+  checkboxes showing the answer in force, and moves focus to it. A new answer sends a consent
+  update with all four signals on the current page. Withdrawing analytics deletes the `_ga`
+  and `_ga_*` cookies, and withdrawing (or not granting) advertising deletes Google's
+  first-party advertising cookies `_gcl_*` and `_gac_*`, each at every domain level; from the
+  next page on the container only loads if analytics is still granted. (With the current
+  container, observed in Chrome, "Accept all" sets only `_ga` and `_ga_<ID>` on this site; the
+  `_gcl_*`/`_gac_*` deletion is a safeguard.) Cookies on Google's own domains cannot be deleted
+  from this site; `/privacy` tells visitors how to control them.
 - **Without JavaScript** the notice and the footer button stay hidden and nothing loads. There
   is no `<noscript>` Tag Manager iframe.
 - **Prerendered pages** (speculation rules) wait for `prerenderingchange` before loading the
   container, so pages that are never shown are not counted.
 - The notice and the loader talk only through the `junction2026:consent` window event
-  (`detail`: `"granted"`, `"denied"` or `null`). The script also re-applies the stored answer
-  when a page comes back from the back/forward cache and when it changes in another tab.
+  (`detail`: `{analytics, advertising}` or `null` for no answer). The script also re-applies
+  the stored answer when a page comes back from the back/forward cache and when it changes in
+  another tab.
 
-**Do not add advertising tags** (Google Ads, remarketing, Floodlight, Meta and so on) or any
-non-analytics cookies to the container: the notice only asks about analytics. Extend the
-notice, the consent defaults in `src/scripts/consent.ts` and the privacy page first. The same
-goes for new data or new providers: `/privacy` (`src/pages/privacy.astro`) lists exactly what
-is collected. Its "Who runs this site" paragraph appears once `SITE_OPERATOR` in
-`src/data/privacy.ts` has a name.
+**Do not add other tags or providers** (Meta, LinkedIn and so on) or new kinds of cookies to
+the container without extending the notice, the consent handling in
+`src/scripts/consent.ts` and the privacy page first; Google advertising features based on the
+Analytics data are covered by the advertising choice, subject to the loading rule above. The
+same goes for new data: `/privacy` (`src/pages/privacy.astro`) lists exactly what is collected
+and which Google hosts are contacted. Its "Who runs this site" paragraph appears once
+`SITE_OPERATOR` in `src/data/privacy.ts` has a name.
 
 ## Adding a partner logo
 
