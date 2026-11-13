@@ -1,0 +1,39 @@
+{
+  "title": "Beyond the Clinic",
+  "org": "Aalto University",
+  "task": "Build the product that helps people stay well at home after depression treatment, using anything from natural stimuli to a phone, music, games, light or AI.",
+  "prizes": "2000€ for the best team: A prize for the winning team, a visit to the brain stimulation lab, and for the most promising idea, a change to keep developing it together with the researchers",
+  "sections": [
+    {
+      "title": "The Challenge",
+      "html": "<div><div><p>Build the product that helps people stay well at home after depression treatment, using anything from natural stimuli to a phone, music, games, light or AI.</p>\n<h3>Introduction</h3>\n<p>Transcranial magnetic stimulation (TMS) is used in hospitals and clinics to treat people with severe depression. The treatment usually requires multiple brief daily visits for brain stimulation. Even if the treatment is successful, there is a risk that depression returns. Therefore, we would like to have “maintenance” treatment at home.</p>\n<h3>The Challenge</h3>\n<p>In the hospital, you can obtain blood samples, get brain scans with fMRI, MEG or EEG, and be consulted by a psychiatrist. At home you don’t have these, except for an occasional remote psychotherapy meeting, and that is also difficult or expensive. But brain activity and mental condition at home can be measured in several ways. No good solution has yet been developed for maintenance treatment at home, and that is the challenge.</p>\n<p>Home-based maintenance treatment could also be “closed-loop”, meaning that it is individualised based on how the brain of the patient reacts to the interventions. In other words, your product can work as a loop: sense how someone is doing, respond with something that helps, and learn what works best for that person.</p></div></div>",
+      "sidebar": false
+    },
+    {
+      "title": "Insight",
+      "html": "<div><div><h4>Who You Can Design For</h4>\n<ul>\n<li>\n<p><strong>People after TMS treatment</strong>, who want to keep feeling well once the daily hospital visits end.</p>\n</li>\n<li>\n<p><strong>Anyone at risk of depression</strong>, who could benefit from early, everyday support.</p>\n</li>\n<li>\n<p><strong>Clinicians</strong>, who want to follow how their patients are doing between visits without adding to their workload.</p>\n</li>\n</ul>\n<h3>Ideas to Get You Started</h3>\n<p>You don’t need special hardware. A laptop and a phone are enough to build something great.</p>\n<h4>What Could Help People Stay Well</h4>\n<ul>\n<li>\n<p>Cleverly designed sensory stimulation (auditory, visual, touch, smell, taste), for example music or rhythmic lights or colours.</p>\n</li>\n<li>\n<p>Social interaction, meditation, yoga and physical exercise.</p>\n</li>\n<li>\n<p>Regular visits to forests or to the sea, or experiencing them in VR when going out is hard.</p>\n</li>\n<li>\n<p>Computer games, such as that of <a href=\"https://soihtudtx.com\">Soihtu</a>.</p>\n</li>\n</ul>\n<h4>How to Sense How Someone Is Doing at Home</h4>\n<ul>\n<li>\n<p>The mobile phone can measure sounds, voice, movement (acceleration), facial expressions, sleep and daily routines.</p>\n</li>\n<li>\n<p>Wearables such as smart rings can measure heart signals (HRV), sleep, activity and changes in the autonomic nervous system, a very important indicator of mental state.</p>\n</li>\n<li>\n<p>Many other sensors and technologies exist, or can be invented.</p>\n</li>\n</ul>\n<h4>Product Directions We’d Love to See</h4>\n<ul>\n<li>\n<p><strong>Everyday companion:</strong> a phone or AI check-in that notices changes over time and suggests the right thing at the right moment.</p>\n</li>\n<li>\n<p><strong>Sensory experience:</strong> music, light or VR that adapts to how the person is doing that day.</p>\n</li>\n<li>\n<p><strong>Game:</strong> something fun to play daily that also supports mood and wellbeing.</p>\n</li>\n<li>\n<p><strong>Smart home:</strong> lights and sound that gently change through the day.</p>\n</li>\n<li>\n<p><strong>Social:</strong> a way for friends or peers to stay close and reach out when it matters.</p>\n</li>\n<li>\n<p><strong>Clinician view:</strong> a simple way for professionals to see who might need a call.</p>\n</li>\n</ul>\n<p>For inspiration, look at <a href=\"https://meruhealth.com\">Meru Health</a> and other companies developing ways to alleviate depression.</p>\n<h3>Mentors and Contact</h3>\n<p>Researchers from Prof. Risto Ilmoniemi and Prof. Pantelis Lioumis’ group (Department of Neuroscience and Biomedical Engineering), plus support from Aalto Innovation.</p>\n<p><strong>Main contact:</strong> Myungji (MJ) Suh</p></div></div>",
+      "sidebar": false
+    },
+    {
+      "title": "Resources",
+      "html": "<div><div><h3>Resources and Support</h3>\n<ul>\n<li><strong>Published research and open data:</strong> pointers to published studies and openly available datasets you can build on.</li>\n<li><strong>Expert mentors:</strong> researchers who know brain stimulation, depression treatment and how the brain can be measured.</li>\n</ul>\n<h4>Demos Subject to Confirmation With the Lab</h4>\n<ul>\n<li><strong>A live brain stimulation demo:</strong> see TMS in action and how a magnetic pulse can activate the brain.</li>\n<li><strong>Brainwaves in real time:</strong> a portable EEG demo at the booth, so you can see what brain activity looks like.</li>\n</ul></div></div>",
+      "sidebar": false
+    },
+    {
+      "title": "Aalto University",
+      "eyebrow": "Company Info",
+      "html": "<div><p>Aalto University is where people who think differently bring out the best in each other — where imagination meets reality and challenges once thought impossible are solved.\nBorn to unite science, arts, technology, and business, Aalto exists to create a better world by bringing diverse minds together — from quantum engineers to fashion designers.\nWe accelerate curiosity and responsibility, reimagining how a university can operate. Driven by radical creativity and an entrepreneurial mindset, we turn theories into solutions and prototypes into breakthroughs.\nOur differences spark action and collaboration. Together, we build beyond the status quo and always find a way forward.\n\nThe AR4U project at Aalto University explores how voice-based artificial intelligence can help older adults stay active, connected, and independent at home. The project develops and tests an AI companion and calling service that provides daily support, conversation, and well-being check-ins—making technology more personal, accessible, and engaging for everyone.\nAR4U is an Research-to-Business (R2B) project at Aalto University, funded by Business Finland, aiming to transform academic research into commercial solutions.</p><div><p><span>Website:</span> <a href=\"https://aalto.fi/\">https://aalto.fi/</a></p></div></div>",
+      "sidebar": true
+    },
+    {
+      "title": "Judging Criteria",
+      "html": "<div><ul><li><div><span>Usefulness</span><span>(25%)</span></div><p>Could it really help people stay well at home?</p></li><li><div><span>Ease of use</span><span>(25%)</span></div><p>Would someone recovering from depression actually use it every day?</p></li><li><div><span>Smart sensing</span><span>(25%)</span></div><p>Does it make clever use of what can be measured at home, and learn what works for each person?</p></li><li><div><span>Creativity</span><span>(25%)</span></div><p>How original and delightful is the idea?</p></li></ul></div>",
+      "sidebar": true
+    },
+    {
+      "title": "Prizes",
+      "html": "<div><ul><li><div>2000€ for the best team</div><p>A prize for the winning team, a visit to the brain stimulation lab, and for the most promising idea, a change to keep developing it together with the researchers</p></li></ul></div>",
+      "sidebar": true
+    }
+  ]
+}
