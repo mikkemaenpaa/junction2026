@@ -1,0 +1,24 @@
+{
+  "title": "Spread",
+  "org": "Bahn Express",
+  "task": "Spread: run a car transport company for a week",
+  "prizes": "1st Place: 2000€ · 2nd Place: 1000€ · 3rd Place: 500€",
+  "sections": [
+    {
+      "title": "The Challenge",
+      "html": "<div><div><h3>Spread: run a car transport company for a week</h3>\n<p>Bahn moves cars for car dealers, and a freelance driver drives each car on its own wheels. Spread is that\nwork as a simulated world: a whole week in Finland, with its dealers, its cars, its deadlines and its drivers.</p>\n<p>Your team builds the system that runs the company for that week. A dealer asks you for a price, and asks a\ncompetitor too. Quote too high and you lose the car. Win it, and you post the drive as a gig in our drivers'\napp and choose the fee. Pay too little and no driver takes it in time, and the car arrives late.</p>\n<p>Every team runs the same week, and you all stand on the same leaderboard. You make as much money as you can:\nyour score is your gross margin, what the dealers pay you less what you pay the drivers. At least 90% of your\ncars must arrive by their deadline. The most money takes you to the top.</p>\n<h3>Start</h3>\n<p>Create your team at <strong><a href=\"https://spread.bahnexpress.com/join\">spread.bahnexpress.com/join</a></strong> with the event code <strong>spread-kmu9z6</strong>.</p>\n<p>Everything is on the site: the handbook, the rules, the API reference, the TypeScript and Python kits, and the\nleaderboard. Give your agent <strong><a href=\"https://spread.bahnexpress.com/llms.txt\">spread.bahnexpress.com/llms.txt</a></strong>.</p>\n<h3>How you win</h3>\n<p>Ranking rounds open from Friday 19:30. Every team plays the same secret weeks, so the leaderboard shows you\nwhere you stand. Our own best system plays every round. Beat it.</p>\n<p>The final is on Sunday at 08:00. Every team plays its own copy of one secret week, which runs by itself for\nabout 34 minutes. Registration closes at 07:30.</p>\n<p>The 10 ranked teams with the highest margin present to our jury, in 5 to 10 slides or a short video. The jury\njudges how elegant, clear, creative and robust your system is. Reaching the top 10 is enough. After that, your\nmargin no longer counts.</p>\n<p>Find us at the Bahn booth. Ask us anything about the rules, the world or real dispatch, or ask for a hint.</p></div></div>",
+      "sidebar": false
+    },
+    {
+      "title": "Bahn Express",
+      "eyebrow": "Company Info",
+      "html": "<div><div><p><span>Website:</span> <a href=\"https://www.bahnexpress.com/\">https://www.bahnexpress.com/</a></p></div></div>",
+      "sidebar": true
+    },
+    {
+      "title": "Prizes",
+      "html": "<div><ul><li><div>1st Place</div><p>2000€</p></li><li><div>2nd Place</div><p>1000€</p></li><li><div>3rd Place</div><p>500€</p></li></ul></div>",
+      "sidebar": true
+    }
+  ]
+}
