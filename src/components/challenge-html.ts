@@ -74,3 +74,15 @@ export function completeCutOffText(section: { html: string; sidebar: boolean }, 
     return rest ? `<p>${text}${rest[1]}</p>` : paragraph;
   });
 }
+
+const normalise = (text: string) => text.replace(/\s+/g, " ").trim().toLowerCase();
+
+/** Whether the HTML has a heading (h1–h6) with the same words as `title`, ignoring case. */
+export function hasHeading(html: string, title: string): boolean {
+  const wanted = normalise(title);
+  for (const [, , inner] of html.matchAll(/<h([1-6])\b[^>]*>([\s\S]*?)<\/h\1>/gi)) {
+    const text = inner.replace(/<[^>]*>/g, "").replace(/&(amp|lt|gt|quot|#39|#x27|nbsp);/g, (_, e: string) => ENTITY[e]);
+    if (normalise(text) === wanted) return true;
+  }
+  return false;
+}
