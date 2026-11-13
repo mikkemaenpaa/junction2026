@@ -1,0 +1,29 @@
+{
+  "title": "Best Use of Solana",
+  "org": "Major League Hacking",
+  "task": "The world of development is evolving fast and Solana is leading the charge with a network built to handle all of your infrastructure needs. Forget high fees and slow confirmations, it’s time to build applications that are fast, efficient, and scalable.",
+  "prizes": "Best Overall: Unruggable Hardware Wallets",
+  "sections": [
+    {
+      "title": "The Challenge",
+      "html": "<div><div><p>The world of development is evolving fast and Solana is leading the charge with a network built to handle all of your infrastructure needs. Forget high fees and slow confirmations, it’s time to build applications that are fast, efficient, and scalable.</p>\n<p>Harness Solana’s core advantages like blazing fast execution and near-zero transaction costs to make your hackathon ideas become real world projects. With Solana, the possibilities are endless.</p>\n<p>Create a game, social app, or consumer product that relies on instant, high-frequency transactions.\nDesign a sophisticated trading, lending, or decentralized exchange (DEX).\nBuild a prototype for supply chain, identity, or payments that can handle massive, real-world volume.\nShow us how you can innovate with Solana for a chance to win Unruggable Hardware Wallets for you and each member of your team!</p></div></div>",
+      "sidebar": false
+    },
+    {
+      "title": "Resources",
+      "html": "<div><div><p>Check how to build with Solana at <a href=\"https://mlh.link/solana\">https://mlh.link/solana</a></p></div></div>",
+      "sidebar": false
+    },
+    {
+      "title": "Major League Hacking",
+      "eyebrow": "Company Info",
+      "html": "<div><p>Major League Hacking (MLH) is a community-focused organization that empowers student developers through hackathons, technical workshops, and hands-on learning experiences. Serving as the official student hackathon league, MLH supports events around the world by providing resources, mentorship, and a platform for students to collaborate, build innovative projects, and strengthen their technical skills. By fostering an inclusive and enthusiastic environment, MLH helps students grow as developers, leaders, and creators while connecting them with a global network of peers and industry partners.</p><div></div></div>",
+      "sidebar": true
+    },
+    {
+      "title": "Prizes",
+      "html": "<div><ul><li><div>Best Overall</div><p>Unruggable Hardware Wallets</p></li></ul></div>",
+      "sidebar": true
+    }
+  ]
+}
