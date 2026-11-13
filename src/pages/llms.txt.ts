@@ -25,9 +25,9 @@ export const GET: APIRoute = ({ site }) => {
     `- [${c.title} (${c.org})](${url(`/challenges/${challengeSlug(c)}.md`)}): ${shortDescription(c.task)}`;
 
   const lines = [
-    "# Junction 2026",
+    "# Junction 2026 Challenges",
     "",
-    "> Junction 2026 is Europe's biggest hackathon: 2,000 builders, 48 hours and €100,000+ in prizes, 13–15 November 2026 at Hype Areena in Espoo, Finland.",
+    "> Junction 2026 challenges in compact and agent friendly format. Junction 2026 is Europe's biggest hackathon: 2,000 builders, 48 hours and €100,000+ in prizes, 13–15 November 2026 at Hype Areena in Espoo, Finland.",
     "",
     `Junction 2026, the European Tech Renaissance, runs from Friday 13 to Sunday 15 November 2026 at Hype Areena, Espoo, Finland. Teams of 1 to 4 people build for 48 hours on ${challengeCount} challenges set by partner organisations: ${mainCount} main challenges in ${tracks.length} tracks, and ${techChallenges.length} tech challenges that can be combined with any main challenge. Each partner picks its own winners; the top 5 projects of the event pitch live to a grand jury. The schedule and FAQ are on the event info page.`,
     "",

@@ -29,17 +29,16 @@ const eventJsonLd = { "@context": "https://schema.org", "@type": "Event", name: 
 ---
 
 <BaseLayout
-  title="Junction 2026 – Europe's Biggest Hackathon"
-  description="2,000 builders, 48 hours, €100K+ in prizes. 13–15 November 2026, Espoo."
-  ogTitle="Junction 2026 – Europe's Biggest Hackathon"
-  ogDescription="Junction 2026: the European Tech Renaissance. 2,000 builders, 48 hours, €100K+ in prizes."
+  title="Junction 2026 Challenges"
+  description="Junction 2026 challenges in compact and agent friendly format"
+  ogTitle="Junction 2026 Challenges"
+  ogDescription="Junction 2026 challenges in compact and agent friendly format"
   keywords="Junction 2026, Junction hackathon 2026, Junction 2026 challenges, Junction 2026 Espoo, hackathon Finland 2026, Europe's biggest hackathon"
   jsonLd={eventJsonLd}
   preloadFonts={{ titilliumWeb: [300], spaceMono: [700, 400] }}
 >
   <main>
     <section class="relative h-[78svh] min-h-[380px] overflow-hidden">
-      <h1 class="sr-only">Junction 2026 – European Tech Renaissance hackathon, 13–15 November 2026, Espoo, Finland</h1>
       <picture>
         <source type="image/avif" srcset={heroAvif.srcSet.attribute} sizes={heroSizes} />
         <source type="image/webp" srcset={heroWebp.srcSet.attribute} sizes={heroSizes} />
@@ -47,7 +46,7 @@ const eventJsonLd = { "@context": "https://schema.org", "@type": "Event", name: 
       </picture>
       <div class="absolute inset-0 bg-background/45" aria-hidden="true"></div>
       <div class="relative flex h-full flex-col items-center justify-center gap-6 px-6 pt-16 text-center">
-        <p class="font-mono text-3xl font-bold tracking-[0.3em] md:text-5xl">JUNCTION 2026</p>
+        <h1 class="font-mono text-3xl font-bold uppercase tracking-[0.3em] md:text-5xl">Junction 2026</h1>
         <a href="/challenges" class={heroCta}>VIEW CHALLENGES HERE →</a>
         <div class="flex max-w-3xl flex-wrap justify-center gap-2">
           {tracks.map((t) => (
