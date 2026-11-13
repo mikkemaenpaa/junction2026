@@ -1,0 +1,25 @@
+# dependencies
+node_modules/
+
+# build output
+dist/
+
+# Astro generated types and caches
+.astro/
+
+# Wrangler / Cloudflare
+.wrangler/
+.dev.vars*
+
+# logs
+*.log
+
+# environment
+.env
+.env.*
+
+# OS / editor
+.DS_Store
+.vscode/*
+!.vscode/extensions.json
+.idea/

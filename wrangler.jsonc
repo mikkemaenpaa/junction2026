@@ -1,0 +1,21 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  // Assets-only Worker: no `main` script and no bindings. Every request is served
+  // straight from the static files in dist/, so no Worker code ever runs.
+  "name": "junction2026",
+  "compatibility_date": "2026-11-10",
+  "assets": {
+    "directory": "./dist",
+    // Unknown paths get dist/404.html with a 404 status.
+    "not_found_handling": "404-page",
+    // /about is served from about.html; /about/ and /about.html redirect to /about.
+    // Matches `trailingSlash: "never"` + `build.format: "file"` in astro.config.mjs.
+    "html_handling": "drop-trailing-slash",
+  },
+  // Don't send Wrangler usage metrics for this project.
+  "send_metrics": false,
+
+  // Custom domain. Needs the junction2026.com zone on the same Cloudflare account and
+  // no existing CNAME record for that hostname. Uncomment to enable:
+  // "routes": [{ "pattern": "junction2026.com", "custom_domain": true }],
+}

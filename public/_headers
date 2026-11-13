@@ -1,0 +1,12 @@
+# Custom response headers for Cloudflare Workers static assets. This file is parsed by
+# Cloudflare and is not served itself.
+# https://developers.cloudflare.com/workers/static-assets/headers/
+
+# Fingerprinted build output (images, fonts): the filename changes whenever the content does.
+/_astro/*
+  Cache-Control: public, max-age=31536000, immutable
+
+/*
+  X-Content-Type-Options: nosniff
+  Referrer-Policy: strict-origin-when-cross-origin
+  X-Frame-Options: DENY

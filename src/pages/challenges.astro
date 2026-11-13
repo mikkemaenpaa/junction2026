@@ -1,0 +1,57 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Section from "../components/Section.astro";
+import { tracks, partners } from "../data/challenges";
+
+const judging = [["Partner tracks", "Each Challenge Partner picks its own track winners."], ["Top 5 peer review", "Face-to-face peer review selects the top 5 projects."], ["Live pitch & grand jury", "The top 5 pitch live; the grand jury picks the winner."]] as const;
+---
+
+<BaseLayout
+  title="Challenges – Junction 2026"
+  description="Junction 2026 tracks: Hardware, Healthcare, AI Infrastructure, FinTech, Agentic AI and Data."
+  ogTitle="Challenges – Junction 2026"
+  ogDescription="Six tracks and tech challenges at Europe's biggest hackathon."
+  preloadFonts={{ titilliumWeb: [300, 700], spaceMono: [400] }}
+>
+  <main class="pt-20">
+    <Section label="Challenge tracks" title="Ways to move the center of gravity">
+      <div class="grid gap-px border border-border bg-border md:grid-cols-3">
+        {tracks.map((t, i) => (
+          <div id={t.slug} class="scroll-mt-24 bg-background p-8">
+            <p class="label-mono">0{i + 1} · by {t.by}</p>
+            <h3 class="mt-4 font-display text-2xl font-bold uppercase">{t.name}</h3>
+            <p class="mt-4 font-mono text-sm text-highlight">Challenge revealed at opening ceremony</p>
+          </div>
+        ))}
+      </div>
+      <p class="label-mono mt-16">// Challenge & tech partners</p>
+      <div class="mt-6 flex flex-wrap gap-3">
+        {partners.map(([n, u]) => (
+          <a href={u} target="_blank" rel="noreferrer" class="border border-border px-4 py-2 font-mono text-sm hover:border-highlight hover:text-highlight">{n}</a>
+        ))}
+      </div>
+      <div class="mt-10 grid gap-6 md:grid-cols-2">
+        <div class="border border-border p-8">
+          <p class="label-mono">Tech challenges</p>
+          <p class="mt-3 text-muted-foreground">Companies provide credits to their platforms and award prizes for the best use of their tech. They run across every track.</p>
+        </div>
+        <div class="border border-border p-8">
+          <p class="label-mono">Featured · Cala</p>
+          <h3 class="mt-3 font-display text-xl font-bold uppercase">Make Unicorns Real</h3>
+          <p class="mt-2 text-muted-foreground">Build a product for founders or VCs, powered by reliable public data on companies, people, investors and funding rounds.</p>
+        </div>
+      </div>
+    </Section>
+    <Section label="Judging" title="How the winner is chosen">
+      <ol class="grid gap-6 md:grid-cols-3">
+        {judging.map(([t, d], i) => (
+          <li class="border-t border-foreground pt-4">
+            <p class="label-mono">Step 0{i + 1}</p>
+            <h3 class="mt-2 font-display text-xl font-bold uppercase">{t}</h3>
+            <p class="mt-2 text-muted-foreground">{d}</p>
+          </li>
+        ))}
+      </ol>
+    </Section>
+  </main>
+</BaseLayout>

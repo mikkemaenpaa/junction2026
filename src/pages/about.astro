@@ -1,0 +1,36 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Section from "../components/Section.astro";
+
+const schedule = [["Fri 18:00", "Opening ceremony & keynotes"], ["Fri 19:30", "Hacking starts"], ["Sun 14:00", "Final ceremony & top 5 pitches"], ["Sun 17:00", "Event ends"]] as const;
+const faq = [
+  ["Is it an AI hackathon?", "Not only — but AI is where most 2026 challenges sit, alongside software and hardware."],
+  ["Where is it?", "Hype Areena, Espoo, Finland. 13–15 November 2026."],
+  ["How big is it?", "2,000 builders, 48 hours, €100,000 in prizes."],
+] as const;
+---
+
+<BaseLayout
+  title="Event Info – Junction 2026"
+  description="Schedule, venue and FAQ for Junction 2026 at Hype Areena, Espoo."
+  ogTitle="Event Info – Junction 2026"
+  ogDescription="48 hours of building, 13–15 November 2026, Espoo."
+  preloadFonts={{ titilliumWeb: [600, 700], spaceMono: [400] }}
+>
+  <main class="pt-20">
+    <Section label="Schedule" title="48 hours. One weekend.">
+      <div class="divide-y divide-border border-y border-border">
+        {schedule.map(([t, e]) => (
+          <div class="flex gap-8 py-5"><span class="w-28 font-mono text-sm text-muted-foreground">{t}</span><span class="font-display text-lg font-semibold uppercase">{e}</span></div>
+        ))}
+      </div>
+    </Section>
+    <Section label="FAQ" title="Questions">
+      <div class="grid gap-6 md:grid-cols-3">
+        {faq.map(([q, a]) => (
+          <div class="border border-border p-6"><h3 class="font-display text-lg font-bold">{q}</h3><p class="mt-2 text-muted-foreground">{a}</p></div>
+        ))}
+      </div>
+    </Section>
+  </main>
+</BaseLayout>

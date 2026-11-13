@@ -1,0 +1,53 @@
+---
+import { getImage } from "astro:assets";
+import BaseLayout from "../layouts/BaseLayout.astro";
+import { btnBase } from "../components/button";
+import { tracks } from "../data/challenges";
+import hero from "../assets/junction-2026-hero.jpg";
+
+// Hero image: the LCP element. It is object-cover in a 100svh box, so it covers at
+// max(100vw, 160vh) (source aspect 1.6) and renders wider than the viewport on portrait
+// screens. Quality per format was picked by comparing 1:1 crops with the source (AVIF
+// below q45 flattens the painted texture). Quality is part of the hashed filenames, so
+// changing it here also changes the long-cached URLs.
+const heroWidths = [640, 960, 1280, 1600, 1920];
+const heroSizes = "max(100vw, 160vh)";
+const [heroAvif, heroWebp, heroJpg] = await Promise.all([
+  getImage({ src: hero, widths: heroWidths, format: "avif", quality: 45 }),
+  getImage({ src: hero, widths: heroWidths, format: "webp", quality: 72 }),
+  getImage({ src: hero, widths: heroWidths, format: "jpg", quality: 72 }),
+]);
+
+const eventJsonLd = { "@context": "https://schema.org", "@type": "Event", name: "Junction 2026", description: "Junction 2026 – European Tech Renaissance hackathon", startDate: "2026-11-13", endDate: "2026-11-15", eventAttendanceMode: "https://schema.org/OfflineEventAttendanceMode", location: { "@type": "Place", name: "Hype Areena", address: "Espoo, Finland" }, url: "https://junction2026.com" };
+---
+
+<BaseLayout
+  title="Junction 2026 – Europe's Biggest Hackathon"
+  description="2,000 builders, 48 hours, €100K+ in prizes. 13–15 November 2026, Espoo."
+  ogTitle="Junction 2026 – Europe's Biggest Hackathon"
+  ogDescription="Junction 2026: the European Tech Renaissance. 2,000 builders, 48 hours, €100K+ in prizes."
+  keywords="Junction 2026, Junction hackathon 2026, Junction 2026 challenges, Junction 2026 Espoo, hackathon Finland 2026, Europe's biggest hackathon"
+  jsonLd={eventJsonLd}
+  preloadFonts={{ titilliumWeb: [300], spaceMono: [700, 400] }}
+>
+  <main>
+    <section class="relative h-[100svh] overflow-hidden">
+      <h1 class="sr-only">Junction 2026 – European Tech Renaissance hackathon, 13–15 November 2026, Espoo, Finland</h1>
+      <picture>
+        <source type="image/avif" srcset={heroAvif.srcSet.attribute} sizes={heroSizes} />
+        <source type="image/webp" srcset={heroWebp.srcSet.attribute} sizes={heroSizes} />
+        <img src={heroJpg.src} srcset={heroJpg.srcSet.attribute} sizes={heroSizes} width={1920} height={1200} alt="Junction 2026 – European Tech Renaissance, Nov 13–15 2026, Espoo, Finland" class="absolute inset-0 h-full w-full object-cover" loading="eager" fetchpriority="high" />
+      </picture>
+      <div class="absolute inset-0 bg-background/45" aria-hidden="true"></div>
+      <div class="relative flex h-full flex-col items-center justify-center gap-8 px-6 pt-16 text-center">
+        <p class="font-mono text-3xl font-bold tracking-[0.3em] md:text-5xl">JUNCTION 2026</p>
+        <a href="/challenges" class={btnBase + " bg-highlight text-highlight-foreground px-10 py-6 font-mono text-2xl md:px-16 md:text-5xl"}>VIEW CHALLENGES HERE →</a>
+        <div class="flex max-w-3xl flex-wrap justify-center gap-2">
+          {tracks.map((t) => (
+            <a href={`/challenges#${t.slug}`} class="border border-border bg-background/60 px-3 py-1.5 font-mono text-xs uppercase hover:border-highlight hover:text-highlight">{t.name.replace(" Track", "")} · {t.by}</a>
+          ))}
+        </div>
+      </div>
+    </section>
+  </main>
+</BaseLayout>

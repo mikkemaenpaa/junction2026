@@ -1,0 +1,60 @@
+/*
+ * Tailwind v4 entry (config lives here; no tailwind.config.js).
+ * Ported from the original src/styles.css with identical token values.
+ * Font families come from Astro's Fonts API (see `fonts` in astro.config.mjs), which
+ * defines --font-titillium-web and --font-space-mono on :root, including metric-matched
+ * fallback faces.
+ */
+@import "tailwindcss" source(none);
+@source "..";
+
+@theme inline {
+  --font-display: var(--font-titillium-web);
+  --font-mono: var(--font-space-mono);
+  --font-sans: var(--font-titillium-web);
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --radius-2xl: calc(var(--radius) + 8px);
+  --radius-3xl: calc(var(--radius) + 12px);
+  --radius-4xl: calc(var(--radius) + 16px);
+  --color-highlight: var(--highlight);
+  --color-highlight-foreground: var(--highlight-foreground);
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-border: var(--border);
+}
+
+:root {
+  --radius: 0;
+  --background: oklch(0.08 0.005 285);
+  --foreground: oklch(0.97 0 0);
+  --primary: oklch(0.93 0 0);
+  --primary-foreground: oklch(0.08 0.005 285);
+  --muted-foreground: oklch(0.65 0.01 285);
+  --border: oklch(1 0 0 / 14%);
+  --highlight: oklch(0.88 0.18 95);
+  --highlight-foreground: oklch(0.15 0.01 90);
+}
+
+@layer base {
+  * {
+    border-color: var(--color-border);
+  }
+
+  body {
+    background-color: var(--color-background);
+    color: var(--color-foreground);
+  }
+}
+
+@layer base {
+  body { font-family: var(--font-sans); }
+}
+@utility font-display { font-family: var(--font-display); }
+@utility label-mono { font-family: var(--font-mono); font-size: 0.75rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--muted-foreground); }
+@utility clip-btn { clip-path: polygon(10px 0, 100% 0, 100% calc(100% - 10px), calc(100% - 10px) 100%, 0 100%, 0 10px); }
