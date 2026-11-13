@@ -1,0 +1,39 @@
+{
+  "title": "Stop Simulating, Start Moving: See It. Detect It. Act on It. The Intel Physical AI Challenge",
+  "org": "Ignite Next x Intel",
+  "task": "AI is great on screen, but have you ever made it move? Welcome to the Intel Physical AI Challenge at Junction. This weekend, we’re taking your models out of the cloud and giving them hands, eyes, and real-time brains",
+  "prizes": "1st Place: €5,000 · 2nd Place: €3,000 · 3rd Place: €2,000",
+  "sections": [
+    {
+      "title": "The Challenge",
+      "html": "<div><div><p>AI is great on screen, but have you ever made it move? Welcome to the Intel Physical AI Challenge at Junction. This weekend, we’re taking your models out of the cloud and giving them hands, eyes, and real-time brains</p>\n<h3>Introduction</h3>\n<p>In many factories, people still inspect parts by eye and pull out the faulty ones, because programming a robot for the job takes specialist effort. With physical AI, you show a robot a task a few dozen times and it learns a policy it can run on its own. Ignite Next and Intel bring this to Junction, so you can take a real robot arm from first demonstration to an autonomous inspection cell in one weekend. You train your models on cloud GPUs and run them on Intel Core Ultra Series 3 (Panther Lake) laptops with Intel’s open-source robotics stack, which is built to take robot AI from the lab into production.</p>\n<h3>The Challenge</h3>\n<p>Each team gets its own station with an SO-101 robot arm, a leader arm for teleoperation, a top-view camera, an inspection camera and a box of Duplo bricks, some of which you mark as defective yourself.</p>\n<p>Start by teleoperating the arm to record demonstrations, then fine-tune a vision-language-action (VLA) policy in Physical AI Studio on cloud GPUs. In parallel, train an Anomalib model that tells good bricks from defective ones at the inspection point. Then bring both together: the arm picks each brick, shows it to the inspection camera and drops it into the “good” or “defective” bowl, fully autonomously, with your models optimized with OpenVINO and running on the laptop’s CPU, GPU and NPU. Teams that get there early can push further with faster cycles, messier brick piles, new defect types or their own twist on the task.</p></div></div>",
+      "sidebar": false
+    },
+    {
+      "title": "Insight",
+      "html": "<div><div><p>We want to see how close a small, low-cost setup can get to a reliable inspection cell: how few demonstrations are enough, how well the policy copes with bricks in new positions, and how fast the full loop runs on the laptop’s CPU, GPU and NPU. Ideas we would like to see include using the anomaly score to trigger a re-grasp, sharing cameras between policy and inspection, and quantizing models with OpenVINO.</p></div></div>",
+      "sidebar": false
+    },
+    {
+      "title": "Resources",
+      "html": "<div><div><h3>Challenge terms</h3>\n<p>Please read the <a href=\"https://drive.google.com/file/d/1nKs-e-4FNk-AoMq1fCeRKM_6mpIkArRt/view?usp=sharing\">Challenge Terms</a> before taking part. <strong>By participating in this challenge, you agree to these terms.</strong></p>\n<h3>What we'll bring</h3>\n<p>You build on a complete robotics station in the Junction Hardware Lab and on Intel’s open-source Robotics AI Suite, with Intel engineers on site every day of the event.</p>\n<ul>\n<li>25 stations, one per team, each with an Intel Core Ultra Series 3 (Panther Lake) laptop with 64 GB RAM</li>\n<li>An SO-101 follower arm with wrist camera and a matching leader arm for teleoperation</li>\n<li>Two external cameras for top view and inspection, at least one of them a RealSense D415 depth camera</li>\n<li>Duplo bricks, sorting bowls and markers to create your own defects</li>\n<li>Cloud GPU instances for policy training</li>\n<li>Physical AI Studio to record demonstrations and fine-tune VLA policies</li>\n<li>Anomalib for anomaly detection, plus OpenVINO and OpenVINO Physical AI for on-device inference</li>\n<li>A hands-on technical session on Saturday at 12:00</li>\n</ul>\n<h3>Mentors</h3>\n<p>Three to five Intel robotics and edge AI engineers with expertise in Physical AI Studio, OpenVINO and Anomalib, on site every day of the event and supported by the Ignite Next team.</p>\n<h4>Main contact person</h4>\n<p>Marvin Müller, Strategic Partnerships &amp; Value Creation Lead, Ignite Next (<a href=\"mailto:marvin.mueller@ignitenext.com\">marvin.mueller@ignitenext.com</a>, +49 160 1684739)</p></div></div>",
+      "sidebar": false
+    },
+    {
+      "title": "Ignite Next x Intel",
+      "eyebrow": "Company Info",
+      "html": "<div><p>Ignite Next is a deep tech scale-up program based in Dresden, in Silicon Saxony, that helps founders build semiconductor and physical AI companies together with industrial partners. Through our collaboration with Intel, we connect developers and startups with the hardware, software and experts they need to build real robots. Intel contributes its Core Ultra Series 3 processors and its open-source Robotics AI Suite, which is designed to take robot AI from first experiments to deployed systems. We are at Junction to meet the builders behind Europe’s next robotics companies.</p><div></div></div>",
+      "sidebar": true
+    },
+    {
+      "title": "Judging Criteria",
+      "html": "<div><ul><li><div><span>Task success</span><span>(30%)</span></div><p>Covers accuracy, cycle time and robustness to shifted or cluttered bricks</p></li><li><div><span>Intel technology integration</span><span>(30%)</span></div><p>Covers deployment with OpenVINO Physical AI and the Robotics AI Suite and offloading to NPU and integrated GPU</p></li><li><div><span>Dataset and pipeline quality</span><span>(20%)</span></div><p>Covers clean teleoperation data and fine-tuning in Physical AI Studio</p></li><li><div><span>System efficiency</span><span>(20%)</span></div><p>Covers inference latency, thermal headroom and power consumption on Core Ultra</p></li></ul></div>",
+      "sidebar": true
+    },
+    {
+      "title": "Prizes",
+      "html": "<div><ul><li><div>1st Place</div><p>€5,000</p></li><li><div>2nd Place</div><p>€3,000</p></li><li><div>3rd Place</div><p>€2,000</p></li></ul></div>",
+      "sidebar": true
+    }
+  ]
+}
