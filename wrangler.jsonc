@@ -15,7 +15,11 @@
   // Don't send Wrangler usage metrics for this project.
   "send_metrics": false,
 
-  // Custom domain. Needs the junction2026.com zone on the same Cloudflare account and
-  // no existing CNAME record for that hostname. Uncomment to enable:
-  // "routes": [{ "pattern": "junction2026.com", "custom_domain": true }],
+  // The site is served only from the custom domain. The zone must be on the same
+  // Cloudflare account; Cloudflare creates the DNS record and certificate itself.
+  "routes": [{ "pattern": "junction2026.com", "custom_domain": true }],
+  // No *.workers.dev or preview URLs: they would bypass the zone's HTTPS/HSTS settings
+  // and serve duplicate copies of the site.
+  "workers_dev": false,
+  "preview_urls": false,
 }
