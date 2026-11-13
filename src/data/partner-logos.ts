@@ -3,7 +3,8 @@
 // self-hosted: the files live in src/assets/partner-logos/ and are emitted as fingerprinted
 // files under /_astro/. They are optimized copies of the originals: SVGO for the SVGs, WebP
 // for cala, atech and stoa (stoa.svg was a raster wrapped in SVG), oxylabs (a WebP file that
-// was named .png) only renamed. See README.md for adding a logo.
+// was named .png) only renamed. astrazeneca.webp is the partner-supplied white logo, resized to
+// 500 px wide and saved as lossless WebP. See README.md for adding a logo.
 // `dark: true` puts the logo on a dark surface instead of a light one.
 import mlh from "../assets/partner-logos/mlh.svg";
 import bahn from "../assets/partner-logos/bahn.svg";
@@ -34,6 +35,7 @@ import stoa from "../assets/partner-logos/stoa.webp";
 import verda from "../assets/partner-logos/verda.svg";
 import rokoko from "../assets/partner-logos/rokoko.svg";
 import valio from "../assets/partner-logos/valio.svg";
+import astrazeneca from "../assets/partner-logos/astrazeneca.webp";
 
 export const partnerLogos: Record<string, { url: string; dark: boolean }[]> = {
   "Hostinger": [{ url: hostinger.src, dark: false }],
@@ -65,5 +67,6 @@ export const partnerLogos: Record<string, { url: string; dark: boolean }[]> = {
   "Modal": [{ url: modal.src, dark: false }],
   "Oxylabs": [{ url: oxylabs.src, dark: false }],
   "Atech": [{ url: atech.src, dark: false }],
+  "AstraZeneca": [{ url: astrazeneca.src, dark: true }],
   "Ignite Next x Intel": [{ url: ignite.src, dark: true }, { url: intel.src, dark: false }],
 };
