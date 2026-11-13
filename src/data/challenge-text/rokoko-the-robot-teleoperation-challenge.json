@@ -1,0 +1,39 @@
+{
+  "title": "The Robot Teleoperation Challenge",
+  "org": "Rokoko",
+  "task": "Use professional motion capture suits and gloves to control robotic hands, arms and humanoid robots. Build something useful, unexpected, or downright unbelievable.",
+  "prizes": "1st place: 1x pair of Smartgloves II + 1x SDK license + featured post on Rokoko’s blog and extended support from Rokoko team (valued at €4,990) · 2nd Place: 1x Smartsuit Pro II (valued at €2,295) · 3rd place: 1x pair of Smartgloves I (1st gen gloves) + Rokoko merch (valued at €1,095)",
+  "sections": [
+    {
+      "title": "The Challenge",
+      "html": "<div><div><p>Use professional motion capture suits and gloves to control robotic hands, arms and humanoid robots. Build something useful, unexpected, or downright unbelievable.</p>\n<h3>Introduction</h3>\n<p>Robots are getting smarter, but teaching them to interact with the physical world remains one of the biggest challenges in robotics. <strong>Human teleoperation</strong> is emerging as a powerful way to control robots, collect training data, and accelerate the development of intelligent machines. At Rokoko, we're building the motion capture technology that connects human movement with robotic action. Now we're putting that technology in your hands to see how far you can push it.</p>\n<h3>The challenge</h3>\n<p>Build an impressive application of <strong>robotic teleoperation</strong> using Rokoko's motion capture technology to control robotic hands, arms, or entire humanoid robots – <strong>either physically or in simulation</strong>.</p>\n<p>What you build is entirely up to you. It could solve a real-world problem, demonstrate a new capability, or simply do something nobody has seen a robot do before.</p>\n<p>You can work with the robotic hardware available at Junction, build your own simulated environment, or combine Rokoko's technology with other hardware and challenges at the event.</p>\n<p>We're looking for projects that push the boundaries of what's possible when human movement meets robotics. <strong>Surprise us.</strong></p></div></div>",
+      "sidebar": false
+    },
+    {
+      "title": "Insight",
+      "html": "<div><div><h4>What interests us</h4>\n<ul>\n<li>\n<p><strong>Precise manipulation</strong> – fragile objects, tools, liquids.</p>\n</li>\n<li>\n<p><strong>Collecting human demonstrations</strong> through teleoperation to train autonomous robot policies.</p>\n</li>\n<li>\n<p><strong>Creative or entertainment applications</strong> that explore unexpected uses of robotic technology.</p>\n</li>\n</ul>\n<p>These are just starting points. Whether your project prioritizes precision, usefulness, technical innovation, or sheer entertainment value, we want to see what you can achieve.</p>\n<h3>Why it matters</h3>\n<p>Robotic teleoperation is rapidly becoming one of the most important technologies in humanoid robotics. By capturing human movements and translating them into robotic actions, we can both control robots directly and generate the training data needed for increasingly autonomous systems. This challenge lets you experiment with the same technologies being developed for the next generation of intelligent robots.</p></div></div>",
+      "sidebar": false
+    },
+    {
+      "title": "Resources",
+      "html": "<div><div><h3>What we'll bring</h3>\n<ul>\n<li><strong>Rokoko Smartgloves II</strong> for real-time finger tracking</li>\n<li><strong>Rokoko Smartsuit Pro II</strong> for full-body motion capture</li>\n<li><strong>Rokoko Coil Pro</strong> for precise hand positioning</li>\n<li><strong>Rokoko Device SDK</strong> for accessing real-time motion capture data</li>\n<li><strong>Access to a Unitree G1 humanoid robot</strong> with dexterous hands, in coordination with the team running the separate humanoid robotics challenge</li>\n<li><strong>Potential access to additional robotic hardware</strong>, including a Booster T1, depending on availability</li>\n<li><strong>Technical support</strong> from Rokoko and Aalto Robotics Club mentors</li>\n</ul>\n<p>You can also develop teleoperation applications <strong>in simulation</strong>, using Rokoko's physical motion capture equipment to control virtual robots. Existing integrations and example implementations may be available to help you get started, including an <strong>Inspire robotic hand integration</strong> developed by Aalto Robotics Club.</p>\n<p>How to access Rokoko platform:</p>\n<ol>\n<li>Create a Rokoko ID</li>\n<li>Provide email and ID to Rokoko representatives via this <a href=\"https://docs.google.com/forms/d/e/1FAIpQLSdCZTfoFzWbZS8fuvpKjhhP8xvOAX_vhJhTKYMpuRB8JMIHIQ/viewform\">form</a></li>\n<li>Get accepted by Rokoko reps</li>\n<li>Get access to SDK License and activate via instructions on the SDK page.</li>\n</ol>\n<h3>Mentors</h3>\n<p><strong>Victoria Stein</strong> will be on site representing Rokoko. Technical support comes from mentors of the <strong>Aalto Robotics Club</strong>, trained on Rokoko's technology ahead of the event.</p></div></div>",
+      "sidebar": false
+    },
+    {
+      "title": "Rokoko",
+      "eyebrow": "Company Info",
+      "html": "<div><div><p><span>Website:</span> <a href=\"https://www.rokoko.com/\">https://www.rokoko.com/</a></p></div></div>",
+      "sidebar": true
+    },
+    {
+      "title": "Judging Criteria",
+      "html": "<div><ul><li><div><span>Technical execution</span><span>(35%)</span></div><p>Quality of the implementation – physical or simulated.</p></li><li><div><span>Originality &amp; creativity</span><span>(25%)</span></div><p>How fresh and surprising the idea and approach are.</p></li><li><div><span>Usefulness &amp; potential impact</span><span>(25%)</span></div><p>The real-world value or potential impact of the application.</p></li><li><div><span>Demonstration of human-controlled robotics</span><span>(15%)</span></div><p>How effectively the project shows the potential of robotic teleoperation.</p></li></ul></div>",
+      "sidebar": true
+    },
+    {
+      "title": "Prizes",
+      "html": "<div><ul><li><div>1st place</div><p>1x pair of Smartgloves II + 1x SDK license + featured post on Rokoko’s blog and extended support from Rokoko team (valued at €4,990)</p></li><li><div>2nd Place</div><p>1x Smartsuit Pro II (valued at €2,295)</p></li><li><div>3rd place</div><p>1x pair of Smartgloves I (1st gen gloves) + Rokoko merch (valued at €1,095)</p></li></ul></div>",
+      "sidebar": true
+    }
+  ]
+}
