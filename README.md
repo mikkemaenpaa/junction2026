@@ -51,6 +51,7 @@ redeploying an earlier commit or using Cloudflare's version history for the Work
 | Tracks, challenges, tech challenges, partners, event timeline | `src/data/challenges.ts` |
 | Full partner challenge wording, resources, judging and prizes | `src/data/challenge-text/*.json` |
 | Challenge URL slugs (`/challenges/<slug>`) | `src/data/challenge-directory.ts` |
+| Teams per challenge so far (the capsules on the cards and challenge pages) | `src/data/team-counts.ts` |
 | Partner logos | `src/data/partner-logos.ts` and `src/assets/partner-logos/` |
 | Pages | `src/pages/` (`index`, `challenges`, `challenges/[slug]`, `about`, `privacy`, `404`) |
 | Tag Manager container ID, consent storage key, site operator shown on `/privacy` | `src/data/privacy.ts` |

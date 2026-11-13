@@ -81,6 +81,7 @@ const speculationRules = {
     <Font cssVariable="--font-space-mono" preload={toPreload(preloadFonts.spaceMono)} />
     {jsonLd && <script is:inline type="application/ld+json" set:html={JSON.stringify(jsonLd)} />}
     <script is:inline type="speculationrules" set:html={JSON.stringify(speculationRules)} />
+    <slot name="head" />
   </head>
   <body>
     <CookieNotice />

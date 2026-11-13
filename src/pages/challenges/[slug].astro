@@ -9,8 +9,11 @@ import PartnerIdentity from "../../components/PartnerIdentity.astro";
 import TextSection from "../../components/TextSection.astro";
 import ChallengeTextSection from "../../components/ChallengeTextSection.astro";
 import LucideIcon from "../../components/LucideIcon.astro";
+import TeamCount from "../../components/TeamCount.astro";
+import TeamCountStyles from "../../components/TeamCountStyles.astro";
 import { buttonClass } from "../../components/ui/button";
 import { challengeDirectory } from "../../data/challenge-directory";
+import { teamCounts } from "../../data/team-counts";
 import type { Challenge } from "../../data/challenges";
 
 export function getStaticPaths() {
@@ -21,18 +24,22 @@ interface Props {
   entry: (typeof challengeDirectory)[number];
 }
 
-const { challenge: source, track } = Astro.props.entry;
+const { challenge: source, track, slug } = Astro.props.entry;
+const teams = teamCounts[slug];
 const c: Challenge = source;
 const title = `${c.title} – Junction 2026`;
 ---
 
 <BaseLayout title={title} description={c.task} ogTitle={title} ogDescription={c.task} preloadFonts={{ titilliumWeb: [300] }}>
+  {teams !== undefined && <TeamCountStyles slot="head" />}
   <main class="challenge-directory min-h-screen px-5 pb-16 pt-24 text-foreground sm:px-8">
     <AbstractBackdrop />
     <div class="mx-auto max-w-6xl">
       <a href="/challenges" class={buttonClass({ variant: "ghost", className: "mb-6 px-0 text-muted-foreground hover:bg-transparent hover:text-foreground" })}><LucideIcon name="arrow-left" /> All challenges</a>
       <header class="challenge-cover border-b border-border px-6 py-10 sm:px-10 sm:py-12">
-        <p class="mb-4 text-sm text-muted-foreground">Junction 2026 · {track}</p>
+        {teams === undefined ? <p class="mb-4 text-sm text-muted-foreground">Junction 2026 · {track}</p> : (
+          <div class="tc-row mb-4"><p class="text-sm text-muted-foreground">Junction 2026 · {track}</p><TeamCount count={teams} /></div>
+        )}
         <h1 class="max-w-4xl text-4xl font-semibold leading-tight sm:text-5xl">{c.title}</h1>
         <p class="mt-5 text-xl text-muted-foreground">by {c.org}</p>
       </header>

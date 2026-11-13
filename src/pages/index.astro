@@ -5,6 +5,7 @@ import { btnBase } from "../components/button";
 import { buttonClass } from "../components/ui/button";
 import LandingChallenges from "../components/LandingChallenges.astro";
 import HeroCalendar from "../components/HeroCalendar.astro";
+import TeamCountStyles from "../components/TeamCountStyles.astro";
 import { tracks } from "../data/challenges";
 import hero from "../assets/junction-2026-hero.jpg";
 
@@ -40,6 +41,7 @@ const jsonLd = { "@context": "https://schema.org", "@graph": [eventJsonLd, websi
   jsonLd={jsonLd}
   preloadFonts={{ titilliumWeb: [300], spaceMono: [700, 400] }}
 >
+  <TeamCountStyles slot="head" />
   <main>
     <section class="relative h-[78svh] min-h-[380px] overflow-hidden">
       <picture>

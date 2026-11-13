@@ -1,0 +1,17 @@
+---
+// Styles of the team count capsule (TeamCount.astro), put in the <head> (slot="head") only by
+// pages that show one, so every other page stays exactly as it was. Not a scoped <style>:
+// Astro would add a scoped style to all 38 challenge pages built from [slug].astro, also the
+// ones without a count. The icon is defined once per page as a CSS mask.
+---
+
+<style is:inline>
+.tc-row{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:6px 12px;min-height:24px}
+.tc{--tc-icon:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'%3E%3Ccircle cx='7.2' cy='6.4' r='3.1'/%3E%3Cpath d='M1.2 16.2c0-3.2 2.6-5.4 6-5.4s6 2.2 6 5.4c0 .5-.4.8-.9.8H2.1c-.5 0-.9-.3-.9-.8z'/%3E%3Ccircle cx='14.4' cy='7.2' r='2.5'/%3E%3Cpath d='M14.5 11.2c2.6 0 4.5 1.7 4.5 4.2 0 .4-.3.7-.8.7h-3.6c.1-.3.1-.6.1-.9 0-1.5-.6-2.9-1.6-3.9.4-.1.9-.1 1.4-.1z'/%3E%3C/svg%3E");flex:none;display:inline-flex;align-items:center;gap:6px;height:24px;padding:0 10px 0 8px;border:1px solid oklch(1 0 0/.14);border-radius:999px;background:oklch(1 0 0/.06);box-shadow:inset 0 1px 0 oklch(1 0 0/.06);font:600 12px/1 -apple-system,BlinkMacSystemFont,"SF Pro Text","Helvetica Neue","Segoe UI",Roboto,Arial,sans-serif;font-variant-numeric:tabular-nums;letter-spacing:0;color:oklch(.97 0 0);white-space:nowrap}
+.tc-icon{flex:none;width:15px;height:15px;background:var(--highlight);-webkit-mask:var(--tc-icon) center/contain no-repeat;mask:var(--tc-icon) center/contain no-repeat}
+.tc-unit{font-weight:400;color:oklch(.97 0 0/.66)}
+.tc-gauge{position:relative;width:44px;height:4px;margin-left:2px;border-radius:2px;background:oklch(1 0 0/.16);overflow:hidden}
+.tc-gauge::before{content:"";position:absolute;inset:0 auto 0 0;width:max(4px,calc(var(--share)*100%));border-radius:2px;background:var(--highlight)}
+.tc-note{display:flex;flex-wrap:wrap;align-items:center;gap:8px;margin:16px 0 0;font:400 12px/1.4 -apple-system,BlinkMacSystemFont,"SF Pro Text","Helvetica Neue","Segoe UI",Roboto,Arial,sans-serif;color:var(--muted-foreground)}
+.landing-challenges .tc-note{margin:-8px 0 18px}
+</style>

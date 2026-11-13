@@ -3,9 +3,11 @@
 // src/routes/challenges.tsx; the title and "View challenge" link to /challenges/<slug>.
 import PartnerIdentity from "./PartnerIdentity.astro";
 import ChallengeLinks from "./ChallengeLinks.astro";
+import TeamCount from "./TeamCount.astro";
 import { buttonClass } from "./ui/button";
 import { challengeSlug } from "../data/challenge-directory";
 import { stripMarkdownMarkers } from "./challenge-html";
+import { teamCounts } from "../data/team-counts";
 import type { Challenge } from "../data/challenges";
 
 interface Props {
@@ -14,6 +16,7 @@ interface Props {
 
 const { c } = Astro.props;
 const href = `/challenges/${challengeSlug(c)}`;
+const teams = teamCounts[challengeSlug(c)];
 ---
 
 <article class="challenge-row grid gap-5 p-6 sm:grid-cols-[160px_minmax(0,1fr)] sm:gap-8 md:p-8 lg:grid-cols-[210px_minmax(0,1fr)]">
@@ -21,7 +24,9 @@ const href = `/challenges/${challengeSlug(c)}`;
     <PartnerIdentity name={c.org} />
   </div>
   <div class="min-w-0">
-    <p class="text-xs font-bold uppercase">By {c.org}</p>
+    {teams === undefined ? <p class="text-xs font-bold uppercase">By {c.org}</p> : (
+      <div class="tc-row"><p class="text-xs font-bold uppercase">By {c.org}</p><TeamCount count={teams} /></div>
+    )}
     <h3 class="mt-4 text-xl font-semibold leading-snug md:text-2xl"><a href={href} class="transition hover:text-highlight">{c.title}</a></h3>
     <p class="mt-3 line-clamp-2 leading-relaxed text-muted-foreground">{c.task}</p>
     <a href={href} class={buttonClass({ variant: "link", className: "mt-4 h-auto p-0 text-sm font-normal text-muted-foreground" })}>View challenge →</a>

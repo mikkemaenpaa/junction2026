@@ -1,0 +1,22 @@
+---
+// Team count capsule (src/data/team-counts.ts): a two-person icon, "105 teams" as real text and
+// a small gauge (this challenge's count over the highest count). With `total`, the line under a
+// list heading instead: the capsule without the gauge, followed by "so far · updated <date>".
+// Phrasing content only, so it can sit inside a card's <a>. The styles are in
+// TeamCountStyles.astro, which each page that shows a capsule puts in its <head> once.
+import { teamCountsUpdated, teamMax, teamTotal } from "../data/team-counts";
+
+type Props = { count: number; total?: never } | { total: true; count?: never };
+
+const { total } = Astro.props;
+const count = total ? teamTotal : Astro.props.count!;
+const unit = count === 1 ? "team" : "teams";
+const share = Math.round((count / teamMax) * 10000) / 10000;
+const title = `Teams so far, updated ${teamCountsUpdated.label}`;
+---
+
+{total ? (
+  <p class="tc-note"><span class="tc" title={title}><span class="tc-icon" aria-hidden="true"></span><span>{count}</span> <span class="tc-unit">{unit}</span></span> <span>so far · updated <time datetime={teamCountsUpdated.iso}>{teamCountsUpdated.label}</time></span></p>
+) : (
+  <span class="tc" title={title}><span class="tc-icon" aria-hidden="true"></span><span>{count}</span> <span class="tc-unit">{unit}</span><span class="tc-gauge" aria-hidden="true" style={`--share:${share}`}></span></span>
+)}
