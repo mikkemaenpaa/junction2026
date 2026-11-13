@@ -38,6 +38,7 @@ export const GET: APIRoute = ({ site }) => {
     `- [Home](${url("/index.md")}): Junction 2026 at a glance, with a card for every challenge.`,
     `- [Challenges](${url("/challenges.md")}): All ${challengeCount} challenges by track with tasks, prizes and links, plus the partner list and how judging works.`,
     `- [Event info](${url("/about.md")}): Schedule (13–15 November 2026) and FAQ: venue, team size and combining challenges.`,
+    `- [Privacy and cookies](${url("/privacy.md")}): What the site stores, Google Analytics only with consent, and your rights under the GDPR.`,
     ...tracks.flatMap((t) => ["", `## ${t.name}${t.by ? ` (by ${t.by})` : ""}`, "", ...t.challenges.map(challenge)]),
     "",
     "## Tech challenges",

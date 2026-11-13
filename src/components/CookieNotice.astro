@@ -1,0 +1,34 @@
+---
+// Cookie notice, fixed to the bottom of the viewport. In the HTML it is `hidden`; the script
+// (src/scripts/consent.ts) shows it while the visitor has not answered, and the "Cookie
+// settings" button in SiteFooter reopens it. Without JavaScript it stays hidden and nothing
+// loads. BaseLayout renders it first in <body>, so it is the first stop for keyboard and
+// screen reader users, and outside <main>, so it never reaches the Markdown twins. Both
+// answers are the same button: equal size and weight, neither preselected.
+const choiceButton =
+  "min-w-28 cursor-pointer border border-foreground/40 px-5 py-2.5 font-mono text-xs font-bold uppercase tracking-wider text-foreground transition-colors hover:bg-foreground hover:text-background focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-highlight";
+---
+
+<section
+  id="cookie-notice"
+  aria-label="Cookie notice"
+  tabindex="-1"
+  hidden
+  data-nosnippet
+  class="fixed inset-x-0 bottom-0 z-50 border-t border-border bg-background/90 pt-4 pb-[max(1rem,env(safe-area-inset-bottom))] pl-[max(1.5rem,env(safe-area-inset-left))] pr-[max(1.5rem,env(safe-area-inset-right))] backdrop-blur focus-visible:outline-2 focus-visible:-outline-offset-2 focus-visible:outline-highlight"
+>
+  <div class="mx-auto flex max-w-6xl flex-col gap-4 sm:flex-row sm:items-center sm:justify-between sm:gap-8">
+    <p class="text-sm leading-relaxed">
+      We'd like to use Google Analytics cookies to count visits to this site. Nothing is set
+      unless you accept. <a href="/privacy" class="underline underline-offset-4 hover:text-highlight">Privacy and cookies</a>
+    </p>
+    <div class="grid shrink-0 grid-cols-2 gap-3">
+      <button type="button" value="granted" class={choiceButton}>Accept</button>
+      <button type="button" value="denied" class={choiceButton}>Reject</button>
+    </div>
+  </div>
+</section>
+
+<script>
+  import "../scripts/consent";
+</script>

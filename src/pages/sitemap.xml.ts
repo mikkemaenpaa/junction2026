@@ -5,7 +5,7 @@
 import type { APIRoute } from "astro";
 import { challengeDirectory } from "../data/challenge-directory";
 
-const paths = ["/", "/challenges", "/about", ...challengeDirectory.map(({ slug }) => `/challenges/${slug}`)];
+const paths = ["/", "/challenges", "/about", "/privacy", ...challengeDirectory.map(({ slug }) => `/challenges/${slug}`)];
 
 export const GET: APIRoute = ({ site }) => {
   if (!site) throw new Error("`site` must be set in astro.config.mjs to build the sitemap");

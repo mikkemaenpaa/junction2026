@@ -26,7 +26,8 @@ const fontsourceLatin = (pkg, [first, ...rest]) => {
   return { variants };
 };
 
-// Fully static build: no adapter, no client JS. `dist/` is served as-is by an
+// Fully static build: no adapter, no framework islands. The only client JS is the small cookie
+// notice and Tag Manager loader (src/scripts/consent.ts). `dist/` is served as-is by an
 // assets-only Cloudflare Worker (see wrangler.jsonc).
 export default defineConfig({
   site: "https://junction2026.com",

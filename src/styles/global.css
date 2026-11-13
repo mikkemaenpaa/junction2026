@@ -15,6 +15,8 @@
    would become utilities). */
 @source not "../integrations";
 @source not "../pages/llms.txt.ts";
+/* Nor is the consent script (src/scripts), which holds no class names either. */
+@source not "../scripts";
 
 @theme inline {
   --font-display: var(--font-titillium-web);
@@ -73,6 +75,11 @@
 }
 @utility font-display { font-family: var(--font-display); }
 @utility label-mono { font-family: var(--font-mono); font-size: 0.75rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--muted-foreground); }
+/* The footer's "Cookie settings" button needs the consent script; without it there is nothing
+   to reopen. */
+@media (scripting: none) {
+  [data-cookie-settings] { display: none; }
+}
 @utility clip-btn { clip-path: polygon(10px 0, 100% 0, 100% calc(100% - 10px), calc(100% - 10px) 100%, 0 100%, 0 10px); }
 
 /*

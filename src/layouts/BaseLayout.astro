@@ -4,6 +4,7 @@
 import { Font } from "astro:assets";
 import SiteHeader from "../components/SiteHeader.astro";
 import SiteFooter from "../components/SiteFooter.astro";
+import CookieNotice from "../components/CookieNotice.astro";
 import "../styles/global.css";
 
 type Weight = 300 | 400 | 600 | 700;
@@ -77,6 +78,7 @@ const speculationRules = {
     <script is:inline type="speculationrules" set:html={JSON.stringify(speculationRules)} />
   </head>
   <body>
+    <CookieNotice />
     <SiteHeader />
     <slot />
     <SiteFooter />

@@ -1,0 +1,90 @@
+---
+// /privacy: what the site stores and sends, in plain language. Linked from the footer and the
+// cookie notice. Keep it in step with src/scripts/consent.ts and src/data/privacy.ts. The
+// operator paragraph appears only once SITE_OPERATOR (src/data/privacy.ts) has a name.
+import BaseLayout from "../layouts/BaseLayout.astro";
+import AbstractBackdrop from "../components/AbstractBackdrop.astro";
+import { CONSENT_MONTHS, SITE_OPERATOR } from "../data/privacy";
+
+const operator = SITE_OPERATOR.name.trim();
+const contact = SITE_OPERATOR.contact.trim();
+const contactIsEmail = /^[^\s@]+@[^\s@]+$/.test(contact);
+
+const h2 = "mb-4 text-2xl font-semibold";
+const section = "border-t border-border py-8";
+const text = "leading-relaxed text-muted-foreground";
+const link = "text-foreground underline underline-offset-4 hover:text-highlight";
+const code = "font-mono text-sm text-foreground";
+---
+
+<BaseLayout
+  title="Privacy and cookies – Junction 2026"
+  description="How the Junction 2026 website handles cookies and personal data: no cookies without consent, Google Analytics only if you accept, and your rights under the GDPR."
+  ogTitle="Privacy and cookies – Junction 2026"
+  preloadFonts={{ titilliumWeb: [300] }}
+>
+  <main class="challenge-directory min-h-screen px-5 pb-16 pt-24 text-foreground sm:px-8">
+    <AbstractBackdrop />
+    <div class="mx-auto max-w-3xl">
+      <h1 class="pb-8 text-4xl font-semibold leading-tight sm:text-5xl">Privacy and cookies</h1>
+
+      <section class={section}>
+        <h2 class={h2}>Without your consent</h2>
+        <p class={text}>
+          This site sets no cookies unless you accept them. It only remembers your answer to the
+          cookie notice, in your browser's local storage, for {CONSENT_MONTHS} months.
+        </p>
+      </section>
+
+      <section class={section}>
+        <h2 class={h2}>Hosting</h2>
+        <p class={text}>
+          The site is static files served by Cloudflare. Cloudflare processes request data, such
+          as your IP address, to deliver and protect the site.
+        </p>
+      </section>
+
+      <section class={section}>
+        <h2 class={h2}>With your consent: Google Analytics</h2>
+        <div class="space-y-4">
+          <p class={text}>
+            If you accept, Google Tag Manager loads Google Analytics 4, provided by Google Ireland
+            Limited. It sets the cookies <code class={code}>_ga</code> and <code class={code}>_ga_</code> followed
+            by an ID, which last up to two years. It collects the pages you view, the
+            referrer (the page you came from), your approximate location derived from your IP
+            address, and information about your browser and device.
+          </p>
+          <p class={text}>Data may be transferred to the United States under the EU-US Data Privacy Framework.</p>
+          <p class={text}>
+            The legal basis is your consent. You can withdraw it at any time with the Cookie
+            settings button at the bottom of every page, with the same effect as rejecting.
+          </p>
+        </div>
+      </section>
+
+      <section class={section}>
+        <h2 class={h2}>Your rights</h2>
+        <p class={text}>
+          Under the GDPR you have the right to access your personal data, to have it rectified or
+          erased, to restrict its processing and to object to it. You can also complain to a
+          supervisory authority; in Finland that is the Office of the Data Protection Ombudsman
+          (<a href="https://tietosuoja.fi/en" class={link}>tietosuoja.fi</a>).
+        </p>
+      </section>
+
+      {operator && (
+        <section class={section}>
+          <h2 class={h2}>Who runs this site</h2>
+          <p class={text}>
+            This site is operated by {operator}.
+            {contact && (
+              <>
+                {" "}Contact: {contactIsEmail ? <a href={`mailto:${contact}`} class={link}>{contact}</a> : contact}.
+              </>
+            )}
+          </p>
+        </section>
+      )}
+    </div>
+  </main>
+</BaseLayout>
