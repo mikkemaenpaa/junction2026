@@ -1,0 +1,184 @@
+---
+// Today's meals as an Apple Calendar style day window over the home page hero picture.
+// Rendered once as the last child of the hero <section> (absolutely positioned there), so it
+// never moves or resizes anything else.
+//
+// Two forms, same markup:
+// - Full window (viewport >= 1280 x 530): in the free picture right of the centred 768 px
+//   column, with a 10.00-23.00 hour grid. Its hour rows scale with the hero height
+//   (max(78svh, 380px)) so it always fits between the 64 px header and the hero's bottom with
+//   16 px to spare; below 530 px viewport height it would not, so it takes the compact form.
+// - Compact card (everything else): bottom right corner of the hero, date and two event rows.
+//   Where it lands depends on how the hero text wraps, which CSS cannot know, so a few lines of
+//   inline script show it (data-fit) only when it is at least 8 px clear of the header, the
+//   <h1> and every link in the hero. Without the script it stays hidden.
+//
+// Corners follow the art window of the companyregistryapi.com site: a plain radius for every
+// browser, and a larger radius with corner-shape: squircle where the engine supports it.
+const DAY_START = 10;
+const DAY_END = 23;
+const events = [
+  { name: "Lunch", start: "11:00", end: "13:30" },
+  { name: "Dinner", start: "19:30", end: "22:00" },
+];
+const hours = (t: string) => {
+  const [h, m] = t.split(":").map(Number);
+  return h + m / 60;
+};
+const label = (t: string) => t.replace(":", ".");
+const rows = DAY_END - DAY_START;
+---
+
+<aside class="cal" aria-label="Meals on Saturday 14.11.2026" style={`--rows:${rows}`}>
+  <div class="cal-head">
+    <div class="cal-bar" aria-hidden="true"><span class="dot"></span><span class="dot"></span><span class="dot"></span></div>
+    <p class="cal-date"><time datetime="2026-11-14">14.11.2026</time> <span class="cal-weekday">Saturday</span></p>
+  </div>
+  <div class="cal-body">
+    <div class="cal-grid" aria-hidden="true">
+      {Array.from({ length: rows + 1 }, (_, i) => <span class="cal-hour" style={`--i:${i};counter-reset:h ${DAY_START + i}`}></span>)}
+    </div>
+    <ul class="cal-events">
+      {events.map((e) => (
+        <li class="cal-event" style={`--s:${hours(e.start) - DAY_START};--d:${hours(e.end) - hours(e.start)}`}>
+          <span class="cal-name">{e.name}</span> <span class="cal-time"><time datetime={`2026-11-14T${e.start}`}>{label(e.start)}</time>–<time datetime={`2026-11-14T${e.end}`}>{label(e.end)}</time></span>
+        </li>
+      ))}
+    </ul>
+  </div>
+</aside>
+<script is:inline>
+  (() => {
+    const cal = document.currentScript.previousElementSibling, hero = cal.parentElement;
+    const fit = () => {
+      const h = hero.getBoundingClientRect(), c = cal.getBoundingClientRect();
+      let ok = c.top - h.top >= 72 && c.left - h.left >= 8 && h.bottom - c.bottom >= 8;
+      for (const el of hero.querySelectorAll("h1, a")) {
+        const r = el.getBoundingClientRect();
+        if (c.left < r.right + 8 && c.right > r.left - 8 && c.top < r.bottom + 8 && c.bottom > r.top - 8) ok = false;
+      }
+      cal.toggleAttribute("data-fit", ok);
+    };
+    const ro = new ResizeObserver(fit);
+    for (const el of [hero, ...hero.querySelectorAll("h1, a, div")]) ro.observe(el);
+  })();
+</script>
+
+<style>
+  .cal {
+    --hl: var(--highlight);
+    position: absolute;
+    right: 8px;
+    bottom: 8px;
+    width: max-content;
+    max-width: calc(100% - 16px);
+    padding: 8px 10px;
+    color: rgb(255 255 255 / 0.92);
+    background: rgb(28 28 30 / 0.74);
+    -webkit-backdrop-filter: blur(24px) saturate(160%);
+    backdrop-filter: blur(24px) saturate(160%);
+    border: 1px solid rgb(255 255 255 / 0.14);
+    border-radius: 12px;
+    box-shadow: 0 18px 48px rgb(0 0 0 / 0.45), 0 0 0 0.5px rgb(0 0 0 / 0.6);
+    font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Helvetica Neue", "Segoe UI", Roboto, Arial, sans-serif;
+    font-variant-numeric: tabular-nums;
+    letter-spacing: 0;
+    text-align: left;
+    visibility: hidden;
+  }
+  .cal[data-fit] { visibility: visible; }
+
+  .cal-head { display: flex; align-items: center; gap: 8px; }
+  .cal-bar { display: flex; align-items: center; gap: 5px; }
+  /* Window controls of an inactive macOS window: monochrome grey. */
+  .dot { width: 8px; height: 8px; border-radius: 50%; background: rgb(255 255 255 / 0.22); }
+  .cal-date { font-size: 13px; line-height: 16px; font-weight: 600; white-space: nowrap; }
+  .cal-weekday { font-weight: 400; color: rgb(235 235 245 / 0.62); }
+
+  .cal-grid { display: none; }
+  .cal-events { display: flex; flex-direction: column; gap: 2px; margin-top: 5px; }
+  .cal-event {
+    display: flex;
+    gap: 10px;
+    justify-content: space-between;
+    padding: 1px 6px 1px 6px;
+    font-size: 12px;
+    line-height: 16px;
+    background: color-mix(in oklab, var(--hl) 16%, transparent);
+    border-left: 3px solid var(--hl);
+    border-radius: 4px;
+  }
+  .cal-name { font-weight: 600; color: oklch(0.95 0.07 95); }
+  .cal-time { color: oklch(0.9 0.06 95); }
+
+  @supports (corner-shape: squircle) {
+    .cal { border-radius: 16px; corner-shape: squircle; }
+    .cal-event { border-radius: 6px; corner-shape: squircle; }
+  }
+
+  /* Full window. Fixed chrome (border 2 + bar 31 + title 60 + grid padding 16 = 109 px) plus
+     13 hour rows; rows take what the hero leaves after the header and 2 x 16 px of margin. */
+  @media (min-width: 1280px) and (min-height: 530px) {
+    .cal {
+      --free: calc((100% - 768px) / 2);
+      --w: min(320px, var(--free) - 32px);
+      --row: clamp(16px, (max(78svh, 380px) - 64px - 32px - 109px) / var(--rows), 36px);
+      top: 64px;
+      bottom: 0;
+      right: calc((var(--free) - var(--w)) / 2);
+      width: var(--w);
+      max-width: none;
+      height: calc(109px + var(--rows) * var(--row));
+      margin-block: auto;
+      padding: 0;
+      border-radius: 16px;
+      overflow: hidden;
+      visibility: visible;
+    }
+    .cal-head { display: block; }
+    .cal-bar { gap: 6px; height: 31px; padding: 0 14px; border-bottom: 1px solid rgb(255 255 255 / 0.1); }
+    .dot { width: 10px; height: 10px; }
+    .cal-date { height: 60px; padding: 10px 14px 0; font-size: 22px; line-height: 26px; font-weight: 700; }
+    .cal-weekday { display: block; font-size: 13px; line-height: 16px; }
+
+    .cal-body { position: relative; height: calc(16px + var(--rows) * var(--row)); }
+    .cal-grid { display: block; }
+    .cal-hour {
+      position: absolute;
+      top: calc(8px + var(--i) * var(--row));
+      left: 44px;
+      right: 0;
+      border-top: 1px solid rgb(255 255 255 / 0.1);
+    }
+    .cal-hour::before {
+      content: counter(h) ".00";
+      position: absolute;
+      right: calc(100% + 6px);
+      top: -7px;
+      font-size: 10.5px;
+      line-height: 13px;
+      color: rgb(235 235 245 / 0.6);
+    }
+    .cal-events { display: block; margin: 0; }
+    .cal-event {
+      position: absolute;
+      top: calc(8px + var(--s) * var(--row));
+      height: calc(var(--d) * var(--row));
+      left: 48px;
+      right: 8px;
+      flex-direction: column;
+      justify-content: flex-start;
+      gap: 0;
+      padding: 3px 6px 3px 7px;
+      overflow: hidden;
+      background: color-mix(in oklab, var(--hl) 20%, rgb(28 28 30 / 0.4));
+    }
+    .cal-name { font-size: 12.5px; line-height: 15px; }
+    .cal-time { font-size: 11px; line-height: 14px; }
+
+    @supports (corner-shape: squircle) {
+      .cal { border-radius: 22px; }
+      .cal-event { border-radius: 10px; }
+    }
+  }
+</style>

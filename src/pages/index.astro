@@ -4,6 +4,7 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 import { btnBase } from "../components/button";
 import { buttonClass } from "../components/ui/button";
 import LandingChallenges from "../components/LandingChallenges.astro";
+import HeroCalendar from "../components/HeroCalendar.astro";
 import { tracks } from "../data/challenges";
 import hero from "../assets/junction-2026-hero.jpg";
 
@@ -56,6 +57,7 @@ const jsonLd = { "@context": "https://schema.org", "@graph": [eventJsonLd, websi
           ))}
         </div>
       </div>
+      <HeroCalendar />
     </section>
     <LandingChallenges />
   </main>

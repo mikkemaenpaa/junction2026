@@ -17,6 +17,9 @@
 @source not "../pages/llms.txt.ts";
 /* Nor is the consent script (src/scripts), which holds no class names either. */
 @source not "../scripts";
+/* The hero calendar styles itself in a scoped <style>; its words ("inline", "backdrop-filter")
+   would otherwise become utilities on every page. */
+@source not "../components/HeroCalendar.astro";
 
 @theme inline {
   --font-display: var(--font-titillium-web);
