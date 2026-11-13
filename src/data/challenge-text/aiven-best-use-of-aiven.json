@@ -1,0 +1,34 @@
+{
+  "title": "Best Use of Aiven",
+  "org": "Aiven",
+  "task": "Great ideas need somewhere to run, data they can use and systems that work together. Whether you’re building an AI agent, an interactive game, a sustainability tool or something nobody has thought of yet, Aiven can help bring your project to life. We’re looking for the most impressive use of Aiven technology: a thoughtful implementation that makes a meaningful difference to your working solution.",
+  "prizes": "Best Use of Aiven: 1000€ · 2nd Overall: 750€ · 3rd Overall: 500€",
+  "sections": [
+    {
+      "title": "The Challenge",
+      "html": "<div><div><p>Great ideas need somewhere to run, data they can use and systems that work together. Whether you’re building an AI agent, an interactive game, a sustainability tool or something nobody has thought of yet, Aiven can help bring your project to life. We’re looking for the most impressive use of Aiven technology: a thoughtful implementation that makes a meaningful difference to your working solution.</p>\n<h3>Your Challenge</h3>\n<ul>\n<li>Use at least one Aiven service as a meaningful part of your Junction project, and demonstrate what it enables.</li>\n<li>You can enter this tech challenge alongside your main challenge. Keep your chosen problem, industry and audience, and use Aiven where it helps your solution.</li>\n<li>Choose the services that fit your project. A well-executed use of one service can be just as impressive as a solution combining several.</li>\n</ul>\n<p>You could host your app or agent on Aiven Runtime, store data in Aiven PostgreSQL, use Aiven Valkey for caching, process events with Aiven Kafka, observe your agent with Aiven ClickHouse or add search with Aiven OpenSearch.</p></div></div>",
+      "sidebar": false
+    },
+    {
+      "title": "Resources",
+      "html": "<div><div><h3>Resources</h3>\n<ul>\n<li><strong>Platform:</strong> <a href=\"https://console.aiven.io/signup\">Sign up to Aiven</a> and receive $50 in free credits.</li>\n<li><strong>Documentation:</strong> <a href=\"https://aiven.io/docs/\">Aiven documentation</a></li>\n<li><strong>Runtime templates:</strong> <a href=\"https://templates.aiven.io/\">Popular open-source frameworks</a></li>\n</ul>\n<p>There will also be Aiven mentors onsite all days that can help you with any questions you have around the Aiven platform or how you should architect your project.</p></div></div>",
+      "sidebar": false
+    },
+    {
+      "title": "Aiven",
+      "eyebrow": "Company Info",
+      "html": "<div><div><p><span>Website:</span> <a href=\"https://aiven.io/\">https://aiven.io/</a></p></div></div>",
+      "sidebar": true
+    },
+    {
+      "title": "Judging Criteria",
+      "html": "<div><ul><li><div><span>Meaningful use of Aiven technology</span><span>(40%)</span></div></li><li><div><span>Technical implementatation</span><span>(30%)</span></div></li><li><div><span>Impact on the Overall Solution</span><span>(20%)</span></div></li><li><div><span>Creativity</span><span>(10%)</span></div></li></ul></div>",
+      "sidebar": true
+    },
+    {
+      "title": "Prizes",
+      "html": "<div><ul><li><div>Best Use of Aiven</div><p>1000€</p></li><li><div>2nd Overall</div><p>750€</p></li><li><div>3rd Overall</div><p>500€</p></li></ul></div>",
+      "sidebar": true
+    }
+  ]
+}
