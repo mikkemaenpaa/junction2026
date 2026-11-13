@@ -1,0 +1,39 @@
+{
+  "title": "Best use of Arduino Uno Q",
+  "org": "Arduino",
+  "task": "Bring your idea to life in the physical world with Edge AI and the Arduino UNO Q.",
+  "prizes": "Arduino UNO Q & Plug and Make kit for each team member: Each member of the winning team receives an Arduino UNO Q and an Arduino Plug and Make Kit.",
+  "sections": [
+    {
+      "title": "The Challenge",
+      "html": "<div><div><h4>Bring your idea to life in the physical world with Edge AI and the Arduino UNO Q.</h4>\n<p>Use the Arduino UNO Q and Modulino sensors in your hackathon project, whatever challenge you are solving. Bring Physical AI to life: run AI models directly on the device, sense the real world and make things move, light up or react.</p>\n<p>This tech challenge is open to all teams, so you can combine it with any other Junction challenge or your own idea. Start by asking what problem you are solving and who it helps, then think about how hardware and Edge AI can make your solution tangible. The best projects combine a working physical prototype with a smart use of on-device AI.</p>\n<h4>Mentors:</h4>\n<p>You can find them from Arduino Hardware Lab and on Discord.</p></div></div>",
+      "sidebar": false
+    },
+    {
+      "title": "Insight",
+      "html": "<div><div><p>Arduino is also hosting the main challenge The Green European Renaissance, where teams use Edge AI and the Arduino UNO Q to create local solutions for a greener Europe. The Best Use of Arduino tech challenge is open to everyone, so teams working on any challenge can use Arduino to make their solution physical.</p>\n<p>The award goes to the team that makes the best and most creative use of Arduino in their project, in any challenge. We focus on the following criteria: Use of Arduino hardware &amp; Edge AI (50 %), Working prototype &amp; demo (30 %), and Creativity (20 %).</p>\n<h4>Getting the hardware</h4>\n<p>Arduino UNO Q kits are available to borrow from the Arduino Hardware Lab. You’ll find the instructions for booking and picking up your kit here: <a href=\"https://2026.hackjunction.com/hardware\">https://2026.hackjunction.com/hardware</a></p>\n<h4>Submission: on Junction Platform and to Arduino Project Hub</h4>\n<p>To be eligible for prizes, you must publish your project on the Arduino Project Hub in addition to submitting it on the Junction platform, where peer review and judging take place.</p>\n<ul>\n<li>\n<p>Log in at <a href=\"https://projecthub.arduino.cc/\">https://projecthub.arduino.cc/</a></p>\n</li>\n<li>\n<p>Click + NEW PROJECT</p>\n</li>\n<li>\n<p>Select the tag Junction Finland 2026</p>\n</li>\n<li>\n<p>Fill in the required parts</p>\n</li>\n</ul></div></div>",
+      "sidebar": false
+    },
+    {
+      "title": "Resources",
+      "html": "<div><div><p>Participants can use Arduino hardware and software to build Physical AI prototypes for any Junction challenge, with Arduino mentors on-site to help with technical questions. You can find the Hardware from Arduino booth.</p>\n<h4>Hardware we are bringing:</h4>\n<ul>\n<li>Arduino UNO Q (2 GB RAM, 16 GB eMMC)</li>\n<li>Arduino USB-C Cable</li>\n<li>Arduino USB-C Hub (8 in 1)</li>\n<li>USB-C Power Supply (45W)</li>\n<li>Arduino USB Camera</li>\n<li>Modulino Buzzer, Modulino Knob and Modulino Thermo sensors</li>\n</ul>\n<p>Software: Arduino App Lab (<a href=\"https://www.arduino.cc/en/software/#app-lab-section\">https://www.arduino.cc/en/software/#app-lab-section</a>)</p>\n<p>What to bring: A laptop with the Arduino App Lab.</p></div></div>",
+      "sidebar": false
+    },
+    {
+      "title": "Arduino",
+      "eyebrow": "Company Info",
+      "html": "<div><div><p><span>Website:</span> <a href=\"https://www.arduino.cc/\">https://www.arduino.cc/</a></p></div></div>",
+      "sidebar": true
+    },
+    {
+      "title": "Judging Criteria",
+      "html": "<div><ul><li><div><span>Use of Arduino hardware &amp; Edge AI </span><span>(50%)</span></div></li><li><div><span>Working prototype &amp; demo</span><span>(30%)</span></div></li><li><div><span>Creativity</span><span>(20%)</span></div></li></ul></div>",
+      "sidebar": true
+    },
+    {
+      "title": "Prizes",
+      "html": "<div><ul><li><div>Arduino UNO Q &amp; Plug and Make kit for each team member</div><p>Each member of the winning team receives an Arduino UNO Q and an Arduino Plug and Make Kit.</p></li></ul></div>",
+      "sidebar": true
+    }
+  ]
+}
