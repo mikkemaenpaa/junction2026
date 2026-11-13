@@ -1,0 +1,34 @@
+{
+  "title": "Verda Compute Track",
+  "org": "Verda",
+  "task": "From electron to token, it takes decades of progress to run AI. Add scale, efficiency, and sustainability, and AI becomes a monumental achievement.",
+  "prizes": "1st Place: $10,000 in Verda cloud credits + Verda hoodies · 2nd Place: $2,500 in cloud credits · 3rd Place: $2,500 in cloud credits",
+  "sections": [
+    {
+      "title": "The Challenge",
+      "html": "<div><div><h4>INTRODUCTION</h4>\n<p>From electron to token, it takes decades of progress to run AI. Add scale, efficiency, and sustainability, and AI becomes a monumental achievement.</p>\n<p>Verda brings everything together.</p>\n<p>We make compute, storage, and networking work in unison to squeeze peak performance, hosted in European data centers and utilizing 100% renewable energy. We develop services for you to utilize computational power most efficiently, no matter your use case.</p>\n<p>The end result is a cloud platform trusted by the world's leading AI labs and frontier researchers. The best thing is you get to use the same next-gen compute for free at Junction 2026.</p>\n<h4>BOUNTY: BEST USE OF VERDA</h4>\n<p>Pick any challenge at Junction and use Verda products to build something you couldn't build on a laptop. Then show us how far it goes.</p>\n<ul>\n<li><strong>Teach a humanoid to move</strong>. Train locomotion or manipulation policies for Aalto's Unitree G1 in simulation, at scale, before your shot at the real robot.</li>\n<li><strong>Turn demonstrations into a brain</strong>. Train imitation-learning or VLA policies from robot-arm demos in the Ignite × Intel challenge, or from Rokoko motion-capture teleoperation data.</li>\n<li><strong>Make an agent stronger than it was on Friday.</strong> Run thousands of rollouts in your AfterQuery RL environment and fine-tune a smaller model on the experience.</li>\n<li><strong>Read the whole internet's encyclopedia.</strong> Embed MariaDB's full Wikipedia dataset with batch jobs and serve a RAG assistant on top.</li>\n<li><strong>Keep sensitive data in Europe.</strong> Run open-weight models for a banking coach or a recruitment tool on infrastructure you control, instead of sending data to someone else's API.</li>\n</ul>\n<p><strong>Or surprise us.</strong> Anything that needs serious compute counts. (Anything except crypto mining. We've seen it, and it gets you banned.)</p>\n<p><strong>What we're looking for</strong></p>\n<ul>\n<li>An ambitious idea where compute is what makes it possible</li>\n<li>The right Verda product for the job, and a clear reason why you chose it</li>\n<li>Your path from first idea to working prototype</li>\n<li>Bonus points: show how your solution would scale from a hackathon demo to real users</li>\n</ul>\n<p><strong>Minimum Requirements</strong></p>\n<ul>\n<li>Document your process</li>\n<li>Share a link to a summary → Post it in our Discord channel</li>\n</ul>\n<p><strong>The Technology</strong></p>\n<ul>\n<li>Inference API for serving out-of-the-box open-weight models within your application.</li>\n<li>GPU instances or Instant clusters for training or fine-tuning tasks.</li>\n<li>CPU instances for hosting agentic applications.</li>\n<li>Auto-scaling containers for hosting models where scale and costs matter.</li>\n<li>Batch jobs for long-running tasks in the background.</li>\n</ul>\n<p><strong>Prizes and Judging</strong></p>\n<p>The winning team gets 10,000 USD in cloud credits and Verda hoodies. Runner-up teams in second and third places get 2,500 USD in cloud credits.</p></div></div>",
+      "sidebar": false
+    },
+    {
+      "title": "Resources",
+      "html": "<div><div><h4>What we'll bring</h4>\n<ul>\n<li><strong>Inference API:</strong> serve open-weight models in your app with zero setup</li>\n<li><strong>GPU instances and Instant Clusters:</strong> for training and fine-tuning when one GPU isn't enough</li>\n<li><strong>CPU instances:</strong> to host your agents and backends</li>\n<li><strong>Auto-scaling containers:</strong> deploy models where scale and cost matter</li>\n<li><strong>Batch jobs:</strong> run long jobs in the background while you sleep (or don't)</li>\n<li><strong>NVIDIA Nemotron endpoint:</strong> hosted by Verda together with NVIDIA</li>\n<li><strong>Free credits for every team:</strong> scan the QR code on your table or go to <a href=\"https://verda.com/blog/junction-2026\">verda.com/blog/junction-2026</a></li>\n</ul>\n<p><strong>Mentors on-site during the entire weekend</strong>, meet us on the third floor at Booth 6! Start with the <strong>&quot;Getting started with Verda&quot;</strong> workshop on Friday at 20:30, right after the opening ceremony: sign-up, credits, every product, and how to use them.</p>\n<p>Ambition: how much did compute let you do that you otherwise couldn't?\nFit: did you pick the right Verda services and use them well?\nWorking prototype: does it run, and is the process documented?\nPath to scale: is there a credible way from demo to real users?</p></div></div>",
+      "sidebar": false
+    },
+    {
+      "title": "Verda",
+      "eyebrow": "Company Info",
+      "html": "<div><div><p><span>Website:</span> <a href=\"http://verda.com/\">http://verda.com/</a></p></div></div>",
+      "sidebar": true
+    },
+    {
+      "title": "Judging Criteria",
+      "html": "<div><ul><li><div><span>Ambition</span><span>(25%)</span></div><p>How much did compute let you do that you otherwise couldn't?</p></li><li><div><span>Fit</span><span>(25%)</span></div><p>Did you pick the right Verda services and use them well?</p></li><li><div><span>Working prototype</span><span>(25%)</span></div><p>Does it run, and is the process documented?</p></li><li><div><span>Path To Scale</span><span>(25%)</span></div><p>Is there a credible way from demo to real users?</p></li></ul></div>",
+      "sidebar": true
+    },
+    {
+      "title": "Prizes",
+      "html": "<div><ul><li><div>1st Place</div><p>$10,000 in Verda cloud credits + Verda hoodies</p></li><li><div>2nd Place</div><p>$2,500 in cloud credits</p></li><li><div>3rd Place</div><p>$2,500 in cloud credits</p></li></ul></div>",
+      "sidebar": true
+    }
+  ]
+}

@@ -333,25 +333,7 @@ export const tracks: Track[] = [
   },
 ];
 
-// Apply partner wording across detail pages, cards and llms.txt, keeping existing URLs even
-// when a partner's full title differs from the old abbreviated title.
-for (const track of tracks) {
-  for (const challenge of track.challenges) {
-    const slug = `${challenge.org}-${challenge.title}`.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
-    const fullText = challengeText[slug];
-    if (fullText) {
-      Object.assign(challenge, { slug, fullText, title: fullText.title, org: fullText.org, task: fullText.task, prizes: fullText.prizes });
-    }
-  }
-}
-
-export type TechChallenge = {
-  org: string;
-  title: string;
-  task: string;
-  prizes: string;
-  links?: Link[];
-};
+export type TechChallenge = Challenge;
 
 export const techChallenges: TechChallenge[] = [
   {
@@ -488,6 +470,16 @@ export const techChallenges: TechChallenge[] = [
     links: [{ label: "atech.dev", url: "https://atech.dev/" }],
   },
 ];
+
+// Apply partner wording across detail pages, cards and llms.txt for both main and tech
+// challenges. Keep existing URLs when source titles or partner names differ.
+for (const challenge of [...tracks.flatMap((track) => track.challenges), ...techChallenges]) {
+  const slug = `${challenge.org}-${challenge.title}`.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
+  const fullText = challengeText[slug];
+  if (fullText) {
+    Object.assign(challenge, { slug, fullText, title: fullText.title, org: fullText.org, task: fullText.task, prizes: fullText.prizes });
+  }
+}
 
 export const partners: [string, string][] = [
   ["Hostinger", "https://www.hostinger.com/"], ["Valio Aimo", "https://www.valioaimo.fi/"], ["S-Pankki", "https://s-pankki.fi/"],

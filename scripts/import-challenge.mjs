@@ -76,7 +76,9 @@ export function extractChallenge(source) {
     };
   });
   const first = parser.parse(sourceSections[0].html);
-  const summary = select("p,h1,h2,h3,h4", first);
+  const summary = selectAll("p,h1,h2,h3,h4", first).find((node) =>
+    !/^(introduction|background|description|the challenge)$/i.test(normalize(toString(node))),
+  );
   assert(summary, "Expected a challenge summary");
   const prizeSection = sourceSections.find((section) => section.title === "Prizes");
   assert(prizeSection, "Expected prizes");
