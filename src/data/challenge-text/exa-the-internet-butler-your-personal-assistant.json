@@ -1,0 +1,34 @@
+{
+  "title": "The Internet Butler / Your Personal Assistant",
+  "org": "Exa",
+  "task": "Build an agent that takes tedious tasks in people’s lives off their hands.",
+  "prizes": "1st Place: $2,500 Cash, $5,000 in Exa credits, Exa hoodie per person & Exa branded TRMNL dashboard · 2nd Place: $1500 cash, $3,000 in Exa credits, Exa hoodie per person & Exa branded macropad · 3rd Place: $500 Cash, $1k Exa credits & Exa hoodie per person · Participation Trophy: Every Junction participant get free $50 Exa Credits",
+  "sections": [
+    {
+      "title": "The Challenge",
+      "html": "<div><div><p>Build an agent that takes tedious tasks in people’s lives off their hands.</p>\n<p><strong>Introduction:</strong> Everyone has pain points in their day to day which require hours of digging and research like checking whether a rent increase is legal, or finding out which benefits a family qualifies for, which vegan restaurant to pick for an anniversary date, and more. The answers exist, but they are buried across the web. Exa is the search engine built for AI. It can find, read and compare information from across the web and pull it back as structured data, so your agent can do the digging and the task can be handed off completely.</p>\n<p><strong>The challenge:</strong> Develop a personal agent that helps people get stuff done. Your agent should find what matters across the web, work out what needs to happen and get the task as close to done as it can, leaving the final approval to the user if needed. Demo on a real case.</p>\n<p><strong>Areas of interest:</strong> General tasks. Examples: planning special occasions, handling daily living errands, rent, missed benefits, business information, travel disruption, etc.</p>\n<p><strong>How we judge:</strong> We will judge projects on how well they use Exa to get information that could not have come from a model's training data alone, how useful they are to a specific group of real people, and how clearly they show their sources. We will also look at originality and at whether the demo works on live queries, including ones the judges try themselves.</p>\n<p>The winning team will receive [cash amount] and [Exa API credits per member], and the two runner-up teams will receive [amounts]. Every team that submits a working project built on Exa will receive [API credits] to keep building after the event. [Consider a mentoring session or visibility on Exa's channels for the winners.]</p>\n<p><strong>About Exa:</strong> Exa is a search engine built for AI. We index the web by meaning, so AI applications can find information by describing what they need, and we return clean, structured content that models can use directly. Companies such as Cursor, Cognition, HubSpot and AWS use Exa to connect their products to the web. We are joining Junction to meet builders, see new ideas for what AI can do with access to the whole web, and keep supporting promising teams after the event.</p></div></div>",
+      "sidebar": false
+    },
+    {
+      "title": "Resources",
+      "html": "<div><div><p><strong>What we'll bring:</strong> Every participant will get $50 in Exa Credits and access to our full API for the event. This includes the Search API with fast, balanced and deep research modes, and the Contents API for full page text, highlights, summaries and crawling a site's subpages.</p>\n<p>Teams can filter results by date, domain and category (such as news, research papers, companies, people and personal websites), request results as structured JSON, and retrieve past versions of web pages.</p>\n<p>We will also provide Websets for building verified lists of people, companies and opportunities, Monitors for recurring searches, our hosted MCP server, and Python and JavaScript SDKs. Our demo gallery at <a href=\"https://demos.exa.ai\">demos.exa.ai</a> has working examples teams can build from.</p>\n<p>Exa engineers will be on site throughout the event to help with technical questions and project ideas, and there will also be a Discord channel to receive asynchronous advice.</p>\n<p>Free $50 Exa Credits: EXA50JUNCTION (Redeem it at <a href=\"https://dashboard.exa.ai/billing\">dashboard.exa.ai/billing</a>)</p></div></div>",
+      "sidebar": false
+    },
+    {
+      "title": "Exa",
+      "eyebrow": "Company Info",
+      "html": "<div><div><p><span>Website:</span> <a href=\"https://exa.ai/\">https://exa.ai/</a></p></div></div>",
+      "sidebar": true
+    },
+    {
+      "title": "Judging Criteria",
+      "html": "<div><ul><li><div><span>Use of Exa</span><span>(20%)</span></div><p>Use of Exa to retrieve information that could not have come from a model’s training data alone</p></li><li><div><span>Usefulness</span><span>(20%)</span></div><p>Usefulness to a specific group of real people</p></li><li><div><span>Clarity</span><span>(20%)</span></div><p>Clarity in showing sources</p></li><li><div><span>Originality</span><span>(20%)</span></div><p>How original the idea is? </p></li><li><div><span>Working Implementation</span><span>(20%)</span></div><p>Whether the demo works on live queries, including ones the judges try themselves</p></li></ul></div>",
+      "sidebar": true
+    },
+    {
+      "title": "Prizes",
+      "html": "<div><ul><li><div>1st Place</div><p>$2,500 Cash, $5,000 in Exa credits, Exa hoodie per person &amp; Exa branded TRMNL dashboard </p></li><li><div>2nd Place</div><p>$1500 cash, $3,000 in Exa credits, Exa hoodie per person &amp; Exa branded macropad</p></li><li><div>3rd Place</div><p>$500 Cash, $1k Exa credits &amp; Exa hoodie per person</p></li><li><div>Participation Trophy</div><p>Every Junction participant get free $50 Exa Credits</p></li></ul></div>",
+      "sidebar": true
+    }
+  ]
+}
