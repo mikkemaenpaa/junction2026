@@ -1,0 +1,29 @@
+{
+  "title": "Best Use of Vultr",
+  "org": "Major League Hacking",
+  "task": "Vultr empowers hackers to bring their high-performance projects to life instantly; providing everything from the speed of one-click deployment and scalable cloud compute, to specialized Vultr Cloud GPUs that can power AI-driven applications. We want you to push the limits of what can be built when infrastructure is no longer the bottleneck!",
+  "prizes": "Best Overall: M5Stack mini programmable monitor",
+  "sections": [
+    {
+      "title": "The Challenge",
+      "html": "<div><div><p>Vultr empowers hackers to bring their high-performance projects to life instantly; providing everything from the speed of one-click deployment and scalable cloud compute, to specialized Vultr Cloud GPUs that can power AI-driven applications. We want you to push the limits of what can be built when infrastructure is no longer the bottleneck!</p>\n<p>Sign up for a Vultr account today and claim your free cloud credits! Take your next hack to the cloud with Vultr for a chance to win some awesome prizes for you and your team!</p></div></div>",
+      "sidebar": false
+    },
+    {
+      "title": "Resources",
+      "html": "<div><div><p>Check how to build with Vultr at <a href=\"https://mlh.link/vultr\">https://mlh.link/vultr</a></p></div></div>",
+      "sidebar": false
+    },
+    {
+      "title": "Major League Hacking",
+      "eyebrow": "Company Info",
+      "html": "<div><p>Major League Hacking (MLH) is a community-focused organization that empowers student developers through hackathons, technical workshops, and hands-on learning experiences. Serving as the official student hackathon league, MLH supports events around the world by providing resources, mentorship, and a platform for students to collaborate, build innovative projects, and strengthen their technical skills. By fostering an inclusive and enthusiastic environment, MLH helps students grow as developers, leaders, and creators while connecting them with a global network of peers and industry partners.</p><div></div></div>",
+      "sidebar": true
+    },
+    {
+      "title": "Prizes",
+      "html": "<div><ul><li><div>Best Overall</div><p>M5Stack mini programmable monitor</p></li></ul></div>",
+      "sidebar": true
+    }
+  ]
+}
