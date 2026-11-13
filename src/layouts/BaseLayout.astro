@@ -44,6 +44,9 @@ const {
 // (In the build, Astro.url.pathname is the output file, e.g. /about.html or /index.html.)
 const pagePath = Astro.url.pathname.replace(/\.html$/, "").replace(/\/(index)?$/, "");
 const markdownHref = markdown ? new URL(`${pagePath || "/index"}.md`, Astro.site).href : undefined;
+// The page's public URL, as listed in sitemap.xml: the site root for the home page, otherwise
+// without ".html" and without trailing slash. The 404 page (served for any unknown URL) has none.
+const pageUrl = pagePath === "/404" ? undefined : new URL(pagePath || "/", Astro.site).href;
 
 // Every configured face is latin/normal (astro.config.mjs), so weight alone selects a file.
 const toPreload = (weights: readonly number[] = []) =>
@@ -66,10 +69,12 @@ const speculationRules = {
     <title>{title}</title>
     <meta name="description" content={description} />
     <meta property="og:type" content="website" />
+    {pageUrl && <meta property="og:url" content={pageUrl} />}
     <meta name="twitter:card" content="summary_large_image" />
     {ogTitle && <meta property="og:title" content={ogTitle} />}
     {ogDescription && <meta property="og:description" content={ogDescription} />}
     {keywords && <meta name="keywords" content={keywords} />}
+    {pageUrl && <link rel="canonical" href={pageUrl} />}
     <link rel="icon" href="/favicon.ico" type="image/x-icon" />
     {markdownHref && <link rel="alternate" type="text/markdown" href={markdownHref} />}
     <Font cssVariable="--font-titillium-web" preload={toPreload(preloadFonts.titilliumWeb)} />

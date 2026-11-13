@@ -25,7 +25,9 @@ const [heroAvif, heroWebp, heroJpg] = await Promise.all([
 // these classes merged over it (tailwind-merge drops h-9, px-4, py-2, bg-primary, ...).
 const heroCta = buttonClass({ className: btnBase + " h-auto max-w-full whitespace-normal bg-highlight px-6 py-5 font-mono text-xl text-highlight-foreground hover:bg-highlight/90 sm:px-10 sm:text-2xl md:px-12 md:text-4xl" });
 
-const eventJsonLd = { "@context": "https://schema.org", "@type": "Event", name: "Junction 2026", description: "Junction 2026 – European Tech Renaissance hackathon", startDate: "2026-11-13", endDate: "2026-11-15", eventAttendanceMode: "https://schema.org/OfflineEventAttendanceMode", location: { "@type": "Place", name: "Hype Areena", address: "Espoo, Finland" }, url: "https://junction2026.com" };
+const eventJsonLd = { "@type": "Event", name: "Junction 2026", description: "Junction 2026 – European Tech Renaissance hackathon", startDate: "2026-11-13", endDate: "2026-11-15", eventAttendanceMode: "https://schema.org/OfflineEventAttendanceMode", location: { "@type": "Place", name: "Hype Areena", address: "Espoo, Finland" }, url: "https://junction2026.com" };
+const websiteJsonLd = { "@type": "WebSite", name: "Junction 2026 Challenges", alternateName: "Junction 2026", url: "https://junction2026.com/" };
+const jsonLd = { "@context": "https://schema.org", "@graph": [eventJsonLd, websiteJsonLd] };
 ---
 
 <BaseLayout
@@ -34,7 +36,7 @@ const eventJsonLd = { "@context": "https://schema.org", "@type": "Event", name: 
   ogTitle="Junction 2026 Challenges"
   ogDescription="Junction 2026 challenges in compact and agent friendly format"
   keywords="Junction 2026, Junction hackathon 2026, Junction 2026 challenges, Junction 2026 Espoo, hackathon Finland 2026, Europe's biggest hackathon"
-  jsonLd={eventJsonLd}
+  jsonLd={jsonLd}
   preloadFonts={{ titilliumWeb: [300], spaceMono: [700, 400] }}
 >
   <main>
