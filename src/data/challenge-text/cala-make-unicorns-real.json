@@ -1,0 +1,39 @@
+{
+  "title": "Make Unicorns Real",
+  "org": "Cala",
+  "task": "Build a product that solves a real need for founders or investors, powered by reliable public data from Cala.",
+  "prizes": "1st: Travel and accommodation covered for three hackathons (around 5,000€ in value for a team of 4) + 1,000€ in Cala credits + Cala merch · Runner Up: 500€ in Cala credits + Cala Merch",
+  "sections": [
+    {
+      "title": "The Challenge",
+      "html": "<div><div><p>Build a product that solves a real need for founders or investors, powered by reliable public data from Cala.</p>\n<p><strong>Introduction:</strong> Founders and investors make some of their most important decisions based on scattered information: dozens of browser tabs, outdated databases and gut feeling. AI agents could change that, but when they go to the web for answers, they find information that is messy, stale and disconnected. Cala gives agents a structured, reliable way to query the world's public information, from companies and people to funding rounds and investors. Now it's your turn to put it to work for the startup ecosystem, and help make the next unicorns real.</p>\n<p><strong>The challenge:</strong> Build a product on top of Cala's data that solves a real need for founders, investors, or both. It can be a focused tool for a specific user, like a first-time founder raising their very first round or a small fund deciding which industries to bet on next, or a broader tool for the whole ecosystem, like an agent that connects the right founders and investors. Don't try to cover everything: one need solved in an original, well-executed way beats a platform that does ten things halfway. You have a weekend, and Slush, Europe's main meeting point for founders and investors, starts right after: aim for a complete product they could start using the day after the hackathon. Make it rely on what makes Cala different: structured, sourced data on companies, funding rounds and investors, and the connections between them.</p>\n<p><strong>How we judge:</strong> We reward sharp ideas, done well: a fresh angle on a real need scores higher than a generic version of an idea we've seen many times. Focus beats breadth: one need solved brilliantly wins over many solved halfway.\n<strong>• Real need (25%):</strong> a clear user with a problem worth solving\n<strong>• Execution (25%):</strong> it works smoothly, end to end\n<strong>• Originality (25%):</strong> a fresh angle, even on a familiar problem\n<strong>• Use of Cala (25%):</strong> Cala is core to the product, not an add-on</p>\n<p><strong>Prizes:</strong> Each member of the winning team becomes a Cala Comet, a prize worth around €5,000 for a team of four. For three months, each member will get to attend one hackathon of their choice per month, with travel and accommodation covered by Cala. The winning team also gets €1,000 in Cala credits and Cala merch, and the runner-up team receives €500 in Cala credits and Cala merch.</p>\n<p><strong>About Cala:</strong> The world is increasingly run by agents, but when they need reliable external data, they go to the web and find information that is often hard to trust, out of date and scattered across sources. Cala is the public data layer for AI agents: an agent-first database of the world, built on a knowledge graph where every data point is sourced and connected, and queryable through an API or MCP. Enterprise clients already use Cala in agentic workflows across finance, pharma and legal. We're at Junction to see what builders create when reliable data is no longer the bottleneck.</p></div></div>",
+      "sidebar": false
+    },
+    {
+      "title": "Insight",
+      "html": "<div><div><p><strong>Some needs we hear often</strong>, as starting points rather than a menu:</p>\n<p><strong>• Raising money smarter:</strong> helping founders find the investors who actually take the lead in funding companies like theirs, and who are still actively investing today.</p>\n<p><strong>• Reading a market:</strong> seeing who's competing, who just raised money and from whom, and how much funding is flowing into an industry.</p>\n<p><strong>• Investing with confidence:</strong> spotting promising young companies before anyone else does, or getting a quick, well-sourced background check on a company before putting money in.</p>\n<p><strong>• Beyond funding:</strong> finding first customers among companies that just raised, sizing a market with real company data, or mapping who might buy a startup one day.</p>\n<p>We'd love to see needs we haven't thought of.</p></div></div>",
+      "sidebar": false
+    },
+    {
+      "title": "Resources",
+      "html": "<div><div><p><strong>Mentors:</strong> Issey Masuda, Cala's co-founder and CTO, together with engineers from Cala's team, with expertise in knowledge graphs, data pipelines, LLM agents and MCP, on site throughout the event.</p>\n<p><strong>Main contact:</strong> Elies Delgado (Community Growth), <a href=\"mailto:elies@cala.ai\">elies@cala.ai</a></p>\n<p><strong>What we'll bring:</strong> Each team gets all the credits it needs to build on Cala, the public data layer for AI agents. Every data point is structured, sourced and connected, and you can query it through the API or MCP. Get started at docs.cala.ai, then redeem your credits with the code MAKEUNICORNSREAL: in console.cala.ai, go to Billing → Extra credits → Add credits → Add promo code (no payment details needed). Mentors from Cala's team will be on site throughout the event to support you.</p>\n<p><strong>Extra details:</strong> Join our workshop &quot;Tips &amp; tricks to Make Unicorns Real&quot; on Saturday at 11:00 for an insider briefing: how to get the most out of Cala's data, how to build things web search can't, and what our judges will be looking for. The Cala team will stay around afterwards to help you shape your idea, and there may be some merch involved.</p>\n<p>Real need (25%): a clear user with a problem worth solving\n• Execution (25%): it works smoothly, end to end\n• Originality (25%): a fresh angle, even on a familiar problem\n• Use of Cala (25%): Cala is core to the product, not an add-on</p></div></div>",
+      "sidebar": false
+    },
+    {
+      "title": "Cala",
+      "eyebrow": "Company Info",
+      "html": "<div><div><p><span>Website:</span> <a href=\"https://www.cala.ai/\">https://www.cala.ai/</a></p></div></div>",
+      "sidebar": true
+    },
+    {
+      "title": "Judging Criteria",
+      "html": "<div><ul><li><div><span>Real need</span><span>(25%)</span></div><p>a clear user with a problem worth solving</p></li><li><div><span>Execution</span><span>(25%)</span></div><p>it works smoothly, end to end</p></li><li><div><span>Originality</span><span>(25%)</span></div><p>a fresh angle, even on a familiar problem</p></li><li><div><span>Use of Cala</span><span>(25%)</span></div><p>Cala is core to the product, not an add-on</p></li></ul></div>",
+      "sidebar": true
+    },
+    {
+      "title": "Prizes",
+      "html": "<div><ul><li><div>1st </div><p>Travel and accommodation covered for three hackathons (around 5,000€ in value for a team of 4) + 1,000€ in Cala credits + Cala merch</p></li><li><div>Runner Up</div><p>500€ in Cala credits + Cala Merch</p></li></ul></div>",
+      "sidebar": true
+    }
+  ]
+}
