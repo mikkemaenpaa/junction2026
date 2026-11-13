@@ -1,0 +1,39 @@
+{
+  "title": "The Web Is Your Real-Time Database",
+  "org": "Context.dev",
+  "task": "Build a product that reacts to the live web.",
+  "prizes": "1st Place: €2,000 + swag · 2nd Place: €500 + swag · 3rd Place: Swag",
+  "sections": [
+    {
+      "title": "The Challenge",
+      "html": "<div><div><p>Build a product that reacts to the live web.</p>\n<h3>Introduction</h3>\n<p>Most software runs on stale data and can't see the internet as it is right now. Context.dev turns any website, company, person or news story into clean, structured data with one API call.</p>\n<p>You can combine train delays, live sneaker prices, GTA VI leaks and anything your heart imagines to combine them in novel ways.</p>\n<h3>The challenge</h3>\n<p>Every industry runs on information that sits on the open web, but it's spread across millions of pages in different formats, and it goes out of date overnight.</p>\n<p>Analysts still copy-paste prices, check supplier websites by hand and read the news to catch risks. Fact-checkers can't keep up with what gets shared online. Software still greets every new customer with the same generic screen.</p>\n<p>Build a product that turns live web data into decisions, actions or experiences that weren't possible before.</p>\n<p>Some examples for inspiration:</p>\n<ul>\n<li><a href=\"https://gpurentalprices.com/\">GPU Rental Prices</a>: compare GPU rental prices across cloud providers.</li>\n<li><a href=\"https://www.producthunt.com/products/yapper-leaderboard\">Yapper Leaderboard</a>: rank founders and startups by their activity on X.\n<ul>\n<li><a href=\"https://www.context.dev/blog/stan-builds-an-internal-leaderboard-with-context-dev\">See how Stan built a similar leaderboard using Context.dev.</a></li>\n</ul>\n</li>\n<li><a href=\"https://cve.now/\">cve.now</a>: monitor newly disclosed security vulnerabilities.</li>\n<li><a href=\"https://www.context.dev/blog/ferndesk-achieved-personalized-onboarding-in-minutes-with-brand-dev\">Ferndesk</a>: personalize onboarding with company data and brand assets.</li>\n</ul></div></div>",
+      "sidebar": false
+    },
+    {
+      "title": "Insight",
+      "html": "<div><div><p>Themes we'd love to see:</p>\n<ul>\n<li>\n<p><em>Scrape the Economy</em> (live indicators built from product prices or job listings)</p>\n</li>\n<li>\n<p><em>The Web, Watched</em> (agents triggered by changes to websites or news)</p>\n</li>\n<li>\n<p><em>Brand in a Box</em> (apps that brand themselves from a sign-up email)</p>\n</li>\n<li>\n<p><em>Truth at Internet Speed</em> (fact-checking with sources).</p>\n</li>\n<li>\n<p>Wild ideas outside these themes are just as welcome.</p>\n</li>\n</ul></div></div>",
+      "sidebar": false
+    },
+    {
+      "title": "Resources",
+      "html": "<div><div><h3>Mentors</h3>\n<p>Engineers from Context.dev, with expertise in web data extraction, LLM agents, search and large-scale data pipelines: Beer van der Drift (CTO), Yahia Bakour (Founder &amp; CEO) and Thomas Oomens (Engineer). Mentors are on site Friday until 23:00, Saturday from 09:00 until Sunday 02:00, and Sunday from 07:00 until the end.</p>\n<p><strong>Main contact:</strong> Beer van der Drift, CTO, <a href=\"mailto:beer@context.dev\">beer@context.dev</a></p>\n<h3>Technologies</h3>\n<p>Every team gets 50,000 free Context.dev API credits that don't expire: sign up at <a href=\"https://context.dev/signup\">context.dev/signup</a> and redeem code JUNCTION26 at <a href=\"https://context.dev/dashboard/redeem-credits\">context.dev/dashboard/redeem-credits</a>. Start with the Quickstart at <a href=\"https://docs.context.dev/quickstart\">docs.context.dev/quickstart</a> (full docs: <a href=\"https://docs.context.dev\">docs.context.dev</a>). Each team can run up to 50 concurrent requests.</p>\n<ul>\n<li><strong>Web:</strong> search, scrape (markdown, HTML, screenshots, images), crawl, URL mapping, structured extraction, research answers</li>\n<li><strong>Entities:</strong> brand data (logos, colors, fonts, style guides), company and people search and enrichment, NAICS/SIC classification</li>\n<li><strong>Signals:</strong> news search, monitors with webhooks for change detection</li>\n<li><strong>Scale:</strong> batch API for thousands of URLs, file parsing for PDFs and documents</li>\n</ul>\n<p>Creative/ambitious ideas outside these themes are extremely welcome.</p>\n<p>Our engineers will be on site all weekend to help with technical questions, prompt and agent design, and scaling.</p>\n<p><strong>Extra details:</strong> Context.dev is built by a small team that ships fast, much like a hackathon team does. We'd love to feature standout projects on our social channels.</p></div></div>",
+      "sidebar": false
+    },
+    {
+      "title": "Context.dev",
+      "eyebrow": "Company Info",
+      "html": "<div><p>Context.dev provides the web-data layer for AI: APIs that turn websites, brands, companies, people and news into structured, real-time context for software and agents. Teams like Supermemory, Mintlify and Upstash build on it. We went through YC S26 and raised a $9M seed led by General Catalyst, with investors like Paul Graham and Theo of T3. We're coming to Junction to see what the next generation of builders creates when the whole web is one API call away.</p><div></div></div>",
+      "sidebar": true
+    },
+    {
+      "title": "Judging Criteria",
+      "html": "<div><ul><li><div><span>Real-world impact</span><span>(20%)</span></div><p>Does this connect to a real business or consumer need?</p></li><li><div><span>Creative use of live web data</span><span>(20%)</span></div><p>One scrape call or interesting combination of different sources?</p></li><li><div><span>Completeness of demo</span><span>(20%)</span></div><p>How ready is it for production?</p></li><li><div><span>Technical execution</span><span>(20%)</span></div><p>Latency and accuracy of data </p></li><li><div><span>Real-timeness</span><span>(20%)</span></div><p>Does it react to change over time or take a one-off snapshot?</p></li></ul></div>",
+      "sidebar": true
+    },
+    {
+      "title": "Prizes",
+      "html": "<div><ul><li><div>1st Place</div><p>€2,000 + swag</p></li><li><div>2nd Place</div><p>€500 + swag</p></li><li><div>3rd Place</div><p>Swag</p></li></ul></div>",
+      "sidebar": true
+    }
+  ]
+}
