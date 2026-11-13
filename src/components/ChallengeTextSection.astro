@@ -38,5 +38,11 @@ const { section } = Astro.props;
   .challenge-prose :global(pre) { margin: 1rem 0; max-width: 100%; overflow-x: auto; border: 1px solid var(--border); padding: 1rem; }
   .challenge-prose :global(code) { font-family: var(--font-mono); font-size: 0.85em; }
   .challenge-prose :global(pre code) { overflow-wrap: normal; }
+  .challenge-prose :global(table) { width: 100%; table-layout: fixed; border-collapse: collapse; margin: 1rem 0; }
+  .challenge-prose :global(th),
+  .challenge-prose :global(td) { border-bottom: 1px solid var(--border); padding: 0.75rem; text-align: left; vertical-align: top; }
+  .challenge-prose :global(th) { color: var(--foreground); font-weight: 600; }
+  .challenge-prose :global(th:first-child),
+  .challenge-prose :global(td:first-child) { width: 35%; }
   .challenge-prose :global(li > div > span + span) { margin-left: 0.25em; }
 </style>

@@ -28,6 +28,7 @@ import { toString } from "hast-util-to-string";
 import rehypeParse from "rehype-parse";
 import rehypeRemark from "rehype-remark";
 import remarkStringify from "remark-stringify";
+import { gfmTableToMarkdown } from "mdast-util-gfm-table";
 import { unified } from "unified";
 
 /** Built HTML files (relative to dist/) that get no Markdown twin. */
@@ -339,6 +340,7 @@ function reshape(main: Element, page: { url: URL; title: string }) {
 }
 
 const toMarkdown = unified()
+  .data("toMarkdownExtensions", [gfmTableToMarkdown()])
   .use(rehypeRemark)
   .use(remarkStringify, { bullet: "-", emphasis: "_", strong: "*", rule: "-", listItemIndent: "one", fences: true });
 

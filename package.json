@@ -24,6 +24,7 @@
     "clsx": "^2.1.1",
     "hast-util-select": "^6.0.4",
     "hast-util-to-string": "^3.0.1",
+    "mdast-util-gfm-table": "^2.0.1",
     "rehype-parse": "^9.0.1",
     "rehype-remark": "^10.0.1",
     "remark-stringify": "^11.0.0",
