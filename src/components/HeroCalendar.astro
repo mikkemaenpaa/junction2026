@@ -2,26 +2,29 @@
 // Saturday's programme as an Apple Calendar style day over the home page hero picture.
 // Rendered once as the last child of the hero <section> (absolutely positioned there), so it
 // never moves or resizes anything else. `events` below is the single source for every form.
-// Times are Helsinki time on 14.11.2026; an event has a start and, optionally, an end.
+// Times are Helsinki time on 14.11.2026; an event has a start and, optionally, an end, or
+// instead an assumed end (`until`) that sets its block length and how long it stays on the card
+// but is never written out (its text shows only the start).
 //
 // Three forms:
 // - Full window (viewport >= 1280 x 612): in the free picture right of the hero content
-//   (assumed at most 2 x 352 px wide, centred), an 11.00-19.00 day grid. Its hour rows scale
+//   (assumed at most 2 x 352 px wide, centred), a 12.00-20.00 day grid. Its hour rows scale
 //   with the hero height (max(78svh, 380px)) between 34 and 64 px, so the window always fits
 //   between the 64 px header and the hero's bottom with 16 px to spare; 612 px is the lowest
 //   viewport where 34 px rows still fit. Pure HTML and CSS, not interactive, no "now" line.
 // - Compact card (everything else): bottom right corner of the hero, a button with the date and
-//   the next events from the current Helsinki time (up to 3; an event with an end stays until
-//   its end). Where it lands depends on how the hero text wraps, which CSS cannot know, so the
-//   inline script shows it (data-fit) only when it is at least 8 px clear of the header, the
-//   <h1> and every link in the hero, stepping down from 3 rows to 1 row without the date line
-//   before it gives up. Without the script it stays hidden.
+//   the next events from the current Helsinki time (up to 3; an event with an end or an assumed
+//   end stays until it). Where it lands depends on how the hero text wraps, which CSS cannot
+//   know, so the inline script shows it (data-fit) only when it is at least 8 px clear of the
+//   header, the <h1> and every link in the hero, stepping down from 3 rows to 1 row without the
+//   date line before it gives up. Without the script it stays hidden.
 // - Modal (a <dialog> next to the <aside>, opened from the card): the full day grid with a red
 //   line at the current Helsinki time on the event day. The script widens the hour range to
 //   include the current hour; rows fill the window but never go below 34 px (the grid then
 //   scrolls inside the window).
 //
-// Grid blocks: an event without an end is half an hour high; one with an end runs to its end.
+// Grid blocks: an event without an end is half an hour high; one with an end or an assumed end
+// runs to it.
 // Events that overlap in time share the width in columns (food left), Apple Calendar style.
 // Block text is the name, then "start · place" on a second line when the block is at least
 // 30 px high, or on the same line when it fits whole (otherwise it is left out). Names shrink
@@ -29,7 +32,15 @@
 //
 // Corners follow the art window of the companyregistryapi.com site: a plain radius for every
 // browser, and a larger radius with corner-shape: squircle where the engine supports it.
-type CalEvent = { start: string; end?: string; name: string; place: string; kind: "food" | "programme" };
+type CalEvent = {
+  start: string;
+  end?: string;
+  // An assumed end: sets the block length and how long the event stays on the card, never written out.
+  until?: string;
+  name: string;
+  place: string;
+  kind: "food" | "programme";
+};
 const source: CalEvent[] = [
   { start: "12:00", name: "Intel x Ignite Next workshop", place: "Hardware Floor (5th Floor)", kind: "programme" },
   { start: "13:00", end: "15:00", name: "Lunch", place: "2nd and 3rd Floor", kind: "food" },
@@ -38,18 +49,20 @@ const source: CalEvent[] = [
   { start: "14:30", name: "Kiuas workshop", place: "2nd Floor Cafe", kind: "programme" },
   { start: "16:30", name: "Exa workshop", place: "2nd Floor Cafe", kind: "programme" },
   { start: "18:00", name: "Maria 01 workshop", place: "2nd Floor Cafe", kind: "programme" },
-  { start: "18:00", name: "Dinner", place: "2nd and 3rd Floor", kind: "food" },
+  { start: "18:00", until: "20:00", name: "Dinner", place: "2nd and 3rd Floor", kind: "food" },
 ];
-const FROM = 11;
-const TO = 19;
+const FROM = 12;
+const TO = 20;
 const hrs = (t: string) => {
   const [h, m] = t.split(":").map(Number);
   return h + m / 60;
 };
 const label = (t: string) => t.replace(":", ".");
+// The end of an event's block (and of its time on the card): its end, else its assumed end.
+const stop = (e: CalEvent) => e.end ?? e.until;
 // Earliest first; at the same start the longer event, then food, comes first (left column).
 const events = source
-  .map((e) => ({ ...e, s: hrs(e.start), f: e.end ? hrs(e.end) : hrs(e.start) + 0.5, c: 0, n: 1 }))
+  .map((e) => ({ ...e, s: hrs(e.start), f: stop(e) ? hrs(stop(e)!) : hrs(e.start) + 0.5, c: 0, n: 1 }))
   .sort((a, b) => a.s - b.s || b.f - a.f || (a.kind === "food" ? -1 : 0) - (b.kind === "food" ? -1 : 0));
 // Columns: events that overlap in time form a cluster; each takes the first column free at its
 // start, and every event in a cluster gets the cluster's column count.
@@ -78,7 +91,7 @@ const blockStyle = (e: (typeof events)[number]) => `--s:${e.s};--d:${e.f - e.s};
       <span class="cal-cdate"><time datetime="2026-11-14">14.11.2026</time> <span class="cal-weekday">Saturday</span></span>
       <span class="cal-rows">
         {events.map((e) => (
-          <span class={`cal-row ${kindClass(e)}`} data-s={minutes(e.start)} data-e={e.end ? minutes(e.end) : undefined} hidden>
+          <span class={`cal-row ${kindClass(e)}`} data-s={minutes(e.start)} data-e={stop(e) && minutes(stop(e)!)} hidden>
             <span class="cal-rtime"><time datetime={`2026-11-14T${e.start}`}>{label(e.start)}</time>{e.end && <>–<time datetime={`2026-11-14T${e.end}`}>{label(e.end)}</time></>}</span>
             <span class="cal-rname">{e.name}</span>
           </span>
@@ -97,7 +110,7 @@ const blockStyle = (e: (typeof events)[number]) => `--s:${e.s};--d:${e.f - e.s};
       </div>
       <ul class="cal-events">
         {events.map((e) => (
-          <li class={`cal-event ${kindClass(e)}${e.end ? " cal-long" : ""}`} style={blockStyle(e)}>
+          <li class={`cal-event ${kindClass(e)}${stop(e) ? " cal-long" : ""}`} style={blockStyle(e)}>
             <span class="cal-txt"><span class="cal-name">{e.name}</span> <span class="cal-meta"><time datetime={`2026-11-14T${e.start}`}>{label(e.start)}</time>{e.end && <>–<time datetime={`2026-11-14T${e.end}`}>{label(e.end)}</time></>} · {e.place}</span></span>
           </li>
         ))}
@@ -118,7 +131,7 @@ const blockStyle = (e: (typeof events)[number]) => `--s:${e.s};--d:${e.f - e.s};
       </div>
       <ul class="cal-events">
         {events.map((e) => (
-          <li class={`cal-event ${kindClass(e)}${e.end ? " cal-long" : ""}`} style={blockStyle(e)}>
+          <li class={`cal-event ${kindClass(e)}${stop(e) ? " cal-long" : ""}`} style={blockStyle(e)}>
             <span class="cal-txt"><span class="cal-name">{e.name}</span> <span class="cal-meta"><time datetime={`2026-11-14T${e.start}`}>{label(e.start)}</time>{e.end && <>–<time datetime={`2026-11-14T${e.end}`}>{label(e.end)}</time></>} · {e.place}</span></span>
           </li>
         ))}
@@ -136,6 +149,8 @@ const blockStyle = (e: (typeof events)[number]) => `--s:${e.s};--d:${e.f - e.s};
     const wide = matchMedia("(min-width: 1280px) and (min-height: 612px)");
     const DAY = 20261114, root = document.documentElement;
     const fmt = new Intl.DateTimeFormat("en-GB", { timeZone: "Europe/Helsinki", year: "numeric", month: "numeric", day: "numeric", hour: "numeric", minute: "numeric", hourCycle: "h23" });
+    // The day grid's hour range, from the frontmatter via the dialog's inline style (tick() widens it).
+    const FROM = +dlg.style.getPropertyValue("--from"), TO = FROM + +dlg.style.getPropertyValue("--rows");
     let next = [none];
 
     const show = (date, k) => {
@@ -170,7 +185,7 @@ const blockStyle = (e: (typeof events)[number]) => `--s:${e.s};--d:${e.f - e.s};
       next = day < DAY ? rows.slice() : day > DAY ? [] : rows.filter((r) => (r.dataset.e ? m < +r.dataset.e : +r.dataset.s >= m));
       if (!next.length) next = [none];
       fit();
-      const from = today ? Math.min(11, p.hour) : 11, to = today ? Math.max(19, p.hour + 1) : 19;
+      const from = today ? Math.min(FROM, p.hour) : FROM, to = today ? Math.max(TO, p.hour + 1) : TO;
       dlg.style.setProperty("--from", from);
       dlg.style.setProperty("--rows", to - from);
       dlg.style.setProperty("--now", p.hour + p.minute / 60);
