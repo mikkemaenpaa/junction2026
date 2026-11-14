@@ -1,184 +1,458 @@
 ---
-// Today's meals as an Apple Calendar style day window over the home page hero picture.
+// Saturday's programme as an Apple Calendar style day over the home page hero picture.
 // Rendered once as the last child of the hero <section> (absolutely positioned there), so it
-// never moves or resizes anything else.
+// never moves or resizes anything else. `events` below is the single source for every form.
+// Times are Helsinki time on 14.11.2026; an event has a start and, optionally, an end.
 //
-// Two forms, same markup:
-// - Full window (viewport >= 1280 x 530): in the free picture right of the centred 768 px
-//   column, with a 10.00-23.00 hour grid. Its hour rows scale with the hero height
-//   (max(78svh, 380px)) so it always fits between the 64 px header and the hero's bottom with
-//   16 px to spare; below 530 px viewport height it would not, so it takes the compact form.
-// - Compact card (everything else): bottom right corner of the hero, date and two event rows.
-//   Where it lands depends on how the hero text wraps, which CSS cannot know, so a few lines of
-//   inline script show it (data-fit) only when it is at least 8 px clear of the header, the
-//   <h1> and every link in the hero. Without the script it stays hidden.
+// Three forms:
+// - Full window (viewport >= 1280 x 612): in the free picture right of the hero content
+//   (assumed at most 2 x 352 px wide, centred), an 11.00-19.00 day grid. Its hour rows scale
+//   with the hero height (max(78svh, 380px)) between 34 and 64 px, so the window always fits
+//   between the 64 px header and the hero's bottom with 16 px to spare; 612 px is the lowest
+//   viewport where 34 px rows still fit. Pure HTML and CSS, not interactive, no "now" line.
+// - Compact card (everything else): bottom right corner of the hero, a button with the date and
+//   the next events from the current Helsinki time (up to 3; an event with an end stays until
+//   its end). Where it lands depends on how the hero text wraps, which CSS cannot know, so the
+//   inline script shows it (data-fit) only when it is at least 8 px clear of the header, the
+//   <h1> and every link in the hero, stepping down from 3 rows to 1 row without the date line
+//   before it gives up. Without the script it stays hidden.
+// - Modal (a <dialog> next to the <aside>, opened from the card): the full day grid with a red
+//   line at the current Helsinki time on the event day. The script widens the hour range to
+//   include the current hour; rows fill the window but never go below 34 px (the grid then
+//   scrolls inside the window).
+//
+// Grid blocks: an event without an end is half an hour high; one with an end runs to its end.
+// Events that overlap in time share the width in columns (food left), Apple Calendar style.
+// Block text is the name, then "start · place" on a second line when the block is at least
+// 30 px high, or on the same line when it fits whole (otherwise it is left out). Names shrink
+// with their column (10.5-12.5 px) so they are never cut.
 //
 // Corners follow the art window of the companyregistryapi.com site: a plain radius for every
 // browser, and a larger radius with corner-shape: squircle where the engine supports it.
-const DAY_START = 10;
-const DAY_END = 23;
-const events = [
-  { name: "Lunch", start: "11:00", end: "13:30" },
-  { name: "Dinner", start: "19:30", end: "22:00" },
+type CalEvent = { start: string; end?: string; name: string; place: string; kind: "food" | "programme" };
+const source: CalEvent[] = [
+  { start: "12:00", name: "Intel x Ignite Next workshop", place: "Hardware Floor (5th Floor)", kind: "programme" },
+  { start: "13:00", end: "15:00", name: "Lunch", place: "2nd and 3rd Floor", kind: "food" },
+  { start: "13:00", name: "Hostinger keynote", place: "Main Stage", kind: "programme" },
+  { start: "13:30", name: "Modal workshop", place: "2nd Floor Cafe", kind: "programme" },
+  { start: "14:30", name: "Kiuas workshop", place: "2nd Floor Cafe", kind: "programme" },
+  { start: "16:30", name: "Exa workshop", place: "2nd Floor Cafe", kind: "programme" },
+  { start: "18:00", name: "Maria 01 workshop", place: "2nd Floor Cafe", kind: "programme" },
+  { start: "18:00", name: "Dinner", place: "2nd and 3rd Floor", kind: "food" },
 ];
-const hours = (t: string) => {
+const FROM = 11;
+const TO = 19;
+const hrs = (t: string) => {
   const [h, m] = t.split(":").map(Number);
   return h + m / 60;
 };
 const label = (t: string) => t.replace(":", ".");
-const rows = DAY_END - DAY_START;
+// Earliest first; at the same start the longer event, then food, comes first (left column).
+const events = source
+  .map((e) => ({ ...e, s: hrs(e.start), f: e.end ? hrs(e.end) : hrs(e.start) + 0.5, c: 0, n: 1 }))
+  .sort((a, b) => a.s - b.s || b.f - a.f || (a.kind === "food" ? -1 : 0) - (b.kind === "food" ? -1 : 0));
+// Columns: events that overlap in time form a cluster; each takes the first column free at its
+// start, and every event in a cluster gets the cluster's column count.
+for (let i = 0; i < events.length; ) {
+  const cols: number[] = [];
+  let j = i, end = -1;
+  for (; j < events.length && (j === i || events[j].s < end); j++) {
+    const e = events[j];
+    let c = cols.findIndex((f) => f <= e.s);
+    if (c < 0) c = cols.push(0) - 1;
+    cols[c] = e.f;
+    e.c = c;
+    end = Math.max(end, e.f);
+  }
+  for (let k = i; k < j; k++) events[k].n = cols.length;
+  i = j;
+}
+const minutes = (t: string) => Math.round(hrs(t) * 60);
+const kindClass = (e: CalEvent) => (e.kind === "food" ? "k-food" : "k-prog");
+const blockStyle = (e: (typeof events)[number]) => `--s:${e.s};--d:${e.f - e.s};--c:${e.c};--n:${e.n}`;
 ---
 
-<aside class="cal" aria-label="Meals on Saturday 14.11.2026" style={`--rows:${rows}`}>
-  <div class="cal-head">
+<aside class="cal" aria-label="Programme on Saturday 14.11.2026">
+  <button type="button" class="cal-card" aria-haspopup="dialog">
+    <span class="cal-card-main">
+      <span class="cal-cdate"><time datetime="2026-11-14">14.11.2026</time> <span class="cal-weekday">Saturday</span></span>
+      <span class="cal-rows">
+        {events.map((e) => (
+          <span class={`cal-row ${kindClass(e)}`} data-s={minutes(e.start)} data-e={e.end ? minutes(e.end) : undefined} hidden>
+            <span class="cal-rtime"><time datetime={`2026-11-14T${e.start}`}>{label(e.start)}</time>{e.end && <>–<time datetime={`2026-11-14T${e.end}`}>{label(e.end)}</time></>}</span>
+            <span class="cal-rname">{e.name}</span>
+          </span>
+        ))}
+        <span class="cal-row cal-none" hidden>No more events</span>
+      </span>
+    </span>
+    <svg class="cal-chev" aria-hidden="true" viewBox="0 0 16 16" width="14" height="14"><path d="M9.5 2.5h4v4M13.5 2.5 9 7M6.5 13.5h-4v-4M2.5 13.5 7 9" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+  </button>
+  <div class="cal-win" style={`--from:${FROM};--rows:${TO - FROM}`}>
     <div class="cal-bar" aria-hidden="true"><span class="dot"></span><span class="dot"></span><span class="dot"></span></div>
-    <p class="cal-date"><time datetime="2026-11-14">14.11.2026</time> <span class="cal-weekday">Saturday</span></p>
-  </div>
-  <div class="cal-body">
-    <div class="cal-grid" aria-hidden="true">
-      {Array.from({ length: rows + 1 }, (_, i) => <span class="cal-hour" style={`--i:${i};counter-reset:h ${DAY_START + i}`}></span>)}
+    <p class="cal-title"><time datetime="2026-11-14">14.11.2026</time> <span class="cal-weekday">Saturday</span></p>
+    <div class="cal-body">
+      <div class="cal-grid" aria-hidden="true">
+        {Array.from({ length: TO - FROM + 1 }, (_, i) => <span class="cal-hour" style={`--i:${FROM + i};counter-reset:h ${FROM + i}`}></span>)}
+      </div>
+      <ul class="cal-events">
+        {events.map((e) => (
+          <li class={`cal-event ${kindClass(e)}${e.end ? " cal-long" : ""}`} style={blockStyle(e)}>
+            <span class="cal-txt"><span class="cal-name">{e.name}</span> <span class="cal-meta"><time datetime={`2026-11-14T${e.start}`}>{label(e.start)}</time>{e.end && <>–<time datetime={`2026-11-14T${e.end}`}>{label(e.end)}</time></>} · {e.place}</span></span>
+          </li>
+        ))}
+      </ul>
     </div>
-    <ul class="cal-events">
-      {events.map((e) => (
-        <li class="cal-event" style={`--s:${hours(e.start) - DAY_START};--d:${hours(e.end) - hours(e.start)}`}>
-          <span class="cal-name">{e.name}</span> <span class="cal-time"><time datetime={`2026-11-14T${e.start}`}>{label(e.start)}</time>–<time datetime={`2026-11-14T${e.end}`}>{label(e.end)}</time></span>
-        </li>
-      ))}
-    </ul>
   </div>
 </aside>
+<dialog class="cal-modal" aria-labelledby="cal-modal-title" style={`--from:${FROM};--rows:${TO - FROM};--now:${FROM}`}>
+  <div class="cal-bar" aria-hidden="true"><span class="dot"></span><span class="dot"></span><span class="dot"></span></div>
+  <h2 class="cal-title" id="cal-modal-title" tabindex="-1"><time datetime="2026-11-14">14.11.2026</time> <span class="cal-weekday">Saturday</span></h2>
+  <!-- After the title in the DOM (shown in the bar's right end), so Tab from the title, which has
+       the initial focus, reaches it first. -->
+  <button type="button" class="cal-close" aria-label="Close"><svg aria-hidden="true" viewBox="0 0 12 12" width="12" height="12"><path d="M.75.75l10.5 10.5M11.25.75.75 11.25" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></button>
+  <div class="cal-scroll">
+    <div class="cal-body">
+      <div class="cal-grid" aria-hidden="true">
+        {Array.from({ length: 25 }, (_, h) => <span class="cal-hour" data-h={h} style={`--i:${h};counter-reset:h ${h}`} hidden={h < FROM || h > TO}></span>)}
+      </div>
+      <ul class="cal-events">
+        {events.map((e) => (
+          <li class={`cal-event ${kindClass(e)}${e.end ? " cal-long" : ""}`} style={blockStyle(e)}>
+            <span class="cal-txt"><span class="cal-name">{e.name}</span> <span class="cal-meta"><time datetime={`2026-11-14T${e.start}`}>{label(e.start)}</time>{e.end && <>–<time datetime={`2026-11-14T${e.end}`}>{label(e.end)}</time></>} · {e.place}</span></span>
+          </li>
+        ))}
+      </ul>
+      <div class="cal-now" aria-hidden="true"></div>
+    </div>
+  </div>
+</dialog>
 <script is:inline>
   (() => {
-    const cal = document.currentScript.previousElementSibling, hero = cal.parentElement;
+    const dlg = document.currentScript.previousElementSibling, cal = dlg.previousElementSibling, hero = cal.parentElement;
+    const card = cal.querySelector(".cal-card"), none = card.querySelector(".cal-none");
+    const rows = [...card.querySelectorAll(".cal-row[data-s]")];
+    const scroller = dlg.querySelector(".cal-scroll"), title = dlg.querySelector(".cal-title"), hours = [...dlg.querySelectorAll(".cal-hour")];
+    const wide = matchMedia("(min-width: 1280px) and (min-height: 612px)");
+    const DAY = 20261114, root = document.documentElement;
+    const fmt = new Intl.DateTimeFormat("en-GB", { timeZone: "Europe/Helsinki", year: "numeric", month: "numeric", day: "numeric", hour: "numeric", minute: "numeric", hourCycle: "h23" });
+    let next = [none];
+
+    const show = (date, k) => {
+      card.toggleAttribute("data-nodate", !date);
+      for (const r of [...rows, none]) r.hidden = !next.slice(0, k).includes(r);
+    };
     const fit = () => {
-      const h = hero.getBoundingClientRect(), c = cal.getBoundingClientRect();
-      let ok = c.top - h.top >= 72 && c.left - h.left >= 8 && h.bottom - c.bottom >= 8;
-      for (const el of hero.querySelectorAll("h1, a")) {
-        const r = el.getBoundingClientRect();
-        if (c.left < r.right + 8 && c.right > r.left - 8 && c.top < r.bottom + 8 && c.bottom > r.top - 8) ok = false;
+      if (wide.matches) return;
+      const steps = [];
+      for (let k = Math.min(3, next.length); k >= 1; k--) steps.push([true, k]);
+      steps.push([false, 1]);
+      let ok = false, k = 1;
+      for (const [date, n] of steps) {
+        show(date, n);
+        k = n;
+        const h = hero.getBoundingClientRect(), c = cal.getBoundingClientRect();
+        ok = c.top - h.top >= 72 && c.left - h.left >= 8 && h.bottom - c.bottom >= 8;
+        for (const el of hero.querySelectorAll("h1, a")) {
+          const r = el.getBoundingClientRect();
+          if (c.left < r.right + 8 && c.right > r.left - 8 && c.top < r.bottom + 8 && c.bottom > r.top - 8) ok = false;
+        }
+        if (ok) break;
       }
       cal.toggleAttribute("data-fit", ok);
+      const items = next.slice(0, k).map((r) => r === none ? "No more events" : `${r.firstElementChild.textContent} ${r.lastElementChild.textContent}`);
+      card.setAttribute("aria-label", `Saturday 14.11.2026. ${next[0] === none ? "" : "Next: "}${items.join(", ")}. Open the full day`);
     };
+    const tick = () => {
+      const p = {};
+      for (const x of fmt.formatToParts(new Date())) p[x.type] = +x.value;
+      const day = p.year * 10000 + p.month * 100 + p.day, m = p.hour * 60 + p.minute, today = day === DAY;
+      next = day < DAY ? rows.slice() : day > DAY ? [] : rows.filter((r) => (r.dataset.e ? m < +r.dataset.e : +r.dataset.s >= m));
+      if (!next.length) next = [none];
+      fit();
+      const from = today ? Math.min(11, p.hour) : 11, to = today ? Math.max(19, p.hour + 1) : 19;
+      dlg.style.setProperty("--from", from);
+      dlg.style.setProperty("--rows", to - from);
+      dlg.style.setProperty("--now", p.hour + p.minute / 60);
+      dlg.toggleAttribute("data-now", today);
+      for (const el of hours) el.hidden = +el.dataset.h < from || +el.dataset.h > to;
+    };
+
+    let saved = null;
+    card.addEventListener("click", () => {
+      if (dlg.open || !dlg.showModal) return;
+      tick();
+      const sb = innerWidth - root.clientWidth;
+      saved = [root.style.overflow, root.style.scrollbarGutter, root.style.paddingRight];
+      if (sb > 0) {
+        if (CSS.supports("scrollbar-gutter: stable")) root.style.scrollbarGutter = "stable";
+        else root.style.paddingRight = sb + "px";
+      }
+      root.style.overflow = "hidden";
+      dlg.showModal();
+      // Initial focus on the title, not the close button, so no focus ring shows after a tap.
+      title.focus({ preventScroll: true });
+      scroller.scrollTop = 0;
+      if (dlg.hasAttribute("data-now")) {
+        const l = dlg.querySelector(".cal-now").getBoundingClientRect(), s = scroller.getBoundingClientRect();
+        scroller.scrollTop = l.top - s.top - s.height / 2;
+      }
+    });
+    dlg.addEventListener("close", () => {
+      if (saved) [root.style.overflow, root.style.scrollbarGutter, root.style.paddingRight] = saved;
+      saved = null;
+      card.focus();
+    });
+    dlg.querySelector(".cal-close").addEventListener("click", () => dlg.close());
+    dlg.addEventListener("click", (e) => {
+      if (e.target !== dlg) return;
+      const r = dlg.getBoundingClientRect();
+      if (e.clientX < r.left || e.clientX > r.right || e.clientY < r.top || e.clientY > r.bottom) dlg.close();
+    });
+
     const ro = new ResizeObserver(fit);
-    for (const el of [hero, ...hero.querySelectorAll("h1, a, div")]) ro.observe(el);
+    for (const el of [hero, ...hero.querySelectorAll("h1, a, div")]) if (!cal.contains(el) && !dlg.contains(el)) ro.observe(el);
+    tick();
+    setInterval(tick, 30000);
+    document.addEventListener("visibilitychange", () => document.visibilityState === "visible" && tick());
+    addEventListener("pageshow", tick);
   })();
 </script>
 
 <style>
+  .cal, .cal-modal {
+    color: rgb(255 255 255 / 0.92);
+    font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Helvetica Neue", "Segoe UI", Roboto, Arial, sans-serif;
+    font-variant-numeric: tabular-nums;
+    letter-spacing: 0;
+    text-align: left;
+  }
+  .k-food { --hl: var(--highlight); --tx: oklch(0.95 0.07 95); --tx2: oklch(0.9 0.06 95); }
+  .k-prog { --hl: #0a84ff; --tx: oklch(0.93 0.045 250); --tx2: oklch(0.88 0.06 250); }
+  [hidden] { display: none !important; }
+
+  /* Compact card */
   .cal {
-    --hl: var(--highlight);
     position: absolute;
     right: 8px;
     bottom: 8px;
     width: max-content;
     max-width: calc(100% - 16px);
-    padding: 8px 10px;
-    color: rgb(255 255 255 / 0.92);
     background: rgb(28 28 30 / 0.74);
     -webkit-backdrop-filter: blur(24px) saturate(160%);
     backdrop-filter: blur(24px) saturate(160%);
     border: 1px solid rgb(255 255 255 / 0.14);
     border-radius: 12px;
     box-shadow: 0 18px 48px rgb(0 0 0 / 0.45), 0 0 0 0.5px rgb(0 0 0 / 0.6);
-    font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Helvetica Neue", "Segoe UI", Roboto, Arial, sans-serif;
-    font-variant-numeric: tabular-nums;
-    letter-spacing: 0;
-    text-align: left;
     visibility: hidden;
   }
   .cal[data-fit] { visibility: visible; }
-
-  .cal-head { display: flex; align-items: center; gap: 8px; }
-  .cal-bar { display: flex; align-items: center; gap: 5px; }
-  /* Window controls of an inactive macOS window: monochrome grey. */
-  .dot { width: 8px; height: 8px; border-radius: 50%; background: rgb(255 255 255 / 0.22); }
-  .cal-date { font-size: 13px; line-height: 16px; font-weight: 600; white-space: nowrap; }
-  .cal-weekday { font-weight: 400; color: rgb(235 235 245 / 0.62); }
-
-  .cal-grid { display: none; }
-  .cal-events { display: flex; flex-direction: column; gap: 2px; margin-top: 5px; }
-  .cal-event {
+  .cal-card {
     display: flex;
+    align-items: center;
     gap: 10px;
-    justify-content: space-between;
-    padding: 1px 6px 1px 6px;
+    width: 100%;
+    padding: 8px 10px;
+    color: inherit;
+    font: inherit;
+    text-align: inherit;
+    background: none;
+    border: 0;
+    border-radius: inherit;
+    cursor: pointer;
+  }
+  .cal-card:focus-visible { outline: 2px solid var(--highlight); outline-offset: 3px; }
+  .cal-card-main { display: flex; flex-direction: column; gap: 5px; min-width: 0; }
+  .cal-cdate { display: block; font-size: 13px; line-height: 16px; font-weight: 600; white-space: nowrap; }
+  .cal-card[data-nodate] .cal-cdate { display: none; }
+  .cal-weekday { font-weight: 400; color: rgb(235 235 245 / 0.62); }
+  .cal-rows { display: flex; flex-direction: column; gap: 2px; }
+  .cal-row {
+    display: flex;
+    gap: 8px;
+    padding: 1px 6px;
     font-size: 12px;
     line-height: 16px;
+    white-space: nowrap;
     background: color-mix(in oklab, var(--hl) 16%, transparent);
     border-left: 3px solid var(--hl);
     border-radius: 4px;
   }
-  .cal-name { font-weight: 600; color: oklch(0.95 0.07 95); }
-  .cal-time { color: oklch(0.9 0.06 95); }
+  .cal-rtime { color: var(--tx2); }
+  .cal-rname { font-weight: 600; color: var(--tx); }
+  .cal-none { color: rgb(235 235 245 / 0.62); background: rgb(255 255 255 / 0.06); border-left-color: rgb(255 255 255 / 0.22); }
+  .cal-chev { flex: none; color: rgb(235 235 245 / 0.62); }
+  .cal-card:hover .cal-chev { color: rgb(255 255 255 / 0.92); }
+  .cal-win { display: none; }
+
+  /* Window parts, shared by the full window and the modal */
+  .cal-bar { display: flex; align-items: center; gap: 6px; height: 31px; padding: 0 14px; border-bottom: 1px solid rgb(255 255 255 / 0.1); }
+  /* Window controls of an inactive macOS window: monochrome grey. */
+  .dot { width: 10px; height: 10px; border-radius: 50%; background: rgb(255 255 255 / 0.22); }
+  .cal-title { height: 60px; margin: 0; padding: 10px 14px 0; font-size: 22px; line-height: 26px; font-weight: 700; white-space: nowrap; }
+  .cal-title .cal-weekday { display: block; font-size: 13px; line-height: 16px; }
+
+  .cal-body { --gut: 36px; position: relative; height: calc(16px + var(--rows) * var(--row)); }
+  .cal-hour {
+    position: absolute;
+    top: calc(8px + (var(--i) - var(--from)) * var(--row));
+    left: var(--gut);
+    right: 0;
+    border-top: 1px solid rgb(255 255 255 / 0.1);
+  }
+  .cal-hour::before {
+    content: counter(h, decimal-leading-zero) ".00";
+    position: absolute;
+    right: calc(100% + 5px);
+    top: -7px;
+    font-size: 10.5px;
+    line-height: 13px;
+    color: rgb(235 235 245 / 0.6);
+  }
+  .cal-events { position: absolute; inset: 0 6px 0 calc(var(--gut) + 2px); margin: 0; padding: 0; list-style: none; }
+  .cal-event {
+    position: absolute;
+    top: calc(8px + (var(--s) - var(--from)) * var(--row) + 1px);
+    height: calc(var(--d) * var(--row) - 2px);
+    left: calc(var(--c) * (100% + 2px) / var(--n));
+    width: calc((100% - (var(--n) - 1) * 2px) / var(--n));
+    box-sizing: border-box;
+    padding: 0 2px 0 4px;
+    overflow: hidden;
+    container-type: size;
+    background: color-mix(in oklab, var(--hl) 22%, rgb(28 28 30 / 0.5));
+    border-left: 3px solid var(--hl);
+    border-radius: 6px;
+  }
+  /* Exactly one 13 px line (two from 30 px), plus 1 px of padding above and below so the clip
+     never shaves ascenders or descenders: a meta that does not fit on the name's line wraps out of
+     sight whole. The name shrinks with its column so it always fits (9.4 em is the widest name
+     plus room for wider system fonts). */
+  .cal-txt {
+    display: flex;
+    flex-wrap: wrap;
+    align-content: flex-start;
+    column-gap: 5px;
+    height: 15px;
+    padding: 1px 0;
+    overflow: hidden;
+    font-size: clamp(10.5px, 100cqw / 9.4, 12.5px);
+    line-height: 13px;
+  }
+  .cal-name { font-weight: 600; white-space: nowrap; color: var(--tx); }
+  .cal-meta { min-width: 0; overflow: hidden; font-size: max(10px, 0.88em); white-space: nowrap; text-overflow: ellipsis; color: var(--tx2); }
+  @container (min-height: 30px) {
+    .cal-txt { height: 28px; margin-top: min(2px, 100cqh - 28px); }
+    .cal-meta { flex-basis: 100%; }
+  }
+  .cal-long .cal-txt { height: auto; margin-top: 2px; }
+  .cal-long .cal-meta { flex-basis: 100%; white-space: normal; }
 
   @supports (corner-shape: squircle) {
     .cal { border-radius: 16px; corner-shape: squircle; }
-    .cal-event { border-radius: 6px; corner-shape: squircle; }
+    .cal-row { border-radius: 6px; corner-shape: squircle; }
+    .cal-event { border-radius: 10px; corner-shape: squircle; }
   }
 
   /* Full window. Fixed chrome (border 2 + bar 31 + title 60 + grid padding 16 = 109 px) plus
-     13 hour rows; rows take what the hero leaves after the header and 2 x 16 px of margin. */
-  @media (min-width: 1280px) and (min-height: 530px) {
+     8 hour rows of 34-64 px; rows take what the hero leaves after the header and 2 x 16 px. */
+  @media (min-width: 1280px) and (min-height: 612px) {
     .cal {
-      --free: calc((100% - 768px) / 2);
-      --w: min(320px, var(--free) - 32px);
-      --row: clamp(16px, (max(78svh, 380px) - 64px - 32px - 109px) / var(--rows), 36px);
+      --free: calc(50% - 352px);
+      --w: min(320px, var(--free) - 20px);
+      --row: clamp(34px, (max(78svh, 380px) - 64px - 32px - 109px) / 8, 64px);
       top: 64px;
       bottom: 0;
       right: calc((var(--free) - var(--w)) / 2);
       width: var(--w);
       max-width: none;
-      height: calc(109px + var(--rows) * var(--row));
+      height: calc(109px + 8 * var(--row));
       margin-block: auto;
-      padding: 0;
       border-radius: 16px;
       overflow: hidden;
       visibility: visible;
     }
-    .cal-head { display: block; }
-    .cal-bar { gap: 6px; height: 31px; padding: 0 14px; border-bottom: 1px solid rgb(255 255 255 / 0.1); }
-    .dot { width: 10px; height: 10px; }
-    .cal-date { height: 60px; padding: 10px 14px 0; font-size: 22px; line-height: 26px; font-weight: 700; }
-    .cal-weekday { display: block; font-size: 13px; line-height: 16px; }
-
-    .cal-body { position: relative; height: calc(16px + var(--rows) * var(--row)); }
-    .cal-grid { display: block; }
-    .cal-hour {
-      position: absolute;
-      top: calc(8px + var(--i) * var(--row));
-      left: 44px;
-      right: 0;
-      border-top: 1px solid rgb(255 255 255 / 0.1);
-    }
-    .cal-hour::before {
-      content: counter(h) ".00";
-      position: absolute;
-      right: calc(100% + 6px);
-      top: -7px;
-      font-size: 10.5px;
-      line-height: 13px;
-      color: rgb(235 235 245 / 0.6);
-    }
-    .cal-events { display: block; margin: 0; }
-    .cal-event {
-      position: absolute;
-      top: calc(8px + var(--s) * var(--row));
-      height: calc(var(--d) * var(--row));
-      left: 48px;
-      right: 8px;
-      flex-direction: column;
-      justify-content: flex-start;
-      gap: 0;
-      padding: 3px 6px 3px 7px;
-      overflow: hidden;
-      background: color-mix(in oklab, var(--hl) 20%, rgb(28 28 30 / 0.4));
-    }
-    .cal-name { font-size: 12.5px; line-height: 15px; }
-    .cal-time { font-size: 11px; line-height: 14px; }
-
+    .cal-card { display: none; }
+    .cal-win { display: block; }
     @supports (corner-shape: squircle) {
       .cal { border-radius: 22px; }
-      .cal-event { border-radius: 10px; }
     }
+  }
+
+  /* Modal */
+  .cal-modal {
+    box-sizing: border-box;
+    width: min(100% - 2 * max(12px, env(safe-area-inset-left), env(safe-area-inset-right)), 430px);
+    height: min(100dvh - 2 * max(12px, env(safe-area-inset-top), env(safe-area-inset-bottom)), 780px);
+    max-width: none;
+    max-height: none;
+    margin: auto;
+    padding: 0;
+    overflow: hidden;
+    background: rgb(28 28 30 / 0.96);
+    -webkit-backdrop-filter: blur(30px) saturate(160%);
+    backdrop-filter: blur(30px) saturate(160%);
+    border: 1px solid rgb(255 255 255 / 0.14);
+    border-radius: 16px;
+    box-shadow: 0 24px 64px rgb(0 0 0 / 0.5), 0 0 0 0.5px rgb(0 0 0 / 0.6);
+  }
+  .cal-modal[open] { display: flex; flex-direction: column; animation: hcal-in 160ms ease-out; }
+  .cal-modal::backdrop { background: rgb(0 0 0 / 0.55); animation: hcal-in 160ms ease-out; }
+  @keyframes hcal-in { from { opacity: 0; } }
+  @media (prefers-reduced-motion: reduce) {
+    .cal-modal[open], .cal-modal::backdrop { animation: none; }
+  }
+  @supports (corner-shape: squircle) {
+    .cal-modal { border-radius: 22px; corner-shape: squircle; }
+  }
+  .cal-modal .cal-bar { flex: none; height: 44px; padding: 0 0 0 16px; }
+  .cal-close {
+    position: absolute;
+    top: 0;
+    right: 0;
+    display: grid;
+    place-items: center;
+    width: 44px;
+    height: 44px;
+    padding: 0;
+    color: rgb(235 235 245 / 0.78);
+    font: inherit;
+    background: none;
+    border: 0;
+    cursor: pointer;
+  }
+  /* A bare 12 px x, centred in the 44 px hit area in the window's top right corner: its right
+     edge is 16 px from the window's edge (like the dots on the left). The dots are centred in
+     the bar's 43 px above its 1 px border (bottom at 26.5 px); the x's centre is at 22 px, so
+     1.5 px up puts its bottom on the dots' bottom. */
+  .cal-close svg { display: block; translate: 0 -1.5px; }
+  .cal-close:hover { color: rgb(255 255 255 / 0.95); }
+  .cal-close:focus-visible { outline: none; }
+  .cal-close:focus-visible svg { outline: 2px solid var(--highlight); outline-offset: 3px; border-radius: 3px; }
+  .cal-modal .cal-title { flex: none; outline: none; }
+  .cal-scroll { flex: 1; min-height: 0; overflow-y: auto; overscroll-behavior: contain; container-type: size; }
+  /* Rows fill the window down to 34 px (0.05 px less each, so rounding never adds a scrollbar). */
+  .cal-modal .cal-body { --row: max(34px, (100cqh - 16px) / var(--rows) - 0.05px); }
+  .cal-now { display: none; }
+  .cal-modal[data-now] .cal-now {
+    display: block;
+    position: absolute;
+    z-index: 1;
+    top: calc(8px + (var(--now) - var(--from)) * var(--row) - 1px);
+    left: calc(var(--gut) + 2px);
+    right: 6px;
+    height: 2px;
+    background: #ff453a;
+    pointer-events: none;
+  }
+  .cal-now::before {
+    content: "";
+    position: absolute;
+    left: -4px;
+    top: -3px;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: #ff453a;
   }
 </style>
