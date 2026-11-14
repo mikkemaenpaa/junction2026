@@ -214,13 +214,14 @@ and which Google hosts are contacted. Its "Who runs this site" paragraph appears
 
 | File | What |
 | --- | --- |
-| `public/favicon.svg` | The site icon as vector shapes. Every page links it last, so browsers use it for the tab at any size. |
+| `public/favicon.svg` | The site icon as vector shapes. Every page links it last, so browsers use it for the tab at any size. It is near-black, and switches to the site's light text colour when the browser is in dark mode, where a dark mark would disappear on the tab strip. |
 | `public/favicon.png` | The same icon at 512 x 512 px, rendered from the SVG: for browsers that cannot draw SVG and for large slots such as shortcut tiles. |
 | `public/favicon.ico` | The original icon, 16 to 256 px. No page links it; it is served for clients that ask for `/favicon.ico` without reading the page's icon links. |
 | `public/og-image.jpg` | 1200 x 630 px screenshot of the top of the home page, shown when a link to any page is shared (`og:image` in `src/layouts/BaseLayout.astro`). |
 
-The SVG was redrawn from the ICO's 256 px frame and renders the same picture. After editing
-it, render the PNG again:
+The SVG was redrawn from the ICO's 256 px frame and renders the same picture in light mode.
+The PNG and the ICO have one colour each and stay near-black. After editing the SVG, render
+the PNG again (the command draws the light-mode colours):
 
 ```sh
 rsvg-convert -w 512 -h 512 public/favicon.svg -o public/favicon.png
