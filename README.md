@@ -63,6 +63,7 @@ redeploying an earlier commit or using Cloudflare's version history for the Work
 | Shared components and layout | `src/components/`, `src/layouts/BaseLayout.astro` |
 | Theme and styles | `src/styles/global.css` |
 | Fonts and image encoder settings | `astro.config.mjs` |
+| Site icons and the social preview image | `public/favicon.*`, `public/og-image.jpg` (see [Icons and the social preview image](#icons-and-the-social-preview-image)) |
 | Cache and security headers | `public/_headers` |
 | Cloudflare configuration | `wrangler.jsonc` |
 
@@ -208,6 +209,29 @@ Analytics data are covered by the advertising choice, subject to the loading rul
 same goes for new data: `/privacy` (`src/pages/privacy.astro`) lists exactly what is collected
 and which Google hosts are contacted. Its "Who runs this site" paragraph appears once
 `SITE_OPERATOR` in `src/data/privacy.ts` has a name.
+
+## Icons and the social preview image
+
+| File | What |
+| --- | --- |
+| `public/favicon.svg` | The site icon as vector shapes. Every page links it last, so browsers use it for the tab at any size. |
+| `public/favicon.png` | The same icon at 512 x 512 px, rendered from the SVG: for browsers that cannot draw SVG and for large slots such as shortcut tiles. |
+| `public/favicon.ico` | The original icon, 16 to 256 px. No page links it; it is served for clients that ask for `/favicon.ico` without reading the page's icon links. |
+| `public/og-image.jpg` | 1200 x 630 px screenshot of the top of the home page, shown when a link to any page is shared (`og:image` in `src/layouts/BaseLayout.astro`). |
+
+The SVG was redrawn from the ICO's 256 px frame and renders the same picture. After editing
+it, render the PNG again:
+
+```sh
+rsvg-convert -w 512 -h 512 public/favicon.svg -o public/favicon.png
+```
+
+Retake the screenshot when the top of the home page changes: the built site in a
+1280 x 672 px viewport (the same proportions as 1200 x 630, and large enough for the hero's day
+calendar) at twice the pixel density, with the cookie notice answered, scaled down to
+1200 x 630 px and saved as JPEG at quality 90 without chroma subsampling. Sites that show link
+previews keep their own copy of the picture, so a new one appears there only after they fetch
+the page again.
 
 ## Adding a partner logo
 
