@@ -1,17 +1,19 @@
 ---
-// Saturday's programme as an Apple Calendar style day over the home page hero picture.
+// Sunday's programme as an Apple Calendar style day over the home page hero picture.
 // Rendered once as the last child of the hero <section> (absolutely positioned there), so it
-// never moves or resizes anything else. `events` below is the single source for every form.
-// Times are Helsinki time on 14.11.2026; an event has a start and, optionally, an end, or
+// never moves or resizes anything else. `source` below is the single source for every form.
+// Times are Helsinki time on the day in `DAY`; an event has a start and, optionally, an end, or
 // instead an assumed end (`until`) that sets its block length and how long it stays on the card
 // but is never written out (its text shows only the start).
 //
 // Three forms:
 // - Full window (viewport >= 1280 x 656): in the free picture right of the hero content
-//   (assumed at most 2 x 352 px wide, centred), a 12.00-21.00 day grid. Its hour rows scale
-//   with the hero height (max(78svh, 380px)) between 34 and 64 px, so the window always fits
-//   between the 64 px header and the hero's bottom with 16 px to spare; 656 px is the lowest
-//   viewport where 34 px rows still fit. Pure HTML and CSS, not interactive, no "now" line.
+//   (assumed at most 2 x 352 px wide, centred), a day grid from FROM to TO (10.00-17.00, 7 hour
+//   rows). Its rows scale with the hero height (max(78svh, 380px)) between 34 and 64 px, so the
+//   window always fits between the 64 px header and the hero's bottom with 16 px to spare. 656 px
+//   is the lowest viewport where nine 34 px rows fit, so the range can grow to nine hours without
+//   moving the breakpoint; the seven here fit from 568 px, and at 656 px the rows are about
+//   44 px. Pure HTML and CSS, not interactive, no "now" line.
 // - Compact card (everything else): bottom right corner of the hero, a button with the date and
 //   the next events from the current Helsinki time (up to 3; an event with an end or an assumed
 //   end stays until it). Where it lands depends on how the hero text wraps, which CSS cannot
@@ -25,10 +27,11 @@
 //
 // Grid blocks: an event without an end is half an hour high; one with an end or an assumed end
 // runs to it.
-// Events that overlap in time share the width in columns (food left), Apple Calendar style.
-// Block text is the name, then "start · place" on a second line when the block is at least
-// 30 px high, or on the same line when it fits whole (otherwise it is left out). Names shrink
-// with their column (10.5-12.5 px) so they are never cut.
+// Events that overlap in time share the width in columns (yellow left), Apple Calendar style.
+// Block text is the name, then the time ("start" or "start–end", plus " · place" for an event
+// with a place) on a second line when the block is at least 30 px high, or on the same line
+// when it fits whole (otherwise it is left out). Names shrink with their column (10.5-12.5 px)
+// so they are never cut.
 //
 // Corners follow the art window of the companyregistryapi.com site: a plain radius for every
 // browser, and a larger radius with corner-shape: squircle where the engine supports it.
@@ -38,21 +41,25 @@ type CalEvent = {
   // An assumed end: sets the block length and how long the event stays on the card, never written out.
   until?: string;
   name: string;
-  place: string;
-  kind: "food" | "programme";
+  place?: string;
+  colour: "yellow" | "blue";
 };
+// The day shown, in Helsinki time. Every date in the markup and the script comes from it.
+const DAY = "2026-11-15";
 const source: CalEvent[] = [
-  { start: "12:00", name: "Intel x Ignite Next workshop", place: "Hardware Floor (5th Floor)", kind: "programme" },
-  { start: "13:00", end: "15:00", name: "Lunch", place: "2nd and 3rd Floor", kind: "food" },
-  { start: "13:00", name: "Hostinger keynote", place: "Main Stage", kind: "programme" },
-  { start: "13:30", name: "Modal workshop", place: "2nd Floor Cafe", kind: "programme" },
-  { start: "14:30", name: "Kiuas workshop", place: "2nd Floor Cafe", kind: "programme" },
-  { start: "16:30", name: "Exa workshop", place: "2nd Floor Cafe", kind: "programme" },
-  { start: "17:45", end: "21:00", name: "Dinner", place: "2nd and 3rd Floor", kind: "food" },
-  { start: "18:00", name: "Maria 01 workshop", place: "2nd Floor Cafe", kind: "programme" },
+  { start: "10:45", end: "11:45", name: "Peer-review round 1", colour: "yellow" },
+  { start: "11:45", end: "12:45", name: "Peer-review round 2", colour: "yellow" },
+  { start: "14:00", name: "Final Ceremony", colour: "blue" },
+  { start: "15:10", name: "Challenge winners", colour: "blue" },
+  { start: "15:50", name: "Junction winner", colour: "blue" },
 ];
-const FROM = 12;
-const TO = 21;
+const FROM = 10;
+const TO = 17;
+// "15.11.2026" and "Sunday"; DAY parses as midnight UTC, so the weekday is read in UTC.
+const [y, mo, d] = DAY.split("-").map(Number);
+const date = `${d}.${mo}.${y}`;
+const weekday = new Intl.DateTimeFormat("en-GB", { weekday: "long", timeZone: "UTC" }).format(new Date(DAY));
+const dayName = `${weekday} ${date}`;
 const hrs = (t: string) => {
   const [h, m] = t.split(":").map(Number);
   return h + m / 60;
@@ -60,10 +67,10 @@ const hrs = (t: string) => {
 const label = (t: string) => t.replace(":", ".");
 // The end of an event's block (and of its time on the card): its end, else its assumed end.
 const stop = (e: CalEvent) => e.end ?? e.until;
-// Earliest first; at the same start the longer event, then food, comes first (left column).
+// Earliest first; at the same start the longer event, then yellow, comes first (left column).
 const events = source
   .map((e) => ({ ...e, s: hrs(e.start), f: stop(e) ? hrs(stop(e)!) : hrs(e.start) + 0.5, c: 0, n: 1 }))
-  .sort((a, b) => a.s - b.s || b.f - a.f || (a.kind === "food" ? -1 : 0) - (b.kind === "food" ? -1 : 0));
+  .sort((a, b) => a.s - b.s || b.f - a.f || (a.colour === "yellow" ? -1 : 0) - (b.colour === "yellow" ? -1 : 0));
 // Columns: events that overlap in time form a cluster; each takes the first column free at its
 // start, and every event in a cluster gets the cluster's column count.
 for (let i = 0; i < events.length; ) {
@@ -81,18 +88,18 @@ for (let i = 0; i < events.length; ) {
   i = j;
 }
 const minutes = (t: string) => Math.round(hrs(t) * 60);
-const kindClass = (e: CalEvent) => (e.kind === "food" ? "k-food" : "k-prog");
+const colourClass = (e: CalEvent) => `k-${e.colour}`;
 const blockStyle = (e: (typeof events)[number]) => `--s:${e.s};--d:${e.f - e.s};--c:${e.c};--n:${e.n}`;
 ---
 
-<aside class="cal" aria-label="Programme on Saturday 14.11.2026">
+<aside class="cal" aria-label={`Programme on ${dayName}`} style={`--from:${FROM};--rows:${TO - FROM}`}>
   <button type="button" class="cal-card" aria-haspopup="dialog">
     <span class="cal-card-main">
-      <span class="cal-cdate"><time datetime="2026-11-14">14.11.2026</time> <span class="cal-weekday">Saturday</span></span>
+      <span class="cal-cdate"><time datetime={DAY}>{date}</time> <span class="cal-weekday">{weekday}</span></span>
       <span class="cal-rows">
         {events.map((e) => (
-          <span class={`cal-row ${kindClass(e)}`} data-s={minutes(e.start)} data-e={stop(e) && minutes(stop(e)!)} hidden>
-            <span class="cal-rtime"><time datetime={`2026-11-14T${e.start}`}>{label(e.start)}</time>{e.end && <>–<time datetime={`2026-11-14T${e.end}`}>{label(e.end)}</time></>}</span>
+          <span class={`cal-row ${colourClass(e)}`} data-s={minutes(e.start)} data-e={stop(e) && minutes(stop(e)!)} hidden>
+            <span class="cal-rtime"><time datetime={`${DAY}T${e.start}`}>{label(e.start)}</time>{e.end && <>–<time datetime={`${DAY}T${e.end}`}>{label(e.end)}</time></>}</span>
             <span class="cal-rname">{e.name}</span>
           </span>
         ))}
@@ -101,26 +108,26 @@ const blockStyle = (e: (typeof events)[number]) => `--s:${e.s};--d:${e.f - e.s};
     </span>
     <svg class="cal-chev" aria-hidden="true" viewBox="0 0 16 16" width="14" height="14"><path d="M9.5 2.5h4v4M13.5 2.5 9 7M6.5 13.5h-4v-4M2.5 13.5 7 9" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
   </button>
-  <div class="cal-win" style={`--from:${FROM};--rows:${TO - FROM}`}>
+  <div class="cal-win">
     <div class="cal-bar" aria-hidden="true"><span class="dot"></span><span class="dot"></span><span class="dot"></span></div>
-    <p class="cal-title"><time datetime="2026-11-14">14.11.2026</time> <span class="cal-weekday">Saturday</span></p>
+    <p class="cal-title"><time datetime={DAY}>{date}</time> <span class="cal-weekday">{weekday}</span></p>
     <div class="cal-body">
       <div class="cal-grid" aria-hidden="true">
         {Array.from({ length: TO - FROM + 1 }, (_, i) => <span class="cal-hour" style={`--i:${FROM + i};counter-reset:h ${FROM + i}`}></span>)}
       </div>
       <ul class="cal-events">
         {events.map((e) => (
-          <li class={`cal-event ${kindClass(e)}${stop(e) ? " cal-long" : ""}`} style={blockStyle(e)}>
-            <span class="cal-txt"><span class="cal-name">{e.name}</span> <span class="cal-meta"><time datetime={`2026-11-14T${e.start}`}>{label(e.start)}</time>{e.end && <>–<time datetime={`2026-11-14T${e.end}`}>{label(e.end)}</time></>} · {e.place}</span></span>
+          <li class={`cal-event ${colourClass(e)}${stop(e) ? " cal-long" : ""}`} style={blockStyle(e)}>
+            <span class="cal-txt"><span class="cal-name">{e.name}</span> <span class="cal-meta"><time datetime={`${DAY}T${e.start}`}>{label(e.start)}</time>{e.end && <>–<time datetime={`${DAY}T${e.end}`}>{label(e.end)}</time></>}{e.place && ` · ${e.place}`}</span></span>
           </li>
         ))}
       </ul>
     </div>
   </div>
 </aside>
-<dialog class="cal-modal" aria-labelledby="cal-modal-title" style={`--from:${FROM};--rows:${TO - FROM};--now:${FROM}`}>
+<dialog class="cal-modal" aria-labelledby="cal-modal-title" data-day={DAY} data-day-name={dayName} style={`--from:${FROM};--rows:${TO - FROM};--now:${FROM}`}>
   <div class="cal-bar" aria-hidden="true"><span class="dot"></span><span class="dot"></span><span class="dot"></span></div>
-  <h2 class="cal-title" id="cal-modal-title" tabindex="-1"><time datetime="2026-11-14">14.11.2026</time> <span class="cal-weekday">Saturday</span></h2>
+  <h2 class="cal-title" id="cal-modal-title" tabindex="-1"><time datetime={DAY}>{date}</time> <span class="cal-weekday">{weekday}</span></h2>
   <!-- After the title in the DOM (shown in the bar's right end), so Tab from the title, which has
        the initial focus, reaches it first. -->
   <button type="button" class="cal-close" aria-label="Close"><svg aria-hidden="true" viewBox="0 0 12 12" width="12" height="12"><path d="M.75.75l10.5 10.5M11.25.75.75 11.25" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></button>
@@ -131,8 +138,8 @@ const blockStyle = (e: (typeof events)[number]) => `--s:${e.s};--d:${e.f - e.s};
       </div>
       <ul class="cal-events">
         {events.map((e) => (
-          <li class={`cal-event ${kindClass(e)}${stop(e) ? " cal-long" : ""}`} style={blockStyle(e)}>
-            <span class="cal-txt"><span class="cal-name">{e.name}</span> <span class="cal-meta"><time datetime={`2026-11-14T${e.start}`}>{label(e.start)}</time>{e.end && <>–<time datetime={`2026-11-14T${e.end}`}>{label(e.end)}</time></>} · {e.place}</span></span>
+          <li class={`cal-event ${colourClass(e)}${stop(e) ? " cal-long" : ""}`} style={blockStyle(e)}>
+            <span class="cal-txt"><span class="cal-name">{e.name}</span> <span class="cal-meta"><time datetime={`${DAY}T${e.start}`}>{label(e.start)}</time>{e.end && <>–<time datetime={`${DAY}T${e.end}`}>{label(e.end)}</time></>}{e.place && ` · ${e.place}`}</span></span>
           </li>
         ))}
       </ul>
@@ -147,7 +154,9 @@ const blockStyle = (e: (typeof events)[number]) => `--s:${e.s};--d:${e.f - e.s};
     const rows = [...card.querySelectorAll(".cal-row[data-s]")];
     const scroller = dlg.querySelector(".cal-scroll"), title = dlg.querySelector(".cal-title"), hours = [...dlg.querySelectorAll(".cal-hour")];
     const wide = matchMedia("(min-width: 1280px) and (min-height: 656px)");
-    const DAY = 20261114, root = document.documentElement;
+    // The day, from the frontmatter via the dialog's data attributes: as a number to compare
+    // with today, and as words for the card's label.
+    const DAY = +dlg.dataset.day.replaceAll("-", ""), dayName = dlg.dataset.dayName, root = document.documentElement;
     const fmt = new Intl.DateTimeFormat("en-GB", { timeZone: "Europe/Helsinki", year: "numeric", month: "numeric", day: "numeric", hour: "numeric", minute: "numeric", hourCycle: "h23" });
     // The day grid's hour range, from the frontmatter via the dialog's inline style (tick() widens it).
     const FROM = +dlg.style.getPropertyValue("--from"), TO = FROM + +dlg.style.getPropertyValue("--rows");
@@ -176,7 +185,7 @@ const blockStyle = (e: (typeof events)[number]) => `--s:${e.s};--d:${e.f - e.s};
       }
       cal.toggleAttribute("data-fit", ok);
       const items = next.slice(0, k).map((r) => r === none ? "No more events" : `${r.firstElementChild.textContent} ${r.lastElementChild.textContent}`);
-      card.setAttribute("aria-label", `Saturday 14.11.2026. ${next[0] === none ? "" : "Next: "}${items.join(", ")}. Open the full day`);
+      card.setAttribute("aria-label", `${dayName}. ${next[0] === none ? "" : "Next: "}${items.join(", ")}. Open the full day`);
     };
     const tick = () => {
       const p = {};
@@ -242,8 +251,8 @@ const blockStyle = (e: (typeof events)[number]) => `--s:${e.s};--d:${e.f - e.s};
     letter-spacing: 0;
     text-align: left;
   }
-  .k-food { --hl: var(--highlight); --tx: oklch(0.95 0.07 95); --tx2: oklch(0.9 0.06 95); }
-  .k-prog { --hl: #0a84ff; --tx: oklch(0.93 0.045 250); --tx2: oklch(0.88 0.06 250); }
+  .k-yellow { --hl: var(--highlight); --tx: oklch(0.95 0.07 95); --tx2: oklch(0.9 0.06 95); }
+  .k-blue { --hl: #0a84ff; --tx: oklch(0.93 0.045 250); --tx2: oklch(0.88 0.06 250); }
   [hidden] { display: none !important; }
 
   /* Compact card */
@@ -341,8 +350,10 @@ const blockStyle = (e: (typeof events)[number]) => `--s:${e.s};--d:${e.f - e.s};
   }
   /* Exactly one 13 px line (two from 30 px), plus 1 px of padding above and below so the clip
      never shaves ascenders or descenders: a meta that does not fit on the name's line wraps out of
-     sight whole. The name shrinks with its column so it always fits (9.4 em is the widest name
-     plus room for wider system fonts). */
+     sight whole. The name shrinks with its column so it always fits: 10 em is the widest name
+     ("Peer-review round 1", 9.6 em at weight 600 in Arial) plus room for wider system fonts, so
+     every name fits a column of 105 px or more (10 em at the 10.5 px floor). Raise the 10 if a
+     wider name is added. */
   .cal-txt {
     display: flex;
     flex-wrap: wrap;
@@ -351,7 +362,7 @@ const blockStyle = (e: (typeof events)[number]) => `--s:${e.s};--d:${e.f - e.s};
     height: 15px;
     padding: 1px 0;
     overflow: hidden;
-    font-size: clamp(10.5px, 100cqw / 9.4, 12.5px);
+    font-size: clamp(10.5px, 100cqw / 10, 12.5px);
     line-height: 13px;
   }
   .cal-name { font-weight: 600; white-space: nowrap; color: var(--tx); }
@@ -369,19 +380,20 @@ const blockStyle = (e: (typeof events)[number]) => `--s:${e.s};--d:${e.f - e.s};
     .cal-event { border-radius: 10px; corner-shape: squircle; }
   }
 
-  /* Full window. Fixed chrome (border 2 + bar 31 + title 60 + grid padding 16 = 109 px) plus
-     9 hour rows of 34-64 px; rows take what the hero leaves after the header and 2 x 16 px. */
+  /* Full window. Fixed chrome (border 2 + bar 31 + title 60 + grid padding 16 = 109 px) plus one
+     34-64 px row per hour (--rows, set on the <aside> from FROM and TO); rows take what the hero
+     leaves after the header and 2 x 16 px. */
   @media (min-width: 1280px) and (min-height: 656px) {
     .cal {
       --free: calc(50% - 352px);
       --w: min(320px, var(--free) - 20px);
-      --row: clamp(34px, (max(78svh, 380px) - 64px - 32px - 109px) / 9, 64px);
+      --row: clamp(34px, (max(78svh, 380px) - 64px - 32px - 109px) / var(--rows), 64px);
       top: 64px;
       bottom: 0;
       right: calc((var(--free) - var(--w)) / 2);
       width: var(--w);
       max-width: none;
-      height: calc(109px + 9 * var(--row));
+      height: calc(109px + var(--rows) * var(--row));
       margin-block: auto;
       border-radius: 16px;
       overflow: hidden;
