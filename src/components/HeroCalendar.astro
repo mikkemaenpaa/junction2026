@@ -7,10 +7,10 @@
 // but is never written out (its text shows only the start).
 //
 // Three forms:
-// - Full window (viewport >= 1280 x 612): in the free picture right of the hero content
-//   (assumed at most 2 x 352 px wide, centred), a 12.00-20.00 day grid. Its hour rows scale
+// - Full window (viewport >= 1280 x 656): in the free picture right of the hero content
+//   (assumed at most 2 x 352 px wide, centred), a 12.00-21.00 day grid. Its hour rows scale
 //   with the hero height (max(78svh, 380px)) between 34 and 64 px, so the window always fits
-//   between the 64 px header and the hero's bottom with 16 px to spare; 612 px is the lowest
+//   between the 64 px header and the hero's bottom with 16 px to spare; 656 px is the lowest
 //   viewport where 34 px rows still fit. Pure HTML and CSS, not interactive, no "now" line.
 // - Compact card (everything else): bottom right corner of the hero, a button with the date and
 //   the next events from the current Helsinki time (up to 3; an event with an end or an assumed
@@ -48,11 +48,11 @@ const source: CalEvent[] = [
   { start: "13:30", name: "Modal workshop", place: "2nd Floor Cafe", kind: "programme" },
   { start: "14:30", name: "Kiuas workshop", place: "2nd Floor Cafe", kind: "programme" },
   { start: "16:30", name: "Exa workshop", place: "2nd Floor Cafe", kind: "programme" },
+  { start: "17:45", end: "21:00", name: "Dinner", place: "2nd and 3rd Floor", kind: "food" },
   { start: "18:00", name: "Maria 01 workshop", place: "2nd Floor Cafe", kind: "programme" },
-  { start: "18:00", until: "20:00", name: "Dinner", place: "2nd and 3rd Floor", kind: "food" },
 ];
 const FROM = 12;
-const TO = 20;
+const TO = 21;
 const hrs = (t: string) => {
   const [h, m] = t.split(":").map(Number);
   return h + m / 60;
@@ -146,7 +146,7 @@ const blockStyle = (e: (typeof events)[number]) => `--s:${e.s};--d:${e.f - e.s};
     const card = cal.querySelector(".cal-card"), none = card.querySelector(".cal-none");
     const rows = [...card.querySelectorAll(".cal-row[data-s]")];
     const scroller = dlg.querySelector(".cal-scroll"), title = dlg.querySelector(".cal-title"), hours = [...dlg.querySelectorAll(".cal-hour")];
-    const wide = matchMedia("(min-width: 1280px) and (min-height: 612px)");
+    const wide = matchMedia("(min-width: 1280px) and (min-height: 656px)");
     const DAY = 20261114, root = document.documentElement;
     const fmt = new Intl.DateTimeFormat("en-GB", { timeZone: "Europe/Helsinki", year: "numeric", month: "numeric", day: "numeric", hour: "numeric", minute: "numeric", hourCycle: "h23" });
     // The day grid's hour range, from the frontmatter via the dialog's inline style (tick() widens it).
@@ -370,18 +370,18 @@ const blockStyle = (e: (typeof events)[number]) => `--s:${e.s};--d:${e.f - e.s};
   }
 
   /* Full window. Fixed chrome (border 2 + bar 31 + title 60 + grid padding 16 = 109 px) plus
-     8 hour rows of 34-64 px; rows take what the hero leaves after the header and 2 x 16 px. */
-  @media (min-width: 1280px) and (min-height: 612px) {
+     9 hour rows of 34-64 px; rows take what the hero leaves after the header and 2 x 16 px. */
+  @media (min-width: 1280px) and (min-height: 656px) {
     .cal {
       --free: calc(50% - 352px);
       --w: min(320px, var(--free) - 20px);
-      --row: clamp(34px, (max(78svh, 380px) - 64px - 32px - 109px) / 8, 64px);
+      --row: clamp(34px, (max(78svh, 380px) - 64px - 32px - 109px) / 9, 64px);
       top: 64px;
       bottom: 0;
       right: calc((var(--free) - var(--w)) / 2);
       width: var(--w);
       max-width: none;
-      height: calc(109px + 8 * var(--row));
+      height: calc(109px + 9 * var(--row));
       margin-block: auto;
       border-radius: 16px;
       overflow: hidden;
