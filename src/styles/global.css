@@ -23,6 +23,8 @@
 /* Same for the team count capsule (its styles are inline in the <head> of the pages that show it). */
 @source not "../components/TeamCount.astro";
 @source not "../components/TeamCountStyles.astro";
+/* And for the Community tag in the header (scoped <style>). */
+@source not "../components/CommunityTag.astro";
 
 @theme inline {
   --font-display: var(--font-titillium-web);

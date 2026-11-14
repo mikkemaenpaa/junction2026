@@ -1,0 +1,83 @@
+---
+// "Community" tag right after the JUNCTION 2026 wordmark in the site header: this is a
+// community-made version of the site. A blue seal and the word in a small pill; where the pill
+// does not fit (narrow phones), the seal alone, with the word kept for screen readers.
+//
+// Pure CSS, no breakpoint, so it holds for any system font:
+// - .ctag fills the rest of the header row up to 12 px from the viewport edge and shows only
+//   its first 32 px high flex line (the wordmark's line). Its items wrap:
+//   1. .ctag-alone, the 20 px seal. Its outer width is 0 (negative right margin), so it always
+//      starts the first line. It sits at the bottom of that line (align-self: flex-end).
+//   2. .ctag-full, the pill, in a 64 px high box. When it fits it joins the first line, makes
+//      it 64 px high and so pushes the lone seal down out of view. When it does not fit it
+//      wraps to the second line, out of view, and the first line is the lone seal's 32 px.
+// - Both items repeat the wordmark's font and line height, so their baseline is the
+//   wordmark's. The pill sits on that baseline (its baseline is the word's), and the word is
+//   centred in the pill by its capital height (text-box: trim-both cap alphabetic). The lone
+//   seal is centred on the wordmark's capitals (vertical-align in cap units).
+---
+
+<span class="ctag" title="Community-made version of the site"><span class="ctag-alone" aria-hidden="true"><span class="ctag-seal"></span></span><span class="ctag-full"><span class="ctag-pill"><span class="ctag-word">Community</span></span></span></span>
+
+<style>
+  .ctag {
+    --ctag-seal: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cg fill='%231d9bf0'%3E%3Ccircle cx='12' cy='12' r='8.6'/%3E%3Ccircle cx='20.10' cy='12.00' r='2.75'/%3E%3Ccircle cx='18.55' cy='16.76' r='2.75'/%3E%3Ccircle cx='14.50' cy='19.70' r='2.75'/%3E%3Ccircle cx='9.50' cy='19.70' r='2.75'/%3E%3Ccircle cx='5.45' cy='16.76' r='2.75'/%3E%3Ccircle cx='3.90' cy='12.00' r='2.75'/%3E%3Ccircle cx='5.45' cy='7.24' r='2.75'/%3E%3Ccircle cx='9.50' cy='4.30' r='2.75'/%3E%3Ccircle cx='14.50' cy='4.30' r='2.75'/%3E%3Ccircle cx='18.55' cy='7.24' r='2.75'/%3E%3C/g%3E%3Cg fill='%23fff'%3E%3Ccircle cx='9.6' cy='9.3' r='2.3'/%3E%3Cpath d='M5.2 16.6c0-2.5 1.9-4.2 4.4-4.2s4.4 1.7 4.4 4.2c0 .3-.3.6-.6.6H5.8c-.3 0-.6-.3-.6-.6z'/%3E%3Ccircle cx='15.3' cy='9.9' r='1.8'/%3E%3Cpath d='M15.3 12.7c2 0 3.5 1.3 3.5 3.3 0 .3-.2.5-.5.5h-3.1c0-1.4-.5-2.7-1.4-3.6.5-.1 1-.2 1.5-.2z'/%3E%3C/g%3E%3C/svg%3E");
+    display: flex;
+    flex-wrap: wrap;
+    align-content: flex-start;
+    align-items: flex-start;
+    flex: 1 1 0;
+    min-width: 0;
+    height: 2rem;
+    margin-right: -12px;
+    overflow: clip;
+    pointer-events: none;
+  }
+  @supports not (overflow: clip) {
+    .ctag {
+      overflow: hidden;
+    }
+  }
+  .ctag-alone,
+  .ctag-full {
+    flex: none;
+    font: 300 1.5rem/2rem var(--font-display);
+    white-space: nowrap;
+  }
+  .ctag-alone {
+    align-self: flex-end;
+    width: 20px;
+    height: 2rem;
+    margin-right: -20px;
+  }
+  .ctag-full {
+    height: 4rem;
+  }
+  .ctag-seal {
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    vertical-align: -1.5px;
+    vertical-align: calc(0.5cap - 10px);
+    background: var(--ctag-seal) center / contain no-repeat;
+    pointer-events: auto;
+  }
+  .ctag-pill {
+    display: inline-flex;
+    align-items: center;
+    box-sizing: border-box;
+    height: 22px;
+    padding: 0 9px 0 23px;
+    border: 1px solid rgb(255 255 255 / 0.14);
+    border-radius: 999px;
+    background: var(--ctag-seal) 3px 50% / 16px 16px no-repeat, rgb(28 28 30 / 0.74);
+    color: rgb(255 255 255 / 0.95);
+    font: 600 11.5px/1 -apple-system, BlinkMacSystemFont, "SF Pro Text", "Helvetica Neue", "Segoe UI", Roboto, Arial, sans-serif;
+    letter-spacing: 0;
+    text-transform: none;
+    pointer-events: auto;
+  }
+  .ctag-word {
+    text-box: trim-both cap alphabetic;
+  }
+</style>
