@@ -22,6 +22,8 @@ Astro 7 with a Node server, React islands and Tailwind CSS v4.
 - **Organiser view** (`/`): six broad sliders and the number of applicants to suggest. The
   places are split between the fields by the participating companies' fields. Each suggested
   applicant is a card with the facts behind the score. The tool suggests; the organiser decides.
+- **Organiser data** (`GET /api/organiser`): the same applicants and companies as JSON, for the
+  Overlap app's company side (`apps/app`), which shows the same view in its own design.
 
 ## Setup
 
