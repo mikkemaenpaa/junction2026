@@ -43,6 +43,36 @@ A deploy uploads the contents of `dist/` as the static assets of the `junction20
 (only changed files are sent) and serves them on the `junction2026.com` custom domain set in
 `wrangler.jsonc`. The new version is live as soon as the command finishes; rolling back means
 redeploying an earlier commit or using Cloudflare's version history for the Worker.
+`/submission` and everything below it are served by another Worker and are not part of this
+deploy (see [Overlap, our hackathon submission](#overlap-our-hackathon-submission)).
+
+## Overlap, our hackathon submission
+
+`packages/overlap/` is Overlap, our Junction 2026 submission, copied from its own repository,
+[petraemmii/aislop](https://github.com/petraemmii/aislop). It is a separate pnpm workspace on the
+[Vite+](https://viteplus.dev) toolchain (`vp`), with its own lockfile, scripts and
+[README](packages/overlap/README.md). It is not part of this project's install, build or check:
+`tsconfig.json` excludes `packages/`, and the site's styles only scan `src/`.
+
+Two Workers share the domain:
+
+| Worker | Serves | Files |
+| --- | --- | --- |
+| `junction2026` (this site) | the custom domain `junction2026.com` | `dist/` |
+| `overlap-landing` (Overlap) | the route `junction2026.com/submission*`, which runs in front of the custom domain for `/submission` and everything below it | `packages/overlap/apps/landing/dist/` |
+
+The button in the home page's hero, "View our submission here", links to `/submission`.
+
+To build, check and deploy Overlap (Node.js 22.23.4 or newer and pnpm 10.34.3; Wrangler needs
+the same Cloudflare credentials as above):
+
+```sh
+cd packages/overlap
+pnpm install             # its own dependencies, in packages/overlap/node_modules
+pnpm run check           # astro check, format, lint, type check and tests
+pnpm run build:site      # build the site for junction2026.com/submission into apps/landing/dist/
+pnpm run deploy:landing  # build:site, then deploy the overlap-landing Worker
+```
 
 ## Where things live
 
@@ -66,6 +96,7 @@ redeploying an earlier commit or using Cloudflare's version history for the Work
 | Site icons and the social preview image | `public/favicon.*`, `public/og-image.jpg` (see [Icons and the social preview image](#icons-and-the-social-preview-image)) |
 | Cache and security headers | `public/_headers` |
 | Cloudflare configuration | `wrangler.jsonc` |
+| Overlap, our hackathon submission at `/submission` (a separate pnpm workspace) | `packages/overlap/` (see [Overlap, our hackathon submission](#overlap-our-hackathon-submission)) |
 
 ## Updating content
 
