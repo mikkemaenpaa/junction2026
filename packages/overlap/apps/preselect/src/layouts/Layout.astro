@@ -1,0 +1,30 @@
+---
+import "../styles/global.css";
+
+interface Props {
+  title: string;
+}
+
+const { title } = Astro.props;
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="robots" content="noindex" />
+    <title>{title}</title>
+  </head>
+  <body>
+    <header class="border-b border-line bg-surface">
+      <div class="mx-auto flex max-w-[1400px] items-center justify-between gap-4 px-4 py-3">
+        <p class="text-sm">
+          <span class="font-semibold">Preselect</span>
+          <span class="text-muted"> · Deep Tech Talent Forum 2026</span>
+        </p>
+      </div>
+    </header>
+    <slot />
+  </body>
+</html>

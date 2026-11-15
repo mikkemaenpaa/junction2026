@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+set -euo pipefail
+pnpm --filter @overlap/app run build
+figma make deploy --build-dir apps/app/dist

@@ -1,0 +1,78 @@
+---
+// Eyebrow pill + h2 (+ optional lede) shared by the sections below the hero, centred like the
+// hero's own stack. The type follows the hero (hero.css): the h2 has the title's weight, leading
+// and tracking one step smaller than the h1, and the lede is the hero's .hero-sub.
+interface Props {
+  /** id of the h2, for the section's aria-labelledby. */
+  id: string
+  eyebrow: string
+}
+
+const { id, eyebrow } = Astro.props
+---
+
+<header class="heading">
+  <p class="eyebrow glass-chip">{eyebrow}</p>
+  <h2 id={id} class="title font-display">
+    <slot />
+  </h2>
+  {
+    Astro.slots.has('lede') && (
+      <p class="lede">
+        <slot name="lede" />
+      </p>
+    )
+  }
+</header>
+
+<style>
+  .heading {
+    position: relative;
+    isolation: isolate;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    max-width: 60rem;
+    margin-inline: auto;
+    text-align: center;
+  }
+  /* A paper scrim behind the text, as the hero's .hero-scrim, so the floating event cards
+     (Ambient.astro) never fight the words. It reaches past the text and fades to fully
+     transparent at its edges, so it never shows as a box. */
+  .heading::before {
+    content: '';
+    position: absolute;
+    inset: -56px -8%;
+    z-index: -1;
+    pointer-events: none;
+    background: radial-gradient(
+      closest-side,
+      color-mix(in srgb, var(--color-paper) 95%, transparent) 0%,
+      color-mix(in srgb, var(--color-paper) 84%, transparent) 45%,
+      transparent 100%
+    );
+  }
+  /* Quieter than the hero's chips, which are buttons: this one is only a label. */
+  .eyebrow {
+    min-height: 30px;
+    padding-inline: 12px;
+    color: var(--color-ink-soft);
+    font-size: 0.8125rem;
+  }
+  .title {
+    margin-top: 18px;
+    font-size: clamp(2rem, 1.15rem + 3.4vw, 3.75rem);
+    font-weight: 800;
+    line-height: 1;
+    letter-spacing: -0.035em;
+    text-wrap: balance;
+  }
+  .lede {
+    max-width: 33rem;
+    margin-top: 14px;
+    color: var(--color-ink-soft);
+    font-size: 1.0625rem;
+    line-height: 1.45;
+    text-wrap: balance;
+  }
+</style>

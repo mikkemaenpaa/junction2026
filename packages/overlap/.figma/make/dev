@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+# The Figma Make app lives in apps/app (pnpm workspace package @overlap/app).
+pnpm --filter @overlap/app run dev

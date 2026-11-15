@@ -1,0 +1,6 @@
+# Astro generated types and caches
+.astro/
+
+# Wrangler / Cloudflare local state
+.wrangler/
+.dev.vars*

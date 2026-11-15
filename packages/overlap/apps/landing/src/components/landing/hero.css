@@ -1,0 +1,637 @@
+/*
+ * Hero layout. Colours are the theme tokens from src/styles/global.css.
+ * These rules are deliberately unlayered: they must win over Tailwind's layered utilities on the
+ * prompt-kit / shadcn elements they restyle.
+ *
+ * Corners: a plain radius for every browser and, where the engine supports it, a larger radius
+ * with corner-shape: squircle (the same approach as junction2026).
+ */
+.hero {
+  /* Where the orb's centre sits. The depth field is offset so its cards emerge from this point. */
+  --origin-y: 30%;
+  --orb-scale: 1;
+  --orb-size: calc(250px * var(--orb-scale));
+  --header-h: 72px;
+  --ink-soft: color-mix(in srgb, var(--color-ink) 74%, var(--color-paper));
+  --glass-line: color-mix(in srgb, var(--color-line) 85%, transparent);
+  position: relative;
+  /* Above the sections that follow, so the fixed header (which lives in this island) stays on top. */
+  z-index: 10;
+  isolation: isolate;
+  height: 100svh;
+  min-height: 620px;
+  overflow: hidden;
+  background: var(--color-paper);
+  color: var(--color-ink);
+}
+
+/* ---------------------------------------------------------------- scene */
+/* Everything in the hero but the fixed header, in the hero's own box. The error flash zooms it
+   from the orb's centre (use-error-flash.ts). */
+.hero-scene {
+  position: absolute;
+  inset: 0;
+  transform-origin: 50% var(--origin-y);
+}
+
+/* ---------------------------------------------------------------- field */
+/* The field's own centre is its vanishing point, so the box is stretched upwards until that
+   centre lands on --origin-y. Its top and height are set inline (see Hero.tsx). */
+.hero .event-field {
+  position: absolute;
+  left: 0;
+  z-index: 0;
+  width: 100%;
+}
+.hero .event-field .depth-field-image {
+  border-radius: 12px !important;
+}
+.hero-scrim {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  background:
+    radial-gradient(
+      ellipse min(58vw, 620px) 46% at 50% calc(var(--origin-y) + 24%),
+      color-mix(in srgb, var(--color-paper) 95%, transparent) 0%,
+      color-mix(in srgb, var(--color-paper) 84%, transparent) 45%,
+      transparent 100%
+    ),
+    linear-gradient(to bottom, color-mix(in srgb, var(--color-paper) 80%, transparent), transparent 132px),
+    linear-gradient(to top, var(--color-paper) 18px, transparent 72px);
+}
+/* The red of the error flash (its colour and timeline are in use-error-flash.ts). Over the field
+   and the scrim (same z-index, later in the document) and under the stack, whose glass blurs it. */
+.hero-flash {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  opacity: 0;
+  pointer-events: none;
+}
+/* The wall of skulls in the red (SkullWall.tsx). Inside the red layer, so it shows exactly when and
+   as much as the red does. Hero.tsx mounts it as the skull ask is made, while the red is still at
+   opacity 0: nothing of it shows, but it is laid out, and laying out its text is what makes a
+   browser without the skull fetch the fallback face, during the ask's thinking and searching
+   beats, before its flash. */
+.skull-wall {
+  position: absolute;
+  inset: 0;
+  /* Skulls past the edges are cut off, so they never widen the page or the hero's scroll area. */
+  contain: strict;
+  /* The device's own emoji, Apple's first; the bundled skull (astro.config.ts) only where none of
+     these has it. */
+  font-family: 'Apple Color Emoji', 'Segoe UI Emoji', 'Noto Color Emoji', emoji, var(--font-skull);
+  line-height: 1;
+  -webkit-user-select: none;
+  user-select: none;
+}
+.skull-wall > span {
+  position: absolute;
+  translate: -50% -50%;
+}
+
+/* --------------------------------------------------------------- header */
+.site-header {
+  position: fixed;
+  inset: 0 0 auto;
+  z-index: 50;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  box-sizing: content-box;
+  height: var(--header-h);
+  padding: env(safe-area-inset-top) max(20px, env(safe-area-inset-right)) 0 max(20px, env(safe-area-inset-left));
+  /* Only the controls take clicks; the page under the bar stays reachable. */
+  pointer-events: none;
+}
+.site-header > * {
+  pointer-events: auto;
+}
+/* Over the hero the bar is clear, so the cards pass under the glass. Once the hero has scrolled
+   away the bar frosts over, which keeps the logo and the glass buttons legible on any section. */
+.site-header::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  border-bottom: 1px solid var(--glass-line);
+  background: color-mix(in srgb, var(--color-paper) 88%, transparent);
+  -webkit-backdrop-filter: blur(18px) saturate(1.5);
+  backdrop-filter: blur(18px) saturate(1.5);
+  opacity: 0;
+  transition: opacity 0.25s;
+  pointer-events: none;
+}
+.site-header[data-scrolled]::before {
+  opacity: 1;
+}
+/* The City of Espoo lockup (EspooLockup.tsx), 40px high: with Espoo's clear space, 0.41 of the
+   logo's height on every side, that fills the 72px bar. */
+.logo {
+  --espoo-lockup-height: 40px;
+  display: inline-flex;
+  align-items: center;
+  margin-right: auto;
+  border-radius: 4px;
+  /* Espoo's navy. */
+  color: #012169;
+  line-height: 1;
+  text-decoration: none;
+}
+.logo:focus-visible,
+.ask-chip:focus-visible,
+.ask-send:focus-visible {
+  outline: 2px solid var(--color-forest);
+  outline-offset: 3px;
+}
+.site-tools {
+  display: flex;
+  align-items: center;
+  gap: 0.55em;
+  /* Bubble UI sizes itself in em: 16px gives 44px round buttons. */
+  font-size: 16px;
+  color: var(--color-ink);
+}
+/* The menu opens over moving cards and, further down, over section text. Frost what is behind
+   the panel so its actions stay readable. The frost sits under the glass film and follows the
+   menu's own open/close progress (--soap-menu-focus, set by the component on the menu root). */
+.site-tools .soap-bubble-menu-panel::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -2;
+  border-radius: inherit;
+  background: color-mix(in srgb, var(--color-card) 74%, transparent);
+  -webkit-backdrop-filter: blur(18px) saturate(1.5);
+  backdrop-filter: blur(18px) saturate(1.5);
+  opacity: var(--soap-menu-focus, 0);
+  pointer-events: none;
+}
+.site-cta {
+  display: flex;
+  margin: 0;
+}
+.site-cta .chromatic-button {
+  font-family: var(--font-sans);
+  font-size: 15px;
+  font-weight: 500;
+  letter-spacing: 0;
+}
+
+/* ---------------------------------------------------------------- stack */
+.hero-stack {
+  position: absolute;
+  z-index: 2;
+  top: calc(var(--origin-y) - var(--orb-size) / 2);
+  right: 0;
+  left: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  /* Wide enough for the title on one line; the text and the ask box keep their own measure. */
+  width: min(100% - 32px, 1040px);
+  margin-inline: auto;
+  text-align: center;
+  pointer-events: none;
+}
+.hero-stack > * {
+  pointer-events: auto;
+}
+/* The orb keeps its 250px renderer; small screens show it scaled, in a slot of the scaled size. */
+.orb-slot {
+  flex: none;
+  width: var(--orb-size);
+  height: var(--orb-size);
+  pointer-events: none;
+}
+.orb-fit {
+  width: 250px;
+  height: 250px;
+  transform: scale(var(--orb-scale));
+  transform-origin: 0 0;
+}
+.hero-title {
+  margin: 20px 0 0;
+  font-family: var(--font-display);
+  font-size: clamp(2.125rem, 1.15rem + 4vw, 4.25rem);
+  font-weight: 800;
+  line-height: 1;
+  letter-spacing: -0.035em;
+  text-wrap: balance;
+}
+.hero-title-emoji {
+  font-family: 'Apple Color Emoji', 'Segoe UI Emoji', 'Noto Color Emoji', emoji;
+  font-weight: 400;
+}
+.hero-sub {
+  max-width: 33rem;
+  margin: 14px 0 0;
+  color: var(--ink-soft);
+  font-size: 1.0625rem;
+  line-height: 1.45;
+  text-wrap: balance;
+}
+
+/* -------------------------------------------------------------- ask box */
+.ask-box {
+  width: 100%;
+  max-width: 680px;
+  margin-top: 24px;
+  padding: 10px 10px 10px 14px;
+  border: 1px solid var(--glass-line);
+  border-radius: 26px;
+  background: color-mix(in srgb, var(--color-card) 76%, transparent);
+  -webkit-backdrop-filter: blur(22px) saturate(1.5);
+  backdrop-filter: blur(22px) saturate(1.5);
+  box-shadow:
+    inset 0 1px 0 rgb(255 255 255 / 0.7),
+    0 24px 60px -28px rgb(17 32 28 / 0.45);
+  text-align: left;
+  transition:
+    border-color 0.2s,
+    box-shadow 0.2s;
+}
+.ask-box:focus-within {
+  border-color: color-mix(in srgb, var(--color-forest) 60%, transparent);
+  box-shadow:
+    inset 0 1px 0 rgb(255 255 255 / 0.7),
+    0 0 0 4px color-mix(in srgb, var(--color-lime) 60%, transparent),
+    0 24px 60px -28px rgb(17 32 28 / 0.45);
+}
+.ask-input {
+  min-height: 44px;
+  padding: 10px 6px 6px;
+  color: var(--color-ink);
+  /* 17px: also keeps iOS from zooming the page on focus. */
+  font-size: 1.0625rem;
+  line-height: 1.4;
+}
+.ask-field {
+  /* 17px like the input from 436px up; below that it follows the width down to 14px, which keeps
+     the sentence to three lines on a 360px phone. */
+  --hint-size: clamp(0.875rem, 3.9vw, 1.0625rem);
+  display: grid;
+}
+.ask-field > * {
+  grid-area: 1 / 1;
+}
+.ask-input::placeholder {
+  color: transparent;
+  /* No larger than the hint, so the hidden text never makes the box taller than the hint does.
+     A tenth smaller because Firefox sets its first line at the input's own 17px line height, which
+     on phones would add a pixel or two that vanishes on the first keystroke. */
+  font-size: calc(var(--hint-size) * 0.9);
+}
+.ask-hint {
+  visibility: hidden;
+  margin: 0;
+  /* The input's padding. The top grows by half of what the hint's line is shorter than the
+     input's, so the caret sits centred on the hint's first line. */
+  padding: calc(10px + (1.0625rem - var(--hint-size)) * 0.7) 6px 6px;
+  color: var(--ink-soft);
+  font-size: var(--hint-size);
+  line-height: 1.4;
+  text-wrap: pretty;
+  opacity: 0.85;
+  pointer-events: none;
+  -webkit-user-select: none;
+  user-select: none;
+}
+.ask-input:placeholder-shown + .ask-hint {
+  visibility: visible;
+}
+.ask-hint-item {
+  margin-right: 0.2em;
+  white-space: nowrap;
+}
+.ask-hint-icon {
+  /* Tailwind's preflight makes every svg a block. */
+  display: inline-block;
+  width: 1em;
+  height: 1em;
+  margin-right: 0.3em;
+  vertical-align: -0.15em;
+  opacity: 0.9;
+}
+.ask-actions {
+  justify-content: space-between;
+  gap: 12px;
+  padding-left: 6px;
+}
+.ask-status {
+  display: -webkit-box;
+  flex: 1;
+  min-width: 0;
+  margin: 0;
+  overflow: hidden;
+  color: var(--ink-soft);
+  font-size: 0.875rem;
+  line-height: 1.3;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  line-clamp: 2;
+}
+.hero[data-phase='error'] .ask-status {
+  color: color-mix(in srgb, var(--color-coral) 55%, var(--color-ink));
+}
+.ask-send {
+  display: grid;
+  flex: none;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  border: 0;
+  border-radius: 50%;
+  background: var(--color-forest);
+  color: var(--color-lime);
+  cursor: pointer;
+  transition:
+    transform 0.15s,
+    background-color 0.2s,
+    opacity 0.2s;
+}
+.ask-send:hover {
+  background: color-mix(in srgb, var(--color-forest) 86%, #000);
+}
+.ask-send:active {
+  transform: scale(0.94);
+}
+.ask-send:disabled {
+  cursor: progress;
+  opacity: 0.7;
+}
+.ask-send svg {
+  width: 20px;
+  height: 20px;
+}
+.ask-spin {
+  animation: ask-spin 0.9s linear infinite;
+}
+@keyframes ask-spin {
+  to {
+    rotate: 1turn;
+  }
+}
+.ask-chips {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 8px;
+  margin: 14px 0 0;
+  padding: 0;
+  list-style: none;
+}
+.ask-chip {
+  min-height: 36px;
+  padding: 0 14px;
+  border: 1px solid var(--glass-line);
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--color-card) 80%, transparent);
+  -webkit-backdrop-filter: blur(12px);
+  backdrop-filter: blur(12px);
+  color: var(--color-ink);
+  font-size: 0.875rem;
+  font-weight: 500;
+  white-space: nowrap;
+  cursor: pointer;
+  transition:
+    border-color 0.2s,
+    background-color 0.2s,
+    transform 0.15s;
+}
+.ask-chip:hover {
+  border-color: color-mix(in srgb, var(--color-forest) 55%, transparent);
+  background: var(--color-card);
+}
+.ask-chip:active {
+  transform: scale(0.97);
+}
+.ask-chip:disabled {
+  cursor: progress;
+  opacity: 0.6;
+}
+
+/* ----------------------------------------------------------------- dock */
+.dock[hidden] {
+  display: none;
+}
+
+.dock {
+  position: absolute;
+  z-index: 3;
+  right: 0;
+  bottom: max(20px, env(safe-area-inset-bottom));
+  left: 0;
+  display: flex;
+  align-items: center;
+  gap: 22px;
+  width: fit-content;
+  max-width: calc(100% - 32px);
+  margin-inline: auto;
+  padding: 12px 14px 12px 20px;
+  border: 1px solid var(--glass-line);
+  border-radius: 26px;
+  background: color-mix(in srgb, var(--color-card) 60%, transparent);
+  -webkit-backdrop-filter: blur(24px) saturate(1.6);
+  backdrop-filter: blur(24px) saturate(1.6);
+  box-shadow:
+    inset 0 1px 0 rgb(255 255 255 / 0.7),
+    0 22px 50px -26px rgb(17 32 28 / 0.5);
+  color: var(--color-ink);
+  /* Bubble UI sizes itself in em. */
+  font-size: 16px;
+  transition: opacity 0.2s;
+}
+/* Once the header has frosted over (the hero is all but gone), the dock would only ghost through
+   the bar. */
+.hero[data-scrolled] .dock {
+  visibility: hidden;
+  opacity: 0;
+  transition:
+    opacity 0.2s,
+    visibility 0s 0.2s;
+}
+.dock-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin: 0;
+}
+.dock-label {
+  font-size: 0.875rem;
+  font-weight: 500;
+  white-space: nowrap;
+}
+.dock-label output {
+  display: inline-block;
+  min-width: 2.1em;
+  color: var(--ink-soft);
+  font-variant-numeric: tabular-nums;
+}
+.dock-fit .soap-bubble-slider {
+  width: clamp(140px, 18vw, 220px);
+}
+.dock-continue {
+  font-size: 15px;
+}
+
+/* ------------------------------------------------------------ squircles */
+@supports (corner-shape: squircle) {
+  .hero .event-field .depth-field-image {
+    border-radius: 17px !important;
+    corner-shape: squircle;
+  }
+  .ask-box,
+  .dock {
+    border-radius: 36px;
+    corner-shape: squircle;
+  }
+}
+
+/* ----------------------------------------------------------- responsive */
+/* Tall viewports: lower the orb so the stack sits nearer the middle. */
+@media (min-height: 1000px) {
+  .hero {
+    --origin-y: 33%;
+  }
+}
+@media (min-height: 1150px) {
+  .hero {
+    --origin-y: 36%;
+  }
+}
+@media (max-height: 880px) {
+  .hero {
+    --origin-y: 29%;
+    --orb-scale: 0.84;
+  }
+}
+/* The hint makes the ask box a line taller, so the orb shrinks from 820px rather than 770px. */
+@media (max-height: 820px) {
+  .hero {
+    --origin-y: 27%;
+    --orb-scale: 0.7;
+  }
+}
+@media (max-height: 770px) {
+  .hero {
+    --origin-y: 27%;
+    --orb-scale: 0.7;
+  }
+  .hero-sub {
+    display: none;
+  }
+  .hero-title {
+    margin-top: 14px;
+  }
+  .ask-box {
+    margin-top: 18px;
+  }
+}
+/* Short laptop screens: a smaller orb keeps the chips clear of the dock. */
+@media (max-height: 680px) {
+  .hero {
+    --origin-y: 25%;
+    --orb-scale: 0.58;
+  }
+}
+@media (max-width: 640px) {
+  .hero {
+    --origin-y: 25%;
+    --orb-scale: 0.72;
+    --header-h: 64px;
+  }
+  .site-header {
+    gap: 8px;
+    padding-inline: max(14px, env(safe-area-inset-left)) max(14px, env(safe-area-inset-right));
+  }
+  /* Pause and "Add your event" stay reachable from the menu's sections; the bar keeps to three items. */
+  .site-tool-wide {
+    display: none;
+  }
+  .logo {
+    --espoo-lockup-height: 32px;
+  }
+  .site-cta .chromatic-button {
+    min-width: 128px;
+    height: 44px;
+    min-height: 44px;
+  }
+  .hero-sub {
+    font-size: 1rem;
+  }
+  .ask-chips {
+    flex-wrap: nowrap;
+    justify-content: flex-start;
+    width: 100vw;
+    padding-inline: 16px;
+    overflow-x: auto;
+    scrollbar-width: none;
+  }
+  .ask-chips::-webkit-scrollbar {
+    display: none;
+  }
+  .dock {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 10px 14px;
+    width: auto;
+    margin-inline: 12px;
+    max-width: none;
+    padding: 12px 12px 12px 16px;
+    bottom: max(12px, env(safe-area-inset-bottom));
+  }
+  .dock-item {
+    justify-content: space-between;
+  }
+  .dock-fit {
+    grid-column: 1 / -1;
+    grid-row: 2;
+  }
+  .dock-fit .soap-bubble-slider {
+    flex: 1;
+    width: auto;
+    margin-left: 6px;
+  }
+}
+/* Narrow phones: the lockup must never touch the menu button. Beside the menu (44px), "Get
+   started" (128px), the bar's padding (2 x 14px) and its gaps (2 x 8px), the 32px lockup (138px
+   wide) fits from 354px and the 28px one (120px) from 337px; narrower, the Espoo logo stands
+   alone at 32px. */
+@media (max-width: 353px) {
+  .logo {
+    --espoo-lockup-height: 28px;
+  }
+}
+@media (max-width: 336px) {
+  .logo {
+    --espoo-lockup-height: 32px;
+    --espoo-lockup-name: 0;
+  }
+}
+/* On phones the hint takes three lines, so the sub line gives way on all but the tall ones. */
+@media (max-width: 640px) and (max-height: 820px) {
+  .hero-sub {
+    display: none;
+  }
+}
+/* Small phones: a smaller orb, higher up. Below 640px the hero stops shrinking (the page scrolls
+   instead), so the dock never covers the chips. */
+@media (max-width: 640px) and (max-height: 720px) {
+  .hero {
+    --origin-y: 20%;
+    --orb-scale: 0.44;
+    min-height: 640px;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .ask-spin {
+    animation-duration: 2.4s;
+  }
+  .ask-send,
+  .ask-chip {
+    transition: none;
+  }
+}

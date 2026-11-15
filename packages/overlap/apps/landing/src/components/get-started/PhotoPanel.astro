@@ -1,0 +1,53 @@
+---
+// The photo side of /get-started: the crowd under a scrim, the City of Espoo lockup as the home link
+// (as in the landing page's header, Hero.tsx) and the tagline. Layout and scrim: get-started.css.
+// EspooLockup is a React component rendered here as static markup (no client directive).
+import { Picture } from 'astro:assets'
+import crowd from '@/assets/get-started-crowd.webp'
+import { EspooLockup } from '@/components/landing/EspooLockup'
+
+// The photo's rendered width: the full width on phones and tablets; from 960px the viewport less the
+// card (--gs-card-w: clamp(420px, 36vw, 540px), get-started.css), which the photo's other offsets
+// cancel out. Keep the two in step.
+const SIZES = [
+  '(min-width: 1500px) calc(100vw - 540px)',
+  '(min-width: 1167px) 64vw',
+  '(min-width: 960px) calc(100vw - 420px)',
+  '100vw',
+].join(', ')
+---
+
+<div class="gs-photo-panel">
+  <div class="gs-photo">
+    {/* The page's largest paint, so loaded eagerly and first (`priority`). AVIF, WebP for the rest;
+        Astro leaves out the widths above the picture's own. Decorative: the tagline says it. */}
+    <Picture
+      src={crowd}
+      formats={['avif']}
+      fallbackFormat="webp"
+      widths={[640, 960, 1280, 1600, 1920, 2400]}
+      sizes={SIZES}
+      priority
+      alt=""
+    />
+  </div>
+
+  {/* On wide screens this stays in view while a card taller than the window scrolls (get-started.css). */}
+  <div class="gs-photo-copy">
+    <a class="gs-home" href="/">
+      <EspooLockup />
+    </a>
+
+    <div class="gs-pitch">
+      <p
+        class="gs-tagline max-w-[12.5ch] font-display text-[clamp(1.875rem,1.2rem+3vw,2.75rem)] leading-[1.04] font-extrabold tracking-[-0.03em] text-balance"
+      >
+        Stand out in the right crowd.
+      </p>
+      <p class="mt-3 max-w-[30rem] text-[15px] leading-normal text-white/88 max-[479px]:hidden min-[960px]:mt-4 min-[960px]:text-[17px]">
+        Overlap rates every event by how well you fit the companies and people in the room. See your fit before you walk in.
+      </p>
+      <p class="mt-10 hidden text-[13px] text-white/70 min-[960px]:block">© 2026 Overlap</p>
+    </div>
+  </div>
+</div>

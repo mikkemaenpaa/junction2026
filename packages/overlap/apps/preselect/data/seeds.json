@@ -1,0 +1,1022 @@
+[
+  {
+    "field": "semiconductors",
+    "link": "https://tinytapeout.com/chips/tt08/tt_um_chip_rom",
+    "listing": "https://tinytapeout.com/runs/tt08/"
+  },
+  {
+    "field": "semiconductors",
+    "link": "https://tinytapeout.com/chips/tt08/tt_um_ephrenm_tsal",
+    "listing": "https://tinytapeout.com/runs/tt08/"
+  },
+  {
+    "field": "semiconductors",
+    "link": "https://tinytapeout.com/chips/tt08/tt_um_rejunity_vga_test01",
+    "listing": "https://tinytapeout.com/runs/tt08/"
+  },
+  {
+    "field": "semiconductors",
+    "link": "https://github.com/vibeic",
+    "listing": "https://github.com/topics/verilog?o=desc&s=updated"
+  },
+  {
+    "field": "semiconductors",
+    "link": "https://github.com/drpaj12",
+    "listing": "https://github.com/topics/verilog?o=desc&s=updated"
+  },
+  {
+    "field": "semiconductors",
+    "link": "https://github.com/SafakSahinn",
+    "listing": "https://github.com/topics/verilog?o=desc&s=updated"
+  },
+  {
+    "field": "semiconductors",
+    "link": "https://github.com/shashaankmalviya",
+    "listing": "https://github.com/topics/verilog?o=desc&s=updated"
+  },
+  {
+    "field": "semiconductors",
+    "link": "https://github.com/verilator",
+    "listing": "https://github.com/topics/verilog?o=desc&s=updated"
+  },
+  {
+    "field": "semiconductors",
+    "link": "https://github.com/marcelwa",
+    "listing": "https://github.com/topics/verilog?o=desc&s=updated"
+  },
+  {
+    "field": "quantum",
+    "link": "https://www.semanticscholar.org/author/R.-Acharya/2074529273",
+    "listing": "https://www.semanticscholar.org/search?q=quantum%20error%20correction&sort=relevance"
+  },
+  {
+    "field": "quantum",
+    "link": "https://www.semanticscholar.org/author/J.-Smolin/3040040",
+    "listing": "https://www.semanticscholar.org/search?q=quantum%20error%20correction&sort=relevance"
+  },
+  {
+    "field": "quantum",
+    "link": "https://www.semanticscholar.org/author/Ke-Wang/2446822669",
+    "listing": "https://www.semanticscholar.org/search?q=quantum%20error%20correction&sort=relevance"
+  },
+  {
+    "field": "quantum",
+    "link": "https://www.semanticscholar.org/author/Min-Ye/2352896857",
+    "listing": "https://www.semanticscholar.org/search?q=quantum%20error%20correction&sort=relevance"
+  },
+  {
+    "field": "quantum",
+    "link": "https://www.semanticscholar.org/author/Bhargavi-Jonnadula/102887107",
+    "listing": "https://www.semanticscholar.org/search?q=quantum%20error%20correction&sort=relevance"
+  },
+  {
+    "field": "quantum",
+    "link": "https://github.com/Heuremen-LLC",
+    "listing": "https://github.com/topics/quantum-computing?o=desc&s=updated"
+  },
+  {
+    "field": "quantum",
+    "link": "https://github.com/erpax",
+    "listing": "https://github.com/topics/quantum-computing?o=desc&s=updated"
+  },
+  {
+    "field": "quantum",
+    "link": "https://github.com/MaxieHelenBichmann",
+    "listing": "https://github.com/topics/quantum-computing?o=desc&s=updated"
+  },
+  {
+    "field": "quantum",
+    "link": "https://github.com/qniapp",
+    "listing": "https://github.com/topics/quantum-computing?o=desc&s=updated"
+  },
+  {
+    "field": "quantum",
+    "link": "https://github.com/Qiskit",
+    "listing": "https://github.com/topics/quantum-computing?o=desc&s=updated"
+  },
+  {
+    "field": "quantum",
+    "link": "https://github.com/Amirahmed0685",
+    "listing": "https://github.com/topics/quantum-computing?o=desc&s=updated"
+  },
+  {
+    "field": "photonics",
+    "link": "https://github.com/icq4ever",
+    "listing": "https://github.com/topics/lidar?o=desc&s=updated"
+  },
+  {
+    "field": "photonics",
+    "link": "https://github.com/nicedreamzapp",
+    "listing": "https://github.com/topics/lidar?o=desc&s=updated"
+  },
+  {
+    "field": "photonics",
+    "link": "https://github.com/PlantSimulationLab",
+    "listing": "https://github.com/topics/lidar?o=desc&s=updated"
+  },
+  {
+    "field": "semiconductors",
+    "link": "https://github.com/kottlerg",
+    "listing": "https://github.com/topics/risc-v?o=desc&s=updated"
+  },
+  {
+    "field": "semiconductors",
+    "link": "https://github.com/Bharathcoorg",
+    "listing": "https://github.com/topics/risc-v?o=desc&s=updated"
+  },
+  {
+    "field": "semiconductors",
+    "link": "https://github.com/w1ne",
+    "listing": "https://github.com/topics/risc-v?o=desc&s=updated"
+  },
+  {
+    "field": "semiconductors",
+    "link": "https://github.com/stnolting",
+    "listing": "https://github.com/topics/risc-v?o=desc&s=updated"
+  },
+  {
+    "field": "photonics",
+    "link": "https://github.com/gdsfactory",
+    "listing": "https://github.com/topics/photonics?o=desc&s=stars"
+  },
+  {
+    "field": "photonics",
+    "link": "https://github.com/joamatab",
+    "listing": "https://github.com/topics/photonics?o=desc&s=stars"
+  },
+  {
+    "field": "photonics",
+    "link": "https://github.com/svd-ai-lab",
+    "listing": "https://github.com/topics/photonics?o=desc&s=stars"
+  },
+  {
+    "field": "photonics",
+    "link": "https://github.com/rafael-fuente",
+    "listing": "https://github.com/topics/photonics?o=desc&s=stars"
+  },
+  {
+    "field": "photonics",
+    "link": "https://github.com/k-telux",
+    "listing": "https://github.com/topics/photonics?o=desc&s=stars"
+  },
+  {
+    "field": "photonics",
+    "link": "https://github.com/deeppunj",
+    "listing": "https://github.com/topics/optics?o=desc&s=updated"
+  },
+  {
+    "field": "photonics",
+    "link": "https://github.com/jamccoy",
+    "listing": "https://github.com/topics/optics?o=desc&s=updated"
+  },
+  {
+    "field": "photonics",
+    "link": "https://github.com/sun-data",
+    "listing": "https://github.com/topics/optics?o=desc&s=updated"
+  },
+  {
+    "field": "photonics",
+    "link": "https://github.com/arrow-kt",
+    "listing": "https://github.com/topics/optics?o=desc&s=updated"
+  },
+  {
+    "field": "quantum",
+    "link": "https://github.com/PennyLaneAI",
+    "listing": "https://github.com/topics/qiskit?o=desc&s=stars"
+  },
+  {
+    "field": "quantum",
+    "link": "https://github.com/JackHidary",
+    "listing": "https://github.com/topics/qiskit?o=desc&s=stars"
+  },
+  {
+    "field": "quantum",
+    "link": "https://github.com/quantastica",
+    "listing": "https://github.com/topics/qiskit?o=desc&s=stars"
+  },
+  {
+    "field": "quantum",
+    "link": "https://github.com/munich-quantum-toolkit",
+    "listing": "https://github.com/topics/qiskit?o=desc&s=stars"
+  },
+  {
+    "field": "embedded",
+    "link": "https://oshwlab.com/education",
+    "listing": "https://oshwlab.com/explore"
+  },
+  {
+    "field": "embedded",
+    "link": "https://oshwlab.com/paulo.quispe.c",
+    "listing": "https://oshwlab.com/explore"
+  },
+  {
+    "field": "embedded",
+    "link": "https://oshwlab.com/arcaegecengiz",
+    "listing": "https://oshwlab.com/explore"
+  },
+  {
+    "field": "embedded",
+    "link": "https://www.hackster.io/newsletter",
+    "listing": "https://www.hackster.io/projects?sort=trending"
+  },
+  {
+    "field": "embedded",
+    "link": "https://www.hackster.io/chrispie",
+    "listing": "https://www.hackster.io/projects?sort=trending"
+  },
+  {
+    "field": "embedded",
+    "link": "https://www.hackster.io/mehdizahedi13790",
+    "listing": "https://www.hackster.io/projects?sort=trending"
+  },
+  {
+    "field": "embedded",
+    "link": "https://www.hackster.io/arnoldho",
+    "listing": "https://www.hackster.io/projects?sort=trending"
+  },
+  {
+    "field": "semiconductors",
+    "link": "https://github.com/google",
+    "listing": "https://github.com/topics/asic?o=desc&s=stars"
+  },
+  {
+    "field": "semiconductors",
+    "link": "https://github.com/ultraembedded",
+    "listing": "https://github.com/topics/asic?o=desc&s=stars"
+  },
+  {
+    "field": "semiconductors",
+    "link": "https://github.com/siliconcompiler",
+    "listing": "https://github.com/topics/asic?o=desc&s=stars"
+  },
+  {
+    "field": "semiconductors",
+    "link": "https://github.com/VUnit",
+    "listing": "https://github.com/topics/asic?o=desc&s=stars"
+  },
+  {
+    "field": "embedded",
+    "link": "https://hackaday.io/project/203726-tinta-low-power-wireless-epaper-device",
+    "listing": "https://hackaday.io/projects?sort=skulls"
+  },
+  {
+    "field": "embedded",
+    "link": "https://hackaday.io/project/207348-active-charge-shuttling-bms",
+    "listing": "https://hackaday.io/projects?sort=skulls"
+  },
+  {
+    "field": "embedded",
+    "link": "https://hackaday.io/project/207356-foxie-litch",
+    "listing": "https://hackaday.io/projects?sort=skulls"
+  },
+  {
+    "field": "semiconductors",
+    "link": "https://www.semanticscholar.org/author/Zi-Ning-Cui/2526143822",
+    "listing": "https://www.semanticscholar.org/search?q=CMOS%20integrated%20circuit%20design&sort=relevance"
+  },
+  {
+    "field": "semiconductors",
+    "link": "https://www.semanticscholar.org/author/Jong-Ryul-Yang/2109726726",
+    "listing": "https://www.semanticscholar.org/search?q=CMOS%20integrated%20circuit%20design&sort=relevance"
+  },
+  {
+    "field": "semiconductors",
+    "link": "https://www.semanticscholar.org/author/M.-Smith/2116645584",
+    "listing": "https://www.semanticscholar.org/search?q=CMOS%20integrated%20circuit%20design&sort=relevance"
+  },
+  {
+    "field": "semiconductors",
+    "link": "https://www.semanticscholar.org/author/D.-Tomaszewski/144037157",
+    "listing": "https://www.semanticscholar.org/search?q=CMOS%20integrated%20circuit%20design&sort=relevance"
+  },
+  {
+    "field": "semiconductors",
+    "link": "https://www.semanticscholar.org/author/Jae-Bin-Kim/2488251157",
+    "listing": "https://www.semanticscholar.org/search?q=atomic%20layer%20deposition%20semiconductor%20process&sort=relevance"
+  },
+  {
+    "field": "semiconductors",
+    "link": "https://www.semanticscholar.org/author/Dun-Bao-Ruan/95591091",
+    "listing": "https://www.semanticscholar.org/search?q=atomic%20layer%20deposition%20semiconductor%20process&sort=relevance"
+  },
+  {
+    "field": "semiconductors",
+    "link": "https://www.semanticscholar.org/author/Hye-mi-Kim/2109582205",
+    "listing": "https://www.semanticscholar.org/search?q=atomic%20layer%20deposition%20semiconductor%20process&sort=relevance"
+  },
+  {
+    "field": "photonics",
+    "link": "https://www.semanticscholar.org/author/A.-Nayak/29820976",
+    "listing": "https://www.semanticscholar.org/search?q=semiconductor%20laser%20optoelectronics&sort=relevance"
+  },
+  {
+    "field": "photonics",
+    "link": "https://www.semanticscholar.org/author/Y.-Liang/72322304",
+    "listing": "https://www.semanticscholar.org/search?q=semiconductor%20laser%20optoelectronics&sort=relevance"
+  },
+  {
+    "field": "photonics",
+    "link": "https://www.semanticscholar.org/author/K.-Chan/2244739120",
+    "listing": "https://www.semanticscholar.org/search?q=semiconductor%20laser%20optoelectronics&sort=relevance"
+  },
+  {
+    "field": "photonics",
+    "link": "https://www.semanticscholar.org/author/Ze-Qin-Lu/7721777",
+    "listing": "https://www.semanticscholar.org/search?q=silicon%20photonics%20integrated%20circuits&sort=relevance"
+  },
+  {
+    "field": "photonics",
+    "link": "https://www.semanticscholar.org/author/Zun-Yue-Zhang/2109372762",
+    "listing": "https://www.semanticscholar.org/search?q=silicon%20photonics%20integrated%20circuits&sort=relevance"
+  },
+  {
+    "field": "photonics",
+    "link": "https://www.semanticscholar.org/author/R.-Marchetti/35183359",
+    "listing": "https://www.semanticscholar.org/search?q=silicon%20photonics%20integrated%20circuits&sort=relevance"
+  },
+  {
+    "field": "photonics",
+    "link": "https://www.semanticscholar.org/author/A.-Rickman/39960463",
+    "listing": "https://www.semanticscholar.org/search?q=silicon%20photonics%20integrated%20circuits&sort=relevance"
+  },
+  {
+    "field": "photonics",
+    "link": "https://www.semanticscholar.org/author/Virat-Tara/2212726864",
+    "listing": "https://www.semanticscholar.org/search?q=silicon%20photonics%20integrated%20circuits&sort=relevance"
+  },
+  {
+    "field": "quantum",
+    "link": "https://www.semanticscholar.org/author/Che-Hao-Li/2190580701",
+    "listing": "https://www.semanticscholar.org/search?q=superconducting%20qubits%20cryogenic&sort=relevance"
+  },
+  {
+    "field": "quantum",
+    "link": "https://www.semanticscholar.org/author/K.-Kang/94945772",
+    "listing": "https://www.semanticscholar.org/search?q=superconducting%20qubits%20cryogenic&sort=relevance"
+  },
+  {
+    "field": "quantum",
+    "link": "https://www.semanticscholar.org/author/C.-Harris/2265335306",
+    "listing": "https://www.semanticscholar.org/search?q=superconducting%20qubits%20cryogenic&sort=relevance"
+  },
+  {
+    "field": "quantum",
+    "link": "https://www.semanticscholar.org/author/D.-Rosenstock/115802908",
+    "listing": "https://www.semanticscholar.org/search?q=superconducting%20qubits%20cryogenic&sort=relevance"
+  },
+  {
+    "field": "embedded",
+    "link": "https://github.com/saraoulmaki",
+    "listing": "https://github.com/topics/stm32?o=desc&s=updated"
+  },
+  {
+    "field": "embedded",
+    "link": "https://github.com/Source-Robotics",
+    "listing": "https://github.com/topics/stm32?o=desc&s=updated"
+  },
+  {
+    "field": "embedded",
+    "link": "https://github.com/meshtastic",
+    "listing": "https://github.com/topics/stm32?o=desc&s=updated"
+  },
+  {
+    "field": "embedded",
+    "link": "https://github.com/armandhammer",
+    "listing": "https://github.com/topics/stm32?o=desc&s=updated"
+  },
+  {
+    "field": "embedded",
+    "link": "https://github.com/bve",
+    "listing": "https://github.com/topics/stm32?o=desc&s=updated"
+  },
+  {
+    "field": "ai",
+    "link": "https://www.kaggle.com/yuanzhezhou/code",
+    "listing": "https://www.kaggle.com/rankings"
+  },
+  {
+    "field": "ai",
+    "link": "https://www.kaggle.com/tomirol/code",
+    "listing": "https://www.kaggle.com/rankings"
+  },
+  {
+    "field": "ai",
+    "link": "https://www.kaggle.com/aerdem4/code",
+    "listing": "https://www.kaggle.com/rankings"
+  },
+  {
+    "field": "ai",
+    "link": "https://www.kaggle.com/kapenon/code",
+    "listing": "https://www.kaggle.com/rankings"
+  },
+  {
+    "field": "embedded",
+    "link": "https://github.com/Developer-Y",
+    "listing": "https://github.com/topics/embedded-systems?o=desc&s=stars"
+  },
+  {
+    "field": "embedded",
+    "link": "https://github.com/mikebrady",
+    "listing": "https://github.com/topics/embedded-systems?o=desc&s=stars"
+  },
+  {
+    "field": "embedded",
+    "link": "https://github.com/e-m-b-a",
+    "listing": "https://github.com/topics/embedded-systems?o=desc&s=stars"
+  },
+  {
+    "field": "embedded",
+    "link": "https://github.com/benhoyt",
+    "listing": "https://github.com/topics/embedded-systems?o=desc&s=stars"
+  },
+  {
+    "field": "embedded",
+    "link": "https://github.com/tscircuit",
+    "listing": "https://github.com/topics/kicad?o=desc&s=updated"
+  },
+  {
+    "field": "embedded",
+    "link": "https://github.com/feastorg",
+    "listing": "https://github.com/topics/kicad?o=desc&s=updated"
+  },
+  {
+    "field": "embedded",
+    "link": "https://github.com/CameronBrooks11",
+    "listing": "https://github.com/topics/kicad?o=desc&s=updated"
+  },
+  {
+    "field": "embedded",
+    "link": "https://github.com/7dsolv",
+    "listing": "https://github.com/topics/kicad?o=desc&s=updated"
+  },
+  {
+    "field": "space",
+    "link": "https://github.com/libcsp",
+    "listing": "https://github.com/topics/cubesat?o=desc&s=stars"
+  },
+  {
+    "field": "space",
+    "link": "https://github.com/alanbjohnston",
+    "listing": "https://github.com/topics/cubesat?o=desc&s=stars"
+  },
+  {
+    "field": "space",
+    "link": "https://github.com/kenchangh",
+    "listing": "https://github.com/topics/cubesat?o=desc&s=stars"
+  },
+  {
+    "field": "space",
+    "link": "https://github.com/PW-Sat2",
+    "listing": "https://github.com/topics/cubesat?o=desc&s=stars"
+  },
+  {
+    "field": "space",
+    "link": "https://github.com/egemenimre",
+    "listing": "https://github.com/topics/cubesat?o=desc&s=stars"
+  },
+  {
+    "field": "space",
+    "link": "https://github.com/Project-NIC",
+    "listing": "https://github.com/topics/gnss?o=desc&s=updated"
+  },
+  {
+    "field": "space",
+    "link": "https://github.com/maessa-oliveira",
+    "listing": "https://github.com/topics/gnss?o=desc&s=updated"
+  },
+  {
+    "field": "space",
+    "link": "https://github.com/rsasaki0109",
+    "listing": "https://github.com/topics/gnss?o=desc&s=updated"
+  },
+  {
+    "field": "space",
+    "link": "https://github.com/musbabaff",
+    "listing": "https://github.com/topics/remote-sensing?o=desc&s=updated"
+  },
+  {
+    "field": "space",
+    "link": "https://github.com/AI-UGA",
+    "listing": "https://github.com/topics/remote-sensing?o=desc&s=updated"
+  },
+  {
+    "field": "space",
+    "link": "https://github.com/KIRIXDJ",
+    "listing": "https://github.com/topics/remote-sensing?o=desc&s=updated"
+  },
+  {
+    "field": "space",
+    "link": "https://github.com/Gxxrazn21",
+    "listing": "https://github.com/topics/remote-sensing?o=desc&s=updated"
+  },
+  {
+    "field": "business",
+    "link": "https://medium.com/@danmaccarone",
+    "listing": "https://medium.com/tag/product-management/recommended"
+  },
+  {
+    "field": "business",
+    "link": "https://medium.com/@vlad.derdeicea",
+    "listing": "https://medium.com/tag/product-management/recommended"
+  },
+  {
+    "field": "business",
+    "link": "https://medium.com/@seykafu",
+    "listing": "https://medium.com/tag/product-management/recommended"
+  },
+  {
+    "field": "business",
+    "link": "https://medium.com/@sethuramanomanakuttan",
+    "listing": "https://medium.com/tag/product-management/recommended"
+  },
+  {
+    "field": "business",
+    "link": "https://medium.com/@takuma-kakehi",
+    "listing": "https://medium.com/tag/product-management/recommended"
+  },
+  {
+    "field": "business",
+    "link": "https://medium.com/@wirawiri",
+    "listing": "https://medium.com/tag/product-management/recommended"
+  },
+  {
+    "field": "ai",
+    "link": "https://github.com/kkasiedu1914",
+    "listing": "https://github.com/topics/pytorch?o=desc&s=updated"
+  },
+  {
+    "field": "ai",
+    "link": "https://github.com/alhaj-ai",
+    "listing": "https://github.com/topics/pytorch?o=desc&s=updated"
+  },
+  {
+    "field": "ai",
+    "link": "https://github.com/Hardonian",
+    "listing": "https://github.com/topics/pytorch?o=desc&s=updated"
+  },
+  {
+    "field": "ai",
+    "link": "https://github.com/tamnd",
+    "listing": "https://github.com/topics/pytorch?o=desc&s=updated"
+  },
+  {
+    "field": "ai",
+    "link": "https://github.com/shrut10",
+    "listing": "https://github.com/topics/pytorch?o=desc&s=updated"
+  },
+  {
+    "field": "ai",
+    "link": "https://github.com/SemiAnalysisAI",
+    "listing": "https://github.com/topics/pytorch?o=desc&s=updated"
+  },
+  {
+    "field": "ai",
+    "link": "https://github.com/AKULA-PRASAD",
+    "listing": "https://github.com/topics/hpc?o=desc&s=updated"
+  },
+  {
+    "field": "ai",
+    "link": "https://github.com/MardokHPC",
+    "listing": "https://github.com/topics/hpc?o=desc&s=updated"
+  },
+  {
+    "field": "ai",
+    "link": "https://github.com/iowarp",
+    "listing": "https://github.com/topics/hpc?o=desc&s=updated"
+  },
+  {
+    "field": "ai",
+    "link": "https://github.com/tensorflow",
+    "listing": "https://github.com/topics/deep-learning?o=desc&s=stars"
+  },
+  {
+    "field": "ai",
+    "link": "https://github.com/pytorch",
+    "listing": "https://github.com/topics/deep-learning?o=desc&s=stars"
+  },
+  {
+    "field": "ai",
+    "link": "https://github.com/rohitg00",
+    "listing": "https://github.com/topics/deep-learning?o=desc&s=stars"
+  },
+  {
+    "field": "ai",
+    "link": "https://github.com/ultralytics",
+    "listing": "https://github.com/topics/deep-learning?o=desc&s=stars"
+  },
+  {
+    "field": "space",
+    "link": "https://www.semanticscholar.org/author/G.-Milinevsky/2243994216",
+    "listing": "https://www.semanticscholar.org/search?q=CubeSat%20satellite%20instrument&sort=relevance"
+  },
+  {
+    "field": "space",
+    "link": "https://www.semanticscholar.org/author/Tung-Jung-Lin/2109588246",
+    "listing": "https://www.semanticscholar.org/search?q=CubeSat%20satellite%20instrument&sort=relevance"
+  },
+  {
+    "field": "space",
+    "link": "https://www.semanticscholar.org/author/D.-Murphy/153416726",
+    "listing": "https://www.semanticscholar.org/search?q=CubeSat%20satellite%20instrument&sort=relevance"
+  },
+  {
+    "field": "space",
+    "link": "https://www.semanticscholar.org/author/P.-Erickson/33122669",
+    "listing": "https://www.semanticscholar.org/search?q=CubeSat%20satellite%20instrument&sort=relevance"
+  },
+  {
+    "field": "off",
+    "link": "https://www.behance.net/claudia-silva",
+    "listing": "https://www.behance.net/search/users?search=illustration"
+  },
+  {
+    "field": "off",
+    "link": "https://www.behance.net/olyatmk889c1",
+    "listing": "https://www.behance.net/search/users?search=illustration"
+  },
+  {
+    "field": "off",
+    "link": "https://www.behance.net/mmnine",
+    "listing": "https://www.behance.net/search/users?search=illustration"
+  },
+  {
+    "field": "off",
+    "link": "https://www.behance.net/labib_ahmadin",
+    "listing": "https://www.behance.net/search/users?search=illustration"
+  },
+  {
+    "field": "off",
+    "link": "https://www.behance.net/astrobabe",
+    "listing": "https://www.behance.net/search/users?search=illustration"
+  },
+  {
+    "field": "space",
+    "link": "https://www.semanticscholar.org/author/J.-Nieke/1768204",
+    "listing": "https://www.semanticscholar.org/search?q=spaceborne%20spectrometer%20calibration&sort=relevance"
+  },
+  {
+    "field": "space",
+    "link": "https://www.semanticscholar.org/author/G.-Miller/2294910899",
+    "listing": "https://www.semanticscholar.org/search?q=spaceborne%20spectrometer%20calibration&sort=relevance"
+  },
+  {
+    "field": "space",
+    "link": "https://www.semanticscholar.org/author/Jianing-Wang/2266355976",
+    "listing": "https://www.semanticscholar.org/search?q=spaceborne%20spectrometer%20calibration&sort=relevance"
+  },
+  {
+    "field": "business",
+    "link": "https://medium.com/@gdayfrank",
+    "listing": "https://medium.com/tag/business-development/recommended"
+  },
+  {
+    "field": "business",
+    "link": "https://medium.com/@andra.ciucescu",
+    "listing": "https://medium.com/tag/business-development/recommended"
+  },
+  {
+    "field": "business",
+    "link": "https://medium.com/@michaelmorgan_",
+    "listing": "https://medium.com/tag/business-development/recommended"
+  },
+  {
+    "field": "business",
+    "link": "https://medium.com/@peteragoreyo",
+    "listing": "https://medium.com/tag/business-development/recommended"
+  },
+  {
+    "field": "business",
+    "link": "https://medium.com/@roshan.justacademy",
+    "listing": "https://medium.com/tag/business-development/recommended"
+  },
+  {
+    "field": "research",
+    "link": "https://www.semanticscholar.org/author/Shuai-Liu/2319442160",
+    "listing": "https://www.semanticscholar.org/search?q=photonic%20integrated%20circuits%20fabrication&sort=relevance"
+  },
+  {
+    "field": "research",
+    "link": "https://www.semanticscholar.org/author/N.-Jaeger/7926572",
+    "listing": "https://www.semanticscholar.org/search?q=photonic%20integrated%20circuits%20fabrication&sort=relevance"
+  },
+  {
+    "field": "research",
+    "link": "https://www.semanticscholar.org/author/Bao-Hua-Jia/2297881151",
+    "listing": "https://www.semanticscholar.org/search?q=photonic%20integrated%20circuits%20fabrication&sort=relevance"
+  },
+  {
+    "field": "research",
+    "link": "https://www.semanticscholar.org/author/Xu-Guang-Zhang/2266708975",
+    "listing": "https://www.semanticscholar.org/search?q=photonic%20integrated%20circuits%20fabrication&sort=relevance"
+  },
+  {
+    "field": "research",
+    "link": "https://www.semanticscholar.org/author/Yannik-Mahlau/2174734680",
+    "listing": "https://www.semanticscholar.org/search?q=photonic%20integrated%20circuits%20fabrication&sort=relevance"
+  },
+  {
+    "field": "business",
+    "link": "https://medium.com/@pakersi.partner",
+    "listing": "https://medium.com/tag/b2b-sales/recommended"
+  },
+  {
+    "field": "business",
+    "link": "https://medium.com/@mubasharalima189",
+    "listing": "https://medium.com/tag/b2b-sales/recommended"
+  },
+  {
+    "field": "business",
+    "link": "https://medium.com/@teamfluence",
+    "listing": "https://medium.com/tag/b2b-sales/recommended"
+  },
+  {
+    "field": "business",
+    "link": "https://medium.com/@john_20202",
+    "listing": "https://medium.com/tag/b2b-sales/recommended"
+  },
+  {
+    "field": "business",
+    "link": "https://medium.com/@supreetgupta",
+    "listing": "https://medium.com/tag/b2b-sales/recommended"
+  },
+  {
+    "field": "research",
+    "link": "https://www.semanticscholar.org/author/A.-O.-Sinelnikov/2350247991",
+    "listing": "https://www.semanticscholar.org/search?q=quantum%20sensing%20nanotechnology&sort=relevance"
+  },
+  {
+    "field": "research",
+    "link": "https://www.semanticscholar.org/author/Priyanka-Kataria/2308375898",
+    "listing": "https://www.semanticscholar.org/search?q=quantum%20sensing%20nanotechnology&sort=relevance"
+  },
+  {
+    "field": "research",
+    "link": "https://www.semanticscholar.org/author/Sourav-Mishra/5114170",
+    "listing": "https://www.semanticscholar.org/search?q=quantum%20sensing%20nanotechnology&sort=relevance"
+  },
+  {
+    "field": "research",
+    "link": "https://www.semanticscholar.org/author/Monika-Bhattu/2125735988",
+    "listing": "https://www.semanticscholar.org/search?q=quantum%20sensing%20nanotechnology&sort=relevance"
+  },
+  {
+    "field": "research",
+    "link": "https://www.semanticscholar.org/author/Hamidreza-Rahmanian/2181645770",
+    "listing": "https://www.semanticscholar.org/search?q=quantum%20sensing%20nanotechnology&sort=relevance"
+  },
+  {
+    "field": "ai",
+    "link": "https://www.semanticscholar.org/author/A.-Paszke/3407277",
+    "listing": "https://www.semanticscholar.org/search?q=deep%20learning%20scientific%20computing&sort=relevance"
+  },
+  {
+    "field": "ai",
+    "link": "https://www.semanticscholar.org/author/H.-Dang/2323949964",
+    "listing": "https://www.semanticscholar.org/search?q=deep%20learning%20scientific%20computing&sort=relevance"
+  },
+  {
+    "field": "ai",
+    "link": "https://www.semanticscholar.org/author/William-J.-Allen/2266402965",
+    "listing": "https://www.semanticscholar.org/search?q=deep%20learning%20scientific%20computing&sort=relevance"
+  },
+  {
+    "field": "research",
+    "link": "https://www.semanticscholar.org/author/E.-Bender/30484614",
+    "listing": "https://www.semanticscholar.org/search?q=microelectronics%20packaging%20reliability&sort=relevance"
+  },
+  {
+    "field": "research",
+    "link": "https://www.semanticscholar.org/author/Wei-Jie-Wang/2487889167",
+    "listing": "https://www.semanticscholar.org/search?q=microelectronics%20packaging%20reliability&sort=relevance"
+  },
+  {
+    "field": "research",
+    "link": "https://www.semanticscholar.org/author/Michael-K.-F.-Lo/2242905027",
+    "listing": "https://www.semanticscholar.org/search?q=microelectronics%20packaging%20reliability&sort=relevance"
+  },
+  {
+    "field": "research",
+    "link": "https://www.semanticscholar.org/author/Tassawar-Hussain/2308303467",
+    "listing": "https://www.semanticscholar.org/search?q=microelectronics%20packaging%20reliability&sort=relevance"
+  },
+  {
+    "field": "research",
+    "link": "https://www.semanticscholar.org/author/Vidya-Jayaram/38455521",
+    "listing": "https://www.semanticscholar.org/search?q=microelectronics%20packaging%20reliability&sort=relevance"
+  },
+  {
+    "field": "off",
+    "link": "https://github.com/wpzoom",
+    "listing": "https://github.com/topics/wordpress-theme?o=desc&s=updated"
+  },
+  {
+    "field": "off",
+    "link": "https://github.com/FluxWP",
+    "listing": "https://github.com/topics/wordpress-theme?o=desc&s=updated"
+  },
+  {
+    "field": "off",
+    "link": "https://github.com/reactpressjs",
+    "listing": "https://github.com/topics/wordpress-theme?o=desc&s=updated"
+  },
+  {
+    "field": "off",
+    "link": "https://github.com/TheAggressive",
+    "listing": "https://github.com/topics/wordpress-theme?o=desc&s=updated"
+  },
+  {
+    "field": "research",
+    "link": "https://www.semanticscholar.org/author/Ehsan-Alibagheri/2302069364",
+    "listing": "https://www.semanticscholar.org/search?q=machine%20learning%20materials%20discovery&sort=relevance"
+  },
+  {
+    "field": "research",
+    "link": "https://www.semanticscholar.org/author/M.-Hojamberdiev/15152732",
+    "listing": "https://www.semanticscholar.org/search?q=machine%20learning%20materials%20discovery&sort=relevance"
+  },
+  {
+    "field": "research",
+    "link": "https://www.semanticscholar.org/author/Matthias-Troyer/2278426734",
+    "listing": "https://www.semanticscholar.org/search?q=machine%20learning%20materials%20discovery&sort=relevance"
+  },
+  {
+    "field": "research",
+    "link": "https://www.semanticscholar.org/author/Xianyou-Wang/2265789627",
+    "listing": "https://www.semanticscholar.org/search?q=machine%20learning%20materials%20discovery&sort=relevance"
+  },
+  {
+    "field": "off",
+    "link": "https://medium.com/@delaneyrea",
+    "listing": "https://medium.com/tag/travel/recommended"
+  },
+  {
+    "field": "off",
+    "link": "https://medium.com/@dorikasa",
+    "listing": "https://medium.com/tag/travel/recommended"
+  },
+  {
+    "field": "off",
+    "link": "https://medium.com/@anasianperspective",
+    "listing": "https://medium.com/tag/travel/recommended"
+  },
+  {
+    "field": "off",
+    "link": "https://medium.com/@_dzg",
+    "listing": "https://medium.com/tag/cooking/recommended"
+  },
+  {
+    "field": "off",
+    "link": "https://medium.com/@vaseghisam",
+    "listing": "https://medium.com/tag/cooking/recommended"
+  },
+  {
+    "field": "off",
+    "link": "https://medium.com/@charlie-brown",
+    "listing": "https://medium.com/tag/cooking/recommended"
+  },
+  {
+    "field": "off",
+    "link": "https://medium.com/@ankitaneotia",
+    "listing": "https://medium.com/tag/cooking/recommended"
+  },
+  {
+    "field": "semiconductors",
+    "link": "https://www.linkedin.com/in/juhakoskela/",
+    "listing": "web search: site:linkedin.com/in IC design engineer Finland ASIC"
+  },
+  {
+    "field": "semiconductors",
+    "link": "https://www.linkedin.com/in/arla-von-konow-473b38120/",
+    "listing": "web search: site:linkedin.com/in IC design engineer Finland ASIC"
+  },
+  {
+    "field": "semiconductors",
+    "link": "https://www.linkedin.com/in/pasi-lehtonen-83a548a4/",
+    "listing": "web search: site:linkedin.com/in IC design engineer Finland ASIC"
+  },
+  {
+    "field": "semiconductors",
+    "link": "https://www.linkedin.com/in/mia-rantanen-7a698875/",
+    "listing": "web search: site:linkedin.com/in IC design engineer Finland ASIC"
+  },
+  {
+    "field": "photonics",
+    "link": "https://www.linkedin.com/in/aaro-v%C3%A4kev%C3%A4inen-63748164/",
+    "listing": "web search: site:linkedin.com/in photonics engineer Finland optics"
+  },
+  {
+    "field": "photonics",
+    "link": "https://www.linkedin.com/in/andreaslangner/",
+    "listing": "web search: site:linkedin.com/in photonics engineer Finland optics"
+  },
+  {
+    "field": "photonics",
+    "link": "https://www.linkedin.com/in/j-t-m%C3%A4kinen/",
+    "listing": "web search: site:linkedin.com/in photonics engineer Finland optics"
+  },
+  {
+    "field": "photonics",
+    "link": "https://www.linkedin.com/in/veli-heikkinen-9bb27a4/",
+    "listing": "web search: site:linkedin.com/in photonics engineer Finland optics"
+  },
+  {
+    "field": "quantum",
+    "link": "https://www.linkedin.com/in/suman-kundu-653a0667/",
+    "listing": "web search: site:linkedin.com/in quantum engineer Espoo superconducting qubits"
+  },
+  {
+    "field": "quantum",
+    "link": "https://www.linkedin.com/in/abdurakhimov/",
+    "listing": "web search: site:linkedin.com/in quantum engineer Espoo superconducting qubits"
+  },
+  {
+    "field": "quantum",
+    "link": "https://www.linkedin.com/in/caspar-ockeloen-korppi/",
+    "listing": "web search: site:linkedin.com/in quantum engineer Espoo superconducting qubits"
+  },
+  {
+    "field": "quantum",
+    "link": "https://www.linkedin.com/in/tuomas-uusn%C3%A4kki-4620431a1/",
+    "listing": "web search: site:linkedin.com/in quantum engineer Espoo superconducting qubits"
+  },
+  {
+    "field": "embedded",
+    "link": "https://www.linkedin.com/in/esa-laakso-07455a1b6/",
+    "listing": "web search: site:linkedin.com/in embedded systems engineer Finland firmware hardware"
+  },
+  {
+    "field": "embedded",
+    "link": "https://www.linkedin.com/in/pesonenkimmo/",
+    "listing": "web search: site:linkedin.com/in embedded systems engineer Finland firmware hardware"
+  },
+  {
+    "field": "embedded",
+    "link": "https://www.linkedin.com/in/vesa-maunula-4954b521/",
+    "listing": "web search: site:linkedin.com/in embedded systems engineer Finland firmware hardware"
+  },
+  {
+    "field": "space",
+    "link": "https://www.linkedin.com/in/harri-haukka/",
+    "listing": "web search: site:linkedin.com/in satellite engineer Finland space instrumentation"
+  },
+  {
+    "field": "space",
+    "link": "https://www.linkedin.com/in/karvinen/",
+    "listing": "web search: site:linkedin.com/in satellite engineer Finland space instrumentation"
+  },
+  {
+    "field": "space",
+    "link": "https://www.linkedin.com/in/timo-nikkanen-9ba02460/",
+    "listing": "web search: site:linkedin.com/in satellite engineer Finland space instrumentation"
+  },
+  {
+    "field": "space",
+    "link": "https://www.linkedin.com/in/landaudaniel/",
+    "listing": "web search: site:linkedin.com/in satellite engineer Finland space instrumentation"
+  },
+  {
+    "field": "ai",
+    "link": "https://www.linkedin.com/in/henri-kynsilehto/",
+    "listing": "web search: site:linkedin.com/in machine learning engineer Helsinki HPC"
+  },
+  {
+    "field": "ai",
+    "link": "https://www.linkedin.com/in/mikko-niemi-ab9540210/",
+    "listing": "web search: site:linkedin.com/in machine learning engineer Helsinki HPC"
+  },
+  {
+    "field": "ai",
+    "link": "https://www.linkedin.com/in/harsha-vardhan-tetali/",
+    "listing": "web search: site:linkedin.com/in machine learning engineer Helsinki HPC"
+  },
+  {
+    "field": "research",
+    "link": "https://www.linkedin.com/in/tuurerantanen/",
+    "listing": "web search: site:linkedin.com/in research scientist VTT Espoo"
+  },
+  {
+    "field": "research",
+    "link": "https://www.linkedin.com/in/mrupadhyay/",
+    "listing": "web search: site:linkedin.com/in research scientist VTT Espoo"
+  },
+  {
+    "field": "research",
+    "link": "https://www.linkedin.com/in/andris-freimanis-3648b844/",
+    "listing": "web search: site:linkedin.com/in research scientist VTT Espoo"
+  },
+  {
+    "field": "business",
+    "link": "https://www.linkedin.com/in/lauri-raunio/",
+    "listing": "web search: site:linkedin.com/in business development deep tech Finland semiconductor"
+  },
+  {
+    "field": "business",
+    "link": "https://www.linkedin.com/in/le-van-anh-profile/",
+    "listing": "web search: site:linkedin.com/in business development deep tech Finland semiconductor"
+  },
+  {
+    "field": "business",
+    "link": "https://www.linkedin.com/in/heikki-hannula-hah/",
+    "listing": "web search: site:linkedin.com/in business development deep tech Finland semiconductor"
+  }
+]

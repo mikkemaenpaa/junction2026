@@ -1,0 +1,58 @@
+---
+// Served by the Worker for every unknown path (not_found_handling: "404-page").
+import { APP_URL } from '@/config'
+import BaseLayout from '@/layouts/BaseLayout.astro'
+---
+
+<BaseLayout title="Page not found · Overlap" canonical={false}>
+  <div class="flex min-h-svh flex-col">
+    <header class="flex h-16 items-center px-3.5 sm:h-[72px] sm:px-5">
+      <a
+        href="/"
+        class="nf-link inline-flex items-center gap-2 font-display text-[1.3125rem] leading-none font-extrabold tracking-[-0.03em] text-forest sm:text-2xl"
+        aria-label="overlap, home"
+      >
+        <span class="relative inline-block size-8 shrink-0" aria-hidden="true">
+          <span class="absolute top-0 left-0 size-5 rounded-full bg-lime ring-2 ring-forest"></span>
+          <span class="absolute right-0 bottom-0 size-5 rounded-full bg-coral mix-blend-multiply"></span>
+        </span>
+        overlap
+      </a>
+    </header>
+
+    <main class="mx-auto flex w-full max-w-[34rem] flex-1 flex-col items-center justify-center px-5 pb-24 text-center">
+      <!-- The logo's two circles, pulled apart: no overlap here. -->
+      <div class="flex items-center gap-5" aria-hidden="true">
+        <span class="size-16 rounded-full bg-lime ring-[3px] ring-forest sm:size-20"></span>
+        <span class="size-16 rounded-full bg-coral sm:size-20"></span>
+      </div>
+      <p class="mt-8 text-[13px] font-medium text-ink/75">Error 404</p>
+      <h1
+        class="mt-2 font-display text-[clamp(2.25rem,1.6rem+2.6vw,3.5rem)] leading-[1.02] font-extrabold tracking-[-0.03em] text-balance"
+      >
+        No overlap here.
+      </h1>
+      <p class="mt-4 text-[1.0625rem] leading-[1.55] text-pretty text-ink/75">
+        This page doesn’t exist, or it has moved. The events are still where you left them.
+      </p>
+      <div class="mt-8 flex flex-wrap items-center justify-center gap-3">
+        <a href="/" class="nf-link squircle-md bg-forest px-5 py-3.5 text-[15px] leading-none font-medium text-white">
+          Back to the home page
+        </a>
+        <a
+          href={APP_URL}
+          class="nf-link squircle-md border border-line bg-card px-5 py-3.5 text-[15px] leading-none font-medium text-ink"
+        >
+          Open the app
+        </a>
+      </div>
+    </main>
+  </div>
+</BaseLayout>
+
+<style>
+  .nf-link:focus-visible {
+    outline: 2px solid var(--color-forest);
+    outline-offset: 3px;
+  }
+</style>

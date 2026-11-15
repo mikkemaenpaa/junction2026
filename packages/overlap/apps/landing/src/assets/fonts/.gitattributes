@@ -1,0 +1,3 @@
+# Keep the skull font out of Git LFS (the root .gitattributes sends *.woff2 to LFS), so a plain
+# checkout builds with the real file, not an LFS pointer.
+noto-emoji-skull.woff2 -filter -diff -merge -text

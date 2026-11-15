@@ -1,0 +1,221 @@
+---
+// "Two sides, one overlap": the hero's glass twice, dark for talent and light for companies, each
+// the exact inverse of the other (lime on forest on one side, forest on lime on the other).
+// The points are the app's own (QuizCta in apps/app/src/screens/Events.tsx); the lists below
+// them are the app's results rows with demo values.
+import { Check } from 'lucide-react'
+import Ambient, { type AmbientCard } from './ui/Ambient.astro'
+import Avatar from './ui/Avatar.astro'
+import Ring from './ui/Ring.astro'
+import SectionHeading from './ui/SectionHeading.astro'
+
+const TALENT_POINTS = [
+  'Join any event with one tap',
+  'See your fit rating for every event and company',
+  'Get discovered by teams that match you',
+]
+const COMPANY_POINTS = [
+  'Join events and see candidate fit ratings',
+  'Get a ranked shortlist of the best candidates',
+  'Appear to talent with a matching profile',
+]
+
+/** Companies at the Spring Tech & Design Fair (apps/app/src/lib/data.ts), demo fit ratings. */
+const COMPANIES = [
+  { name: 'Tessera', hue: 280, tagline: 'Design systems at scale', fit: 94 },
+  { name: 'Paperplane', hue: 18, tagline: 'Payments for creators', fit: 88 },
+  { name: 'Northwind Labs', hue: 160, tagline: 'Climate analytics for cities', fit: 81 },
+]
+/** Candidates as a company sees them before they connect: first name and initial. Hues as in the app (hueOf). */
+const CANDIDATES = [
+  { name: 'Amara Okafor', short: 'Amara O.', hue: 308, headline: 'Product designer', fit: 96 },
+  { name: 'Jonas Weber', short: 'Jonas W.', hue: 80, headline: 'Full-stack engineer', fit: 91 },
+  { name: 'Priya Raman', short: 'Priya R.', hue: 108, headline: 'Data scientist', fit: 84 },
+]
+
+/**
+ * Event cards behind the section (see HowItWorks): other events than there, flanking the heading
+ * and peeking out from behind the two panels, mostly the light one, because little shows through
+ * the dark glass. Near cards are light tones: a forest or ink card that large reads as a dark blob.
+ * x is measured from the section's centre line; min() and max() keep the cards beside the
+ * heading partly on screen at 1024px, where the edges are close to the content.
+ */
+const AMBIENT: AmbientCard[] = [
+  { event: 'remote-first-teams', depth: 'near', x: 'min(calc(100% - 90px), calc(50% + 560px))', y: '10px', w: 330, r: 7, class: 'max-lg:hidden' },
+  { event: 'pm-office-hours', depth: 'mid', x: 'max(-60px, calc(50% - 640px))', y: '120px', w: 176, r: -7, class: 'max-lg:hidden' },
+  { event: 'research-ops-breakfast', depth: 'far', x: 'calc(50% - 430px)', y: '310px', w: 56, r: -6, class: 'max-lg:hidden' },
+  { event: 'demo-day-autumn', depth: 'mid', x: 'calc(50% + 470px)', y: '480px', w: 190, r: 6, class: 'max-lg:hidden' },
+  { event: 'creator-economy-summit', depth: 'near', x: 'max(-200px, calc(50% - 900px))', y: '440px', w: 300, r: -8, class: 'max-lg:hidden' },
+  { event: 'health-tech-careers', depth: 'mid', x: 'calc(50% - 690px)', y: 'calc(100% - 300px)', w: 150, r: 5, class: 'max-lg:hidden' },
+  { event: 'design-engineers-club', depth: 'far', x: 'calc(50% + 600px)', y: 'calc(100% - 250px)', w: 60, r: -5, class: 'max-lg:hidden' },
+  // Narrow screens: fewer cards, cropped by the edges.
+  { event: 'pm-office-hours', depth: 'mid', x: '-70px', y: '56px', w: 150, r: -7, class: 'lg:hidden' },
+  { event: 'remote-first-teams', depth: 'near', x: 'calc(100% - 70px)', y: '10px', w: 170, r: 8, class: 'lg:hidden' },
+  { event: 'demo-day-autumn', depth: 'mid', x: 'calc(100% - 96px)', y: '72%', w: 150, r: 6, class: 'lg:hidden' },
+  { event: 'growth-brand-panel', depth: 'mid', x: '-64px', y: 'calc(100% - 340px)', w: 120, r: -6, class: 'lg:hidden' },
+]
+
+const describe = (rows: { name: string; fit: number }[]) =>
+  rows.map((row, i) => `${i + 1}. ${row.name}, fit ${row.fit}`).join('; ')
+
+const h3 =
+  'mt-5 max-w-[22ch] font-display text-[clamp(1.75rem,1.25rem+1.5vw,2.5rem)] leading-[1.02] font-extrabold tracking-[-0.035em] text-balance'
+/** The side's tag, a pill. Each side adds its own colours, one the inverse of the other. */
+const tag = 'inline-flex min-h-[30px] items-center rounded-full px-3 text-[13px] leading-none font-medium'
+---
+
+<section aria-labelledby="sides-title" class="sides relative isolate pt-[clamp(72px,10vw,136px)]">
+  <Ambient cards={AMBIENT} />
+  <div class="mx-auto box-content max-w-[1120px] px-5 sm:px-8">
+    <SectionHeading id="sides-title" eyebrow="Two sides, one overlap">
+      Built for both sides of the table.
+      <Fragment slot="lede">
+        Talent and companies each answer from their own side, then meet on the same five dimensions.
+      </Fragment>
+    </SectionHeading>
+
+    <div class="mt-12 grid gap-4 sm:mt-14 lg:grid-cols-2 lg:gap-5">
+      <article id="talent" aria-labelledby="talent-title" class="side glass-dark flex scroll-mt-[88px] flex-col">
+        <div>
+          <p class={`${tag} bg-lime text-forest`}>For talent</p>
+          <h3 id="talent-title" class={h3}>Walk into rooms where you already fit.</h3>
+          <ul class="mt-6 space-y-3 text-[15px] leading-snug text-white/85 sm:text-base">
+            {
+              TALENT_POINTS.map((point) => (
+                <li class="flex gap-3">
+                  <span class="mt-px grid size-5 shrink-0 place-items-center rounded-full bg-lime text-forest">
+                    <Check size={12} strokeWidth={3} aria-hidden="true" />
+                  </span>
+                  {point}
+                </li>
+              ))
+            }
+          </ul>
+        </div>
+        <div class="side-visual" role="img" aria-label={`Example: companies at an event ranked by fit. ${describe(COMPANIES)}.`}>
+          <p class="text-xs font-medium text-white/75">Companies joining · Spring Tech &amp; Design Fair</p>
+          <ol class="mt-3 space-y-2">
+            {
+              COMPANIES.map((company, i) => (
+                <li class="row-dark flex items-center gap-3 py-2.5 pr-2.5 pl-3">
+                  <span class="w-3 text-center font-display text-sm font-bold text-white/75 max-[399px]:hidden">{i + 1}</span>
+                  <Avatar name={company.name} hue={company.hue} size={40} square />
+                  <span class="min-w-0 flex-1">
+                    <span class="block font-display leading-tight font-bold">{company.name}</span>
+                    <span class="block truncate text-xs text-white/75">{company.tagline}</span>
+                  </span>
+                  <Ring value={company.fit} size={46} dark />
+                </li>
+              ))
+            }
+          </ol>
+        </div>
+      </article>
+
+      <article id="companies" aria-labelledby="companies-title" class="side glass flex scroll-mt-[88px] flex-col">
+        <div>
+          <p class={`${tag} bg-forest text-lime`}>For companies</p>
+          <h3 id="companies-title" class={h3}>Meet the people who match before the doors open.</h3>
+          <ul class="mt-6 space-y-3 text-[15px] leading-snug text-ink-soft sm:text-base">
+            {
+              COMPANY_POINTS.map((point) => (
+                <li class="flex gap-3">
+                  <span class="mt-px grid size-5 shrink-0 place-items-center rounded-full bg-forest text-lime">
+                    <Check size={12} strokeWidth={3} aria-hidden="true" />
+                  </span>
+                  {point}
+                </li>
+              ))
+            }
+          </ul>
+        </div>
+        <div
+          class="side-visual"
+          role="img"
+          aria-label={`Example: a ranked shortlist of candidates. ${describe(CANDIDATES.map((c) => ({ name: c.short, fit: c.fit })))}.`}
+        >
+          <p class="text-xs font-medium text-ink-soft">Best-fitting candidates</p>
+          <ol class="mt-3 space-y-2">
+            {
+              CANDIDATES.map((candidate, i) => (
+                <li class="glass-tile flex items-center gap-3 py-2.5 pr-2.5 pl-3">
+                  <span class="w-3 text-center font-display text-sm font-bold text-ink-soft max-[399px]:hidden">{i + 1}</span>
+                  <Avatar name={candidate.name} hue={candidate.hue} size={40} />
+                  <span class="min-w-0 flex-1">
+                    <span class="block font-display leading-tight font-bold">{candidate.short}</span>
+                    <span class="block truncate text-xs text-ink-soft">{candidate.headline}</span>
+                  </span>
+                  <Ring value={candidate.fit} size={46} />
+                </li>
+              ))
+            }
+          </ol>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<style>
+  /* content-visibility clips painting to the section's box, which would cut the panels' long
+     shadow off flat at their bottom edge. The padding gives the shadow room and the equal negative
+     margin keeps the distance to the next section as it was. */
+  .sides {
+    margin-bottom: -64px;
+    padding-bottom: 64px;
+    content-visibility: auto;
+    /* Estimates of the section's height before it is first rendered, measured in the browser. They
+       exclude the padding, which the browser adds: stacked panels on a phone, side by side from
+       1024px. */
+    contain-intrinsic-size: auto 1500px;
+  }
+  @media (min-width: 768px) {
+    .sides {
+      contain-intrinsic-size: auto 1010px;
+    }
+  }
+  @media (min-width: 1024px) {
+    .sides {
+      contain-intrinsic-size: auto 880px;
+    }
+  }
+
+  .side {
+    padding: 24px 20px 20px;
+  }
+  .side-visual {
+    margin-top: auto;
+    padding-top: 40px;
+  }
+  @media (min-width: 640px) {
+    .side {
+      padding: 40px 36px 36px;
+    }
+  }
+  /* Tablet: one card per row, text and list side by side. */
+  @media (min-width: 768px) and (max-width: 1023.98px) {
+    .side {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+      align-items: end;
+      column-gap: 40px;
+    }
+    .side-visual {
+      padding-top: 0;
+    }
+  }
+
+  /* The glass-tile row inverted for the dark panel: a faint white tint instead of card colour,
+     with the same corners, so the two lists are one design in two tones. */
+  .row-dark {
+    border: 1px solid rgb(255 255 255 / 0.1);
+    border-radius: 12px;
+    background: rgb(255 255 255 / 0.06);
+  }
+  @supports (corner-shape: squircle) {
+    .row-dark {
+      border-radius: 17px;
+      corner-shape: squircle;
+    }
+  }
+</style>

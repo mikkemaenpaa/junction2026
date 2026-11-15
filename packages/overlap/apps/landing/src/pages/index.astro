@@ -1,0 +1,25 @@
+---
+import Hero from '@/components/landing/Hero'
+import IncomingCall from '@/components/landing/IncomingCall'
+import FinalCta from '@/components/sections/FinalCta'
+import HowItWorks from '@/components/sections/HowItWorks.astro'
+import SiteFooter from '@/components/sections/SiteFooter.astro'
+import TwoSides from '@/components/sections/TwoSides.astro'
+import { GET_STARTED_URL, SITE } from '@/config'
+import { EVENT } from '@/data/event'
+import BaseLayout from '@/layouts/BaseLayout.astro'
+---
+
+<BaseLayout title={SITE.title} description={SITE.description} image="/og.png">
+  {/* Its own island, outside the hero (whose error flash transforms its scene), and before <main>
+      so the call's buttons come first in tab order. Client only: nothing in it is worth prerendering. */}
+  <IncomingCall client:only="react" />
+  <main>
+    <Hero client:load getStartedUrl={GET_STARTED_URL} event={EVENT} />
+    <HowItWorks />
+    <TwoSides />
+    <FinalCta client:visible getStartedUrl={GET_STARTED_URL} />
+  </main>
+  <SiteFooter />
+</BaseLayout>
+

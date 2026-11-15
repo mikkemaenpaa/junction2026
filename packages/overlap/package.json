@@ -1,0 +1,19 @@
+{
+  "name": "overlap",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "vp run --filter @overlap/app dev",
+    "dev:landing": "vp run --parallel --filter @overlap/landing --filter @overlap/preselect dev",
+    "build": "vp run -r build",
+    "build:site": "node scripts/build-site.mjs",
+    "test": "vp test",
+    "check": "vp run --filter @overlap/landing check && vp check && vp test",
+    "format": "vp fmt --no-error-on-unmatched-pattern",
+    "deploy:landing": "vp run --filter @overlap/landing deploy"
+  },
+  "devDependencies": {
+    "vite-plus": "catalog:"
+  },
+  "packageManager": "pnpm@10.34.3"
+}

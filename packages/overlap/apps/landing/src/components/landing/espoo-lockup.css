@@ -1,0 +1,57 @@
+/*
+ * The City of Espoo logo with the product's wordmark, overlap: one piece of artwork (the paths are
+ * in EspooLockup.tsx), sized by one number.
+ *
+ *   --espoo-lockup-height   the Espoo logo's height (default 3rem). Set it on the lockup or on any
+ *                           ancestor. The lockup is that high and 4.30 times as wide.
+ *   --espoo-lockup-name     1 (default) or 0. 0 leaves the name out and the Espoo logo stands
+ *                           alone, 1.955 times as wide as high.
+ *
+ * Colour is the text colour (currentColor): white on Espoo navy or blue, navy or blue on white.
+ * Unlayered, like hero.css, so these rules win over Tailwind's layered base styles for svg.
+ *
+ * The artwork's units (the logo's viewBox is 151.721 x 77.617, the lockup's 333.936 x 77.617):
+ *   - The name is the word "overlap" in lower case, as outlines (Bricolage Grotesque 800). It
+ *     takes two lines from the logo's own wordmark: it stands on the bottom of the E of "ESBO"
+ *     (y 63.669), and the top of its l is the top of the E of "ESPOO" (y 32.318). The l is 0.404
+ *     of the logo's height, the x-height (y 40.624) 0.297; the round letters pass the x-height
+ *     and the base line by 0.6.
+ *   - The p hangs below the base line to y 70.963, 6.654 short of the bottom of the box, so
+ *     overflow: hidden cuts nothing off it at any size. The box ends where the p's bowl ends.
+ *   - Gap 31.793 (0.41 of the height): Espoo's clear space, the height of "ESPOO ESBO". Nothing
+ *     may stand closer to the logo than that, so the name starts there.
+ *
+ * Sizes: 48px in a desktop header. On a phone 32px, where the capitals of Espoo's wordmark are
+ * 5.7px high; not under 28px (5px). Where 28px does not fit, set --espoo-lockup-name: 0 and keep
+ * 32px.
+ */
+.espoo-lockup {
+  --espoo-lockup-h: var(--espoo-lockup-height, 3rem);
+  --espoo-lockup-w: calc(var(--espoo-lockup-h) * 333.936 / 77.617);
+  --espoo-lockup-logo-w: calc(var(--espoo-lockup-h) * 151.721 / 77.617);
+  position: relative;
+  display: inline-block;
+  flex: none;
+  width: calc(
+    var(--espoo-lockup-logo-w) + var(--espoo-lockup-name, 1) * (var(--espoo-lockup-w) - var(--espoo-lockup-logo-w))
+  );
+  height: var(--espoo-lockup-h);
+  /* Cuts the name off when it is left out; with the name, the artwork fills the box exactly. */
+  overflow: hidden;
+}
+.espoo-lockup-art {
+  display: block;
+  width: var(--espoo-lockup-w);
+  max-width: none;
+  height: var(--espoo-lockup-h);
+  margin: 0;
+}
+/* Read by assistive technology, not drawn: the lockup's words. */
+.espoo-lockup-label {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}

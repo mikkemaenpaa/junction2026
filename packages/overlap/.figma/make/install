@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+# Installs the whole pnpm workspace (root, apps/app, apps/landing).
+pnpm install --prefer-offline --no-frozen-lockfile

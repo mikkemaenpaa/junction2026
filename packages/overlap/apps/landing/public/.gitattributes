@@ -1,0 +1,3 @@
+# Keep the favicon out of Git LFS (the root .gitattributes sends *.png to LFS), so a plain
+# checkout deploys the real file, not an LFS pointer.
+favicon.png -filter -diff -merge -text

@@ -1,0 +1,45 @@
+/*
+ * The incoming call's island (IncomingCall.tsx). Unlayered, like hero.css. The island draws and
+ * moves itself; these rules only place it and decide when its resting pill shows.
+ *
+ * At rest (data-presentation="idle") the island is a plain black pill at the top centre, in the
+ * free space between the header's logo and its buttons where there is room for it. Where there is
+ * not, the resting pill is hidden and only a call shows it.
+ */
+.incoming-call {
+  transition:
+    opacity 0.2s,
+    visibility 0s;
+}
+/* The engine centres the resting pill 32.33px from the top (13.91 + 36.84 / 2): on the centre line
+   of the narrow header (64px) but 3.67px above that of the wide one (72px, from 641px). */
+@media (min-width: 641px) {
+  .incoming-call {
+    --incoming-call-top: 3.67px;
+  }
+}
+/* Where the resting pill would touch the header's content: below 560px (the narrow header's logo,
+   menu and "Get started") and from 641px to 859px (the wide header adds pause and "Add your
+   event"). Elsewhere it keeps at least 35px from both. Hidden, not only transparent, so it does
+   not take clicks meant for the header. The fade waits until a call has shrunk back to the pill
+   (the engine's dismiss settles in about 0.8s). */
+@media (max-width: 559px), (min-width: 641px) and (max-width: 859px) {
+  .incoming-call[data-presentation='idle'] {
+    visibility: hidden;
+    opacity: 0;
+    transition:
+      opacity 0.2s 0.8s,
+      visibility 0s 1s;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  /* No fade. The pill still goes only once the engine's own reduced motion (a 0.2s ease) is over. */
+  .incoming-call {
+    transition: none;
+  }
+  .incoming-call[data-presentation='idle'] {
+    transition:
+      opacity 0s 0.25s,
+      visibility 0s 0.25s;
+  }
+}

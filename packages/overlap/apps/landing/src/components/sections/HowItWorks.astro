@@ -1,0 +1,474 @@
+---
+// "How it works": three steps, each with a small static picture built from the app's own UI
+// (chips, range input, fit ring, dimension bars, event card), then what a fit rating is made of.
+// The weights and the "top three" rule are those of apps/app/src/lib/fit.ts.
+//
+// The section wears the hero's look: the steps and the weights are panels of its frosted glass
+// over still event cards, the pictures sit in a well of the glass like the hero's floating cards,
+// and the hero's one accent (the send button's forest circle and lime glyph) numbers the steps.
+import { Check, TrendingDown, TrendingUp } from 'lucide-react'
+import Ambient, { type AmbientCard } from './ui/Ambient.astro'
+import Avatar from './ui/Avatar.astro'
+import Ring from './ui/Ring.astro'
+import SectionHeading from './ui/SectionHeading.astro'
+
+/** The five dimensions, their weight, and a demo profile whose weighted sum is the ring's 86. */
+const DIMS = [
+  { name: 'Skills', weight: 30, demo: 94 },
+  { name: 'Culture', weight: 25, demo: 90 },
+  { name: 'Field', weight: 15, demo: 86 },
+  { name: 'Languages', weight: 15, demo: 82 },
+  { name: 'Logistics', weight: 15, demo: 66 },
+]
+const demoFit = Math.round(DIMS.reduce((sum, d) => sum + d.demo * d.weight, 0) / 100)
+const strongest = DIMS.reduce((a, b) => (b.demo > a.demo ? b : a))
+const gap = DIMS.reduce((a, b) => (b.demo < a.demo ? b : a))
+
+const SKILLS = [
+  { name: 'Figma', on: true },
+  { name: 'Prototyping', on: false },
+  { name: 'Design systems', on: true },
+  { name: 'User research', on: false },
+]
+
+/** Companies at the Spring Tech & Design Fair, with the app's hues. */
+const FAIR_COMPANIES = [
+  { name: 'Northwind Labs', hue: 160 },
+  { name: 'Paperplane', hue: 18 },
+  { name: 'Atelier Vert', hue: 140 },
+  { name: 'Tessera', hue: 280 },
+  { name: 'Quanta Robotics', hue: 330 },
+]
+
+/**
+ * Event cards behind the section, as in the hero: they flank the centred heading, a couple peek
+ * out from behind the panels below so the glass has colour to pick up, and the large blurred ones
+ * bleed off the edges. The near ones are light events: a dark card that large reads as a heavy
+ * blob beside the panels. Sharp (mid) cards stay clear of the heading's text. x is measured from
+ * the section's centre line (the content column is 1120px wide).
+ */
+const AMBIENT: AmbientCard[] = [
+  { event: 'data-for-good-meetup', depth: 'near', x: 'calc(50% - 860px)', y: '40px', w: 340, r: -6, class: 'max-lg:hidden' },
+  { event: 'women-in-data', depth: 'mid', x: 'calc(50% - 600px)', y: '250px', w: 128, r: -8, class: 'max-lg:hidden' },
+  { event: 'demo-day-autumn', depth: 'far', x: 'calc(50% - 400px)', y: '120px', w: 64, r: 6, class: 'max-lg:hidden' },
+  { event: 'design-portfolio-reviews', depth: 'mid', x: 'calc(50% + 420px)', y: '130px', w: 168, r: 6, class: 'max-lg:hidden' },
+  { event: 'typescript-deep-dive', depth: 'far', x: 'calc(50% + 330px)', y: '300px', w: 58, r: -5, class: 'max-lg:hidden' },
+  { event: 'growth-brand-panel', depth: 'near', x: 'calc(50% + 540px)', y: '380px', w: 300, r: 8, class: 'max-lg:hidden' },
+  { event: 'brand-in-motion', depth: 'mid', x: 'calc(50% - 650px)', y: '620px', w: 210, r: -5, class: 'max-lg:hidden' },
+  { event: 'climate-data-jam', depth: 'mid', x: 'calc(50% + 400px)', y: 'calc(100% - 330px)', w: 190, r: -7, class: 'max-lg:hidden' },
+  // Narrow screens: fewer cards, cropped by the edges.
+  { event: 'women-in-data', depth: 'mid', x: 'calc(100% - 76px)', y: '8px', w: 120, r: 8, class: 'lg:hidden' },
+  { event: 'design-systems-workshop', depth: 'near', x: '-90px', y: '150px', w: 200, r: -7, class: 'lg:hidden' },
+  { event: 'brand-in-motion', depth: 'mid', x: 'calc(100% - 96px)', y: '46%', w: 190, r: -6, class: 'lg:hidden' },
+  { event: 'climate-data-jam', depth: 'mid', x: '-60px', y: '72%', w: 170, r: 7, class: 'lg:hidden' },
+]
+
+/**
+ * The small app pictures stay opaque app UI but sit in the scene like the hero's floating cards:
+ * the glass hairline, its white highlight along the top edge and its long soft shadow.
+ */
+const card =
+  'squircle-lg border border-glass-line bg-card shadow-[inset_0_1px_0_rgb(255_255_255/0.7),0_24px_60px_-28px_rgb(17_32_28/0.45)]'
+---
+
+<section id="how" aria-labelledby="how-title" class="how relative isolate scroll-mt-[88px] pt-[clamp(72px,10vw,136px)]">
+  <Ambient cards={AMBIENT} />
+  <div class="mx-auto box-content max-w-[1120px] px-5 sm:px-8">
+    <SectionHeading id="how-title" eyebrow="How it works">
+      Three minutes in. <span class="block text-mute">A fit rating for every event.</span>
+    </SectionHeading>
+
+    <ol class="mt-12 grid gap-4 sm:mt-14 lg:grid-cols-3 lg:gap-5">
+      <li class="step glass">
+        <div class="stage" aria-hidden="true">
+          <div class:list={[card, 'w-full max-w-[272px] p-4']}>
+            <div class="flex items-center gap-2.5">
+              <span class="h-1.5 flex-1 rounded-full bg-line">
+                <span class="block h-full w-3/4 rounded-full bg-forest"></span>
+              </span>
+              <span class="text-[11px] font-medium text-ink/75 tabular-nums">3/4</span>
+            </div>
+            <p class="mt-3 font-display text-[14px] leading-tight font-bold">Which skills do you bring?</p>
+            <div class="mt-2.5 flex flex-wrap gap-1.5">
+              {
+                SKILLS.map((skill) => (
+                  <span
+                    class:list={[
+                      'rounded-full border px-2.5 py-1 text-[11px] leading-none font-medium',
+                      skill.on ? 'border-forest bg-forest text-white' : 'border-line bg-card text-ink',
+                    ]}
+                  >
+                    {skill.name}
+                  </span>
+                ))
+              }
+            </div>
+            <p class="mt-4 font-display text-[14px] leading-tight font-bold">Where do you do your best work?</p>
+            <div class="slider mt-2.5" style="--p: 64%">
+              <span class="slider-fill"></span>
+              <span class="slider-thumb"></span>
+            </div>
+            <div class="mt-1.5 flex justify-between text-[11px] font-medium text-ink/75">
+              <span>In the office</span><span>Fully remote</span>
+            </div>
+          </div>
+        </div>
+        <div class="step-body">
+          <div class="step-head">
+            <span class="step-no">1</span>
+            <h3 class="step-title">Answer once</h3>
+          </div>
+          <p class="step-text">
+            A short questionnaire about your skills, values and how you like to work. About 3 minutes for talent, 5 for
+            companies.
+          </p>
+        </div>
+      </li>
+
+      <li class="step glass">
+        <div class="stage" aria-hidden="true">
+          <div class:list={[card, 'w-full max-w-[288px] p-4']}>
+            <div class="flex items-center gap-4">
+              <Ring value={demoFit} size={64} />
+              <div class="flex min-w-0 flex-1 flex-col gap-[7px]">
+                {
+                  DIMS.map((d) => (
+                    <div class="flex items-center gap-2">
+                      <span class="w-[58px] shrink-0 text-[11px] leading-none font-medium text-ink/75">{d.name}</span>
+                      <span class="h-1.5 flex-1 rounded-full bg-line">
+                        <span
+                          class:list={[
+                            'block h-full rounded-full',
+                            d === strongest ? 'bg-good' : d === gap ? 'bg-coral' : 'bg-forest',
+                          ]}
+                          style={`width:${d.demo}%`}
+                        />
+                      </span>
+                    </div>
+                  ))
+                }
+              </div>
+            </div>
+            <div class="mt-4 flex flex-wrap gap-2 text-[11px] font-medium">
+              <span class="pill-good flex items-center gap-1 rounded-full px-2.5 py-1">
+                <TrendingUp size={12} aria-hidden="true" />
+                {strongest.name}
+              </span>
+              <span class="pill-coral flex items-center gap-1 rounded-full px-2.5 py-1">
+                <TrendingDown size={12} aria-hidden="true" />
+                {gap.name}
+              </span>
+            </div>
+          </div>
+        </div>
+        <div class="step-body">
+          <div class="step-head">
+            <span class="step-no">2</span>
+            <h3 class="step-title">See your fit</h3>
+          </div>
+          <p class="step-text">
+            Every event, and every company in it, gets a rating from 0 to 100, with your strongest overlap and your
+            biggest gap.
+          </p>
+        </div>
+      </li>
+
+      <li class="step glass">
+        <div class="stage" aria-hidden="true">
+          <div class:list={[card, 'stack-back absolute w-[calc(100%-56px)] max-w-[256px]']}></div>
+          <div class:list={[card, 'relative w-full max-w-[288px] p-4']}>
+            <div class="flex items-start gap-3">
+              <div class="min-w-0 flex-1">
+                <div class="flex flex-wrap gap-1.5 text-[11px] leading-none font-medium">
+                  <span class="rounded-full bg-ink/6 px-2.5 py-1">Career fair</span>
+                  <span class="flex items-center gap-1 rounded-full bg-lime px-2.5 py-1 text-forest">
+                    <Check size={11} strokeWidth={3} aria-hidden="true" />
+                    Joined
+                  </span>
+                </div>
+                <p class="mt-2.5 font-display text-[15px] leading-tight font-bold">Spring Tech &amp; Design Fair</p>
+                <p class="mt-1 text-[11px] text-ink/75">Sat 14 Jun · Berlin</p>
+              </div>
+              <Ring value={88} size={48} />
+            </div>
+            <div class="mt-3.5 flex items-center gap-2.5 border-t border-line pt-3.5">
+              <span class="flex">
+                {
+                  FAIR_COMPANIES.map((company, i) => (
+                    <Avatar
+                      name={company.name}
+                      hue={company.hue}
+                      size={30}
+                      class:list={['ring-2 ring-card', i > 0 && '-ml-1.5']}
+                    />
+                  ))
+                }
+              </span>
+              <span class="text-[11px] leading-tight font-medium text-ink/75">5 companies<br />482 going</span>
+            </div>
+          </div>
+        </div>
+        <div class="step-body">
+          <div class="step-head">
+            <span class="step-no">3</span>
+            <h3 class="step-title">Show up where it counts</h3>
+          </div>
+          <p class="step-text">Join any event with one tap. The companies there see the people who match them.</p>
+        </div>
+      </li>
+    </ol>
+
+    <div
+      class="glass mt-4 grid gap-7 p-6 sm:p-8 lg:mt-5 lg:grid-cols-[minmax(0,5fr)_minmax(0,7fr)] lg:items-end lg:gap-12"
+    >
+      <div>
+        <h3 class="font-display text-[1.375rem] leading-[1.1] font-extrabold tracking-[-0.02em]">
+          What goes into a fit rating
+        </h3>
+        <p class="mt-2.5 max-w-[26rem] text-[15px] leading-[1.55] text-ink-soft">
+          Five dimensions, always weighted the same way. An event’s rating averages your three best matches in the room.
+        </p>
+      </div>
+      <ul class="weights">
+        {
+          DIMS.map((d, i) => (
+            <li style={`--w:${d.weight};--i:${i}`}>
+              <span class="weight-name">{d.name}</span>
+              <span class="weight-value">{d.weight}%</span>
+              <span class="weight-bar" aria-hidden="true" />
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+  </div>
+</section>
+
+<style>
+  /* Rendering skipped until near the viewport; the remembered size takes over once laid out. The
+     estimates are the measured heights of the section's content (the browser adds the padding):
+     stacked steps on phones, picture beside text from 640px, three in a row from 1024px.
+     content-visibility also clips painting to the section's box, which would cut the last panel's
+     long shadow off flat. The bottom padding gives the shadow room and the equal negative margin
+     keeps the distance to the next section as it was. */
+  .how {
+    margin-bottom: -64px;
+    padding-bottom: 64px;
+    content-visibility: auto;
+    contain-intrinsic-size: auto 1920px;
+  }
+  @media (min-width: 640px) {
+    .how {
+      contain-intrinsic-size: auto 1260px;
+    }
+  }
+  @media (min-width: 1024px) {
+    .how {
+      contain-intrinsic-size: auto 810px;
+    }
+  }
+
+  /* A well in the glass rather than an opaque box, so the cards behind still tint it. Its corner
+     is the panel's minus the panel's 10px padding, so the two curves stay concentric. */
+  .stage {
+    position: relative;
+    display: grid;
+    place-items: center;
+    height: 236px;
+    padding: 20px;
+    overflow: hidden;
+    border-radius: 16px;
+    background: color-mix(in srgb, var(--color-paper) 58%, transparent);
+  }
+  @supports (corner-shape: squircle) {
+    .stage {
+      border-radius: 26px;
+      corner-shape: squircle;
+    }
+  }
+  @media (min-width: 1024px) {
+    .stage {
+      height: 252px;
+    }
+  }
+  /* A second event card peeking out behind the first: a list, not a single item. */
+  .stack-back {
+    top: 34px;
+    height: 120px;
+    opacity: 0.7;
+  }
+
+  .step {
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
+  }
+  /* With the panel's padding, the text is inset 24px from the panel's edge. */
+  .step-body {
+    padding: 20px 14px 16px;
+  }
+  /* Between phone and desktop: picture and text side by side. */
+  @media (min-width: 640px) and (max-width: 1023.98px) {
+    .step {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+      align-items: center;
+    }
+    .step-body {
+      padding: 16px 24px 16px 32px;
+    }
+  }
+  /* The number and the title on one row; the number wears the hero's only accent, the send
+     button's forest circle and lime glyph. */
+  .step-head {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .step-no {
+    display: grid;
+    flex: none;
+    place-items: center;
+    width: 32px;
+    height: 32px;
+    border-radius: 999px;
+    background: var(--color-forest);
+    color: var(--color-lime);
+    font-family: var(--font-display);
+    font-size: 15px;
+    font-weight: 700;
+    line-height: 1;
+    font-variant-numeric: tabular-nums;
+  }
+  .step-title {
+    font-family: var(--font-display);
+    font-size: 1.5rem;
+    font-weight: 800;
+    line-height: 1.08;
+    letter-spacing: -0.025em;
+  }
+  .step-text {
+    margin-top: 10px;
+    color: var(--color-ink-soft);
+    font-size: 15px;
+    line-height: 1.5;
+    text-wrap: pretty;
+  }
+  /* Three in a row: the columns are narrow, so the title is a step smaller, which keeps the
+     longest one on one line from about 1140px. Each head is as high as two lines, so the three
+     texts start level even where that title wraps (1024px to 1140px). */
+  @media (min-width: 1024px) {
+    .step-head {
+      min-height: 3rem;
+    }
+    .step-title {
+      font-size: 1.375rem;
+    }
+  }
+
+  /* The app's range input (apps/app/src/index.css): forest fill, lime thumb with a forest ring. */
+  .slider {
+    position: relative;
+    height: 8px;
+    border-radius: 99px;
+    background: var(--color-line);
+  }
+  .slider-fill {
+    position: absolute;
+    inset: 0 auto 0 0;
+    width: var(--p);
+    border-radius: inherit;
+    background: var(--color-forest);
+  }
+  .slider-thumb {
+    position: absolute;
+    top: 50%;
+    left: var(--p);
+    width: 22px;
+    height: 22px;
+    border: 3px solid var(--color-forest);
+    border-radius: 99px;
+    background: var(--color-lime);
+    box-shadow: 0 2px 6px rgb(17 32 28 / 0.2);
+    translate: -50% -50%;
+  }
+
+  /* Strongest overlap / biggest gap, as on the app's event cards. */
+  .pill-good {
+    background: color-mix(in srgb, var(--color-good) 12%, transparent);
+    color: color-mix(in srgb, var(--color-good) 60%, var(--color-ink));
+  }
+  .pill-coral {
+    background: color-mix(in srgb, var(--color-coral) 15%, transparent);
+    color: color-mix(in srgb, var(--color-coral) 55%, var(--color-ink));
+  }
+
+  /* Weights: rows on small screens, one segmented bar on wide ones. The bars run from forest to
+     lime in the order of the weights, the heaviest darkest (--i is the row's index, 0 to 4). */
+  .weights {
+    display: grid;
+    gap: 14px;
+  }
+  .weights li {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    align-items: baseline;
+    gap: 6px 12px;
+  }
+  .weight-name {
+    font-size: 15px;
+    font-weight: 500;
+  }
+  .weight-value {
+    font-family: var(--font-display);
+    font-size: 1.125rem;
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    font-variant-numeric: tabular-nums;
+  }
+  .weight-bar {
+    grid-column: 1 / -1;
+    width: calc(var(--w) / 30 * 100%);
+    height: 10px;
+    border-radius: 99px;
+    background: color-mix(in srgb, var(--color-forest) calc(100% - var(--i) * 20%), var(--color-lime));
+  }
+  @media (min-width: 640px) {
+    .weights {
+      display: flex;
+      gap: 4px;
+    }
+    .weights li {
+      flex: var(--w) 1 0;
+      grid-template-columns: 1fr;
+      grid-template-rows: auto auto auto;
+      gap: 2px;
+      min-width: 0;
+    }
+    .weight-name {
+      order: 2;
+      overflow: hidden;
+      color: var(--color-ink-soft);
+      font-size: 13px;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+    .weight-value {
+      order: 1;
+      font-size: clamp(1.5rem, 1rem + 1.2vw, 2rem);
+      line-height: 1;
+    }
+    .weight-bar {
+      order: 3;
+      width: 100%;
+      margin-top: 12px;
+      border-radius: 3px;
+    }
+    .weights li:first-child .weight-bar {
+      border-radius: 99px 3px 3px 99px;
+    }
+    .weights li:last-child .weight-bar {
+      border-radius: 3px 99px 99px 3px;
+    }
+  }
+</style>

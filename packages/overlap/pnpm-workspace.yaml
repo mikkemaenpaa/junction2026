@@ -1,0 +1,41 @@
+packages:
+  - apps/*
+
+# Supply-chain guard: only install package versions published at least 1 day (1440 minutes) ago.
+minimumReleaseAge: 1440
+minimumReleaseAgeExclude:
+  # Locked by Figma Make before this policy existed (published 2026-11-14). Safe to delete
+  # from 2026-11-15 on, once the release is a day old.
+  - lucide-react@1.73.0
+  # Added by `vp migrate`: the Vite+ toolchain is pinned to one exact release below, so it is
+  # only ever updated deliberately (`vp migrate` / `vp update vite-plus`).
+  - vite-plus
+  - '@voidzero-dev/*'
+  - oxlint
+  - '@oxlint/*'
+  - oxlint-tsgolint
+  - '@oxlint-tsgolint/*'
+  - oxfmt
+  - '@oxfmt/*'
+  - vitest
+  - '@vitest/*'
+
+# Only these dependencies may run install scripts (wrangler's esbuild and workerd binaries).
+onlyBuiltDependencies:
+  - esbuild
+  - workerd
+
+# Managed by Vite+: every `vite` in the workspace (the apps, Astro, plugins) resolves to the
+# Vite+ core, so there is a single Vite instance. Packages with a `vite` peer (apps/app,
+# apps/landing) also declare `vite: catalog:` so pnpm does not auto-install upstream vite as
+# the peer.
+catalog:
+  vite: npm:@voidzero-dev/vite-plus-core@1.6.0
+  vite-plus: 1.6.0
+overrides:
+  vite@*: 'catalog:'
+peerDependencyRules:
+  allowAny:
+    - vite
+  allowedVersions:
+    vite: '*'

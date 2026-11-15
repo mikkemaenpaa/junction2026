@@ -1,0 +1,22 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  // Assets-only Worker: no `main` script, no adapter and no bindings. Every request is served
+  // straight from the static files in dist/, so no Worker code ever runs. dist/ is the composed
+  // site from the root `build:site` script: the landing page plus the app in dist/app/.
+  "name": "overlap-landing",
+  "compatibility_date": "2026-11-13",
+  "assets": {
+    "directory": "./dist",
+    // Unknown paths get dist/404.html with a 404 status.
+    "not_found_handling": "404-page",
+    // Files without, folders with a trailing slash:
+    // - landing pages (`build.format: "file"`, `trailingSlash: "never"` in astro.config.ts): /about
+    //   is served from about.html; /about/ and /about.html redirect to /about.
+    // - the app: /app/ is served from app/index.html; /app and /app/index.html redirect to /app/.
+    //   The slash matters: the app's relative URLs (manifest.webmanifest, icon.svg) and its service
+    //   worker scope resolve against /app/.
+    "html_handling": "auto-trailing-slash",
+  },
+  // Don't send Wrangler usage metrics for this project.
+  "send_metrics": false,
+}

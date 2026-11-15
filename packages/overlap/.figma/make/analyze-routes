@@ -1,0 +1,6 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+# The Figma Make app lives in apps/app.
+cd "$(dirname "$0")/../../apps/app"
+exec figma-analyze routes "$@"

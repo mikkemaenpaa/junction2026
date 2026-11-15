@@ -1,0 +1,24 @@
+---
+// /get-started: where every "Get started" on the landing page goes (GET_STARTED_URL in config.ts),
+// on the way to the platform (PLATFORM_URL: the pre-selection app's organiser view when it runs,
+// else the Overlap app). It looks like a login page but is UI only: no credentials, no client
+// JavaScript. "Log in" and "Sign up here" open the platform with the handoff query, which takes
+// the visitor past the Overlap app's own login (apps/app/src/lib/handoff.ts).
+import LoginCard from '@/components/get-started/LoginCard.astro'
+import PhotoPanel from '@/components/get-started/PhotoPanel.astro'
+import BaseLayout from '@/layouts/BaseLayout.astro'
+import '@/components/get-started/get-started.css'
+---
+
+<BaseLayout
+  title="Get started · Overlap"
+  description="Open Overlap and see how well you fit the companies and people at every event before you walk in."
+  image="/og.png"
+>
+  <main class="gs-stage">
+    <div class="gs-frame squircle-2xl">
+      <PhotoPanel />
+      <LoginCard />
+    </div>
+  </main>
+</BaseLayout>

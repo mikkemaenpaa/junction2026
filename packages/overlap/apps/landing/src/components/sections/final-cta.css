@@ -1,0 +1,363 @@
+/*
+ * The closing call to action (FinalCta.tsx): the hero's composition at night. Colours are the theme
+ * tokens of src/styles/global.css. Unlayered on purpose: these rules restyle the vendored buttons
+ * and must win over their CSS.
+ */
+.final-cta {
+  width: min(100% - 40px, 1120px);
+  margin-inline: auto;
+  /* The footer follows as a glass bar of the same width, close below. */
+  padding-block: clamp(72px, 10vw, 136px) 20px;
+  scroll-margin-top: 88px;
+}
+
+/* ------------------------------------------------------------------ band */
+/* Corners: squircle-2xl (markup), rounder on wide screens (below). */
+.cta-band {
+  position: relative;
+  isolation: isolate;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  overflow: hidden;
+  background: var(--color-forest);
+  box-shadow: 0 24px 60px -28px rgb(17 32 28 / 0.6);
+  color: #fff;
+}
+/* The glass edge of the hero's panels. The art covers the band's own background, so an inset
+   shadow on the band would not show; this layer lies over the art and the copy instead. */
+.cta-band::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  border-radius: inherit;
+  corner-shape: inherit;
+  box-shadow: inset 0 1px 0 rgb(255 255 255 / 0.14);
+  pointer-events: none;
+}
+
+/* The band's picture: forest, the cards and the scrim. This is what the glass button refracts, so
+   it stays exactly as rendered: nothing in it may move. */
+.cta-art {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+  background: var(--color-forest);
+}
+
+/* ----------------------------------------------------------------- cards */
+/* Placed by their top left corner (--x, --y), --w wide and turned by --r. Corners grow with the
+   width, as on the rest of the page, so a small far card does not look rounder than a near one. */
+.cta-card {
+  position: absolute;
+  top: var(--y);
+  left: var(--x);
+  display: none;
+  width: var(--w);
+  height: auto;
+  max-width: none;
+  border-radius: calc(var(--w) * 0.055);
+  /* Placeholder colour while an image loads; its box is already sized by width/height. */
+  background: color-mix(in srgb, #fff 8%, var(--color-forest));
+  transform: rotate(var(--r));
+}
+@supports (corner-shape: squircle) {
+  .cta-card {
+    border-radius: calc(var(--w) * 0.078);
+    corner-shape: squircle;
+  }
+}
+/* The hero's three depths, as a photograph focused on the middle distance: far cards small and
+   pale, middle ones sharp, the nearest large and out of focus. */
+.cta-card-far {
+  opacity: 0.5;
+  filter: blur(0.6px);
+}
+.cta-card-mid {
+  box-shadow:
+    0 0 0 1px rgb(255 255 255 / 0.06),
+    0 28px 56px -22px rgb(0 0 0 / 0.6);
+}
+.cta-card-near {
+  opacity: 0.85;
+  filter: blur(6px);
+}
+
+/* Small screens: the copy on top, four cards below it, the middle-distance coral one rising behind
+   the glass button. Each card is placed from the band's bottom edge, so the layout holds whatever
+   the copy's height. */
+.cta-card-1,
+.cta-card-4,
+.cta-card-6,
+.cta-card-8 {
+  display: block;
+}
+.cta-card-1 {
+  --w: 78px;
+  --x: 14px;
+  --y: calc(100% - 232px);
+  --r: -8deg;
+}
+.cta-card-4 {
+  --w: 136px;
+  --x: calc(50% - 142px);
+  --y: calc(100% - 196px);
+  --r: -6deg;
+}
+.cta-card-6 {
+  --w: 168px;
+  --x: calc(50% + 8px);
+  --y: calc(100% - 290px);
+  --r: 5deg;
+}
+/* Low in the corner, clear of the coral card: out of focus, it would smear that card's foot. */
+.cta-card-8 {
+  --w: 248px;
+  --x: calc(100% - 118px);
+  --y: calc(100% - 108px);
+  --r: -8deg;
+}
+
+/* ----------------------------------------------------------------- scrim */
+/* The night version of the hero's scrim: forest behind the title and the text, so no card shows
+   through them, fading out before the buttons so the card behind the glass button stays clear.
+   Inside the art, over the cards, so the glass refracts the band as it is seen. */
+.cta-scrim {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(
+    ellipse min(62%, 300px) 130px at 50% 112px,
+    var(--color-forest) 0%,
+    color-mix(in srgb, var(--color-forest) 85%, transparent) 50%,
+    transparent 100%
+  );
+}
+
+/* ------------------------------------------------------------------ copy */
+/* The hero's centred stack: title, one line of soft text, then the actions. */
+.cta-copy {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 40px 24px 268px;
+  text-align: center;
+}
+.cta-title {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: clamp(2.5rem, 1.5rem + 3.6vw, 4.75rem);
+  font-weight: 800;
+  line-height: 1;
+  letter-spacing: -0.035em;
+  /* One line where it fits, two even ones where it does not. */
+  text-wrap: balance;
+}
+.cta-text {
+  max-width: 24rem;
+  margin: 16px 0 0;
+  color: rgb(255 255 255 / 0.8);
+  font-size: 1.0625rem;
+  line-height: 1.5;
+  text-wrap: balance;
+}
+@media (min-width: 640px) {
+  .cta-text {
+    font-size: 1.1875rem;
+  }
+}
+
+/* --------------------------------------------------------------- buttons */
+.cta-actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 12px;
+  margin-top: 28px;
+  /* Bubble UI sizes itself in em. */
+  font-size: 16px;
+}
+.cta-form {
+  display: flex;
+  margin: 0;
+}
+.final-cta .chromatic-button {
+  min-width: 148px;
+  font-family: var(--font-sans);
+  font-size: 15px;
+  font-weight: 500;
+  letter-spacing: 0;
+}
+.final-cta .cta-glass {
+  min-height: 48px;
+  padding-inline: 22px;
+  color: #fff;
+  font-size: 15px;
+  font-weight: 500;
+  text-shadow: 0 1px 2px rgb(0 0 0 / 0.28);
+}
+.final-cta .cta-glass:focus-visible {
+  outline-color: var(--color-lime);
+}
+
+/* ---------------------------------------------------------------- tablet */
+/* The centred stack with six cards around it: a near card in each top corner, a far one by the left
+   edge, and three sharp ones along the bottom, the coral one rising behind the glass button. */
+@media (min-width: 640px) {
+  .final-cta {
+    width: min(100% - 64px, 1120px);
+  }
+  .cta-band {
+    min-height: 520px;
+  }
+  .cta-copy {
+    padding: 112px 40px 176px;
+  }
+  .cta-actions {
+    margin-top: 32px;
+  }
+  .cta-scrim {
+    background: radial-gradient(
+      ellipse min(46%, 380px) 124px at 50% calc(50% - 74px),
+      var(--color-forest) 0%,
+      color-mix(in srgb, var(--color-forest) 85%, transparent) 50%,
+      transparent 100%
+    );
+  }
+}
+@media (min-width: 640px) and (max-width: 959.98px) {
+  .cta-card-1 {
+    display: none;
+  }
+  .cta-card-3,
+  .cta-card-5,
+  .cta-card-7 {
+    display: block;
+  }
+  .cta-card-7 {
+    --w: 250px;
+    --x: -150px;
+    --y: -64px;
+    --r: 9deg;
+  }
+  .cta-card-8 {
+    --w: 240px;
+    --x: calc(100% - 96px);
+    --y: -120px;
+    --r: -8deg;
+  }
+  .cta-card-3 {
+    --w: 72px;
+    --x: 18px;
+    --y: calc(50% - 44px);
+    --r: 7deg;
+  }
+  .cta-card-4 {
+    --w: 140px;
+    --x: 20px;
+    --y: calc(100% - 118px);
+    --r: -7deg;
+  }
+  .cta-card-6 {
+    --w: 160px;
+    --x: calc(50% + 14px);
+    --y: calc(100% - 222px);
+    --r: 5deg;
+  }
+  .cta-card-5 {
+    --w: 150px;
+    --x: calc(100% - 136px);
+    --y: calc(100% - 132px);
+    --r: -6deg;
+  }
+}
+
+/* ---------------------------------------------------------------- wide */
+/* Eight cards: three on each side of the copy in a loose column of far, middle and near that does
+   not mirror the other side, one more far card by the top right corner, and the coral one rising
+   from the bottom edge behind the glass button. */
+@media (min-width: 960px) {
+  .cta-band {
+    min-height: 560px;
+    border-radius: 40px;
+  }
+  @supports (corner-shape: squircle) {
+    .cta-band {
+      border-radius: 56px;
+      corner-shape: squircle;
+    }
+  }
+  .cta-copy {
+    padding: 112px 64px 128px;
+  }
+  .cta-actions {
+    margin-top: 36px;
+  }
+  .cta-scrim {
+    background: radial-gradient(
+      ellipse min(44%, 460px) 128px at 50% calc(50% - 50px),
+      var(--color-forest) 0%,
+      color-mix(in srgb, var(--color-forest) 85%, transparent) 50%,
+      transparent 100%
+    );
+  }
+
+  .cta-card {
+    display: block;
+  }
+  /* Left: near at the top, far in the middle, sharp at the bottom. */
+  .cta-card-7 {
+    --w: 300px;
+    --x: -160px;
+    --y: -64px;
+    --r: 9deg;
+  }
+  .cta-card-1 {
+    --w: 84px;
+    --x: 7%;
+    --y: calc(50% - 40px);
+    --r: -8deg;
+  }
+  .cta-card-4 {
+    --w: 160px;
+    --x: 32px;
+    --y: calc(100% - 198px);
+    --r: -7deg;
+  }
+  /* Right: sharp at the top, far lower down, near at the bottom corner. */
+  .cta-card-5 {
+    --w: 168px;
+    --x: calc(100% - 204px);
+    --y: 56px;
+    --r: 7deg;
+  }
+  .cta-card-3 {
+    --w: 76px;
+    --x: calc(100% - 248px);
+    --y: calc(100% - 208px);
+    --r: 6deg;
+  }
+  .cta-card-8 {
+    --w: 280px;
+    --x: calc(100% - 150px);
+    --y: calc(100% - 220px);
+    --r: -9deg;
+  }
+  /* The extra far card, by the top right corner. */
+  .cta-card-2 {
+    --w: 96px;
+    --x: calc(100% - 330px);
+    --y: 30px;
+    --r: -5deg;
+  }
+  .cta-card-6 {
+    --w: 180px;
+    --x: calc(50% + 18px);
+    --y: calc(100% - 206px);
+    --r: 5deg;
+  }
+}

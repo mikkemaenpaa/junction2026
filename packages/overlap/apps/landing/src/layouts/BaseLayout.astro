@@ -1,0 +1,84 @@
+---
+// Document shell and shared <head> for every page.
+import { Font } from 'astro:assets'
+// First, so component styles follow it in the stylesheet.
+import '@/styles/global.css'
+
+interface Props {
+  title?: string
+  description?: string
+  /** Share image (1200 x 630), as a path under public/ such as "/og.png". */
+  image?: string
+  /** Text alternative for the share image. Defaults to the title. */
+  imageAlt?: string
+  /** False for pages that have no public URL of their own (404). */
+  canonical?: boolean
+}
+
+const {
+  title = 'Overlap',
+  description = 'Find the events, companies and talent you fit best.',
+  image,
+  imageAlt = title,
+  canonical = true,
+} = Astro.props
+
+// The page's public URL without ".html" and without trailing slash (build.format "file" +
+// trailingSlash "never"). Only known once `site` is set (SITE_URL, see astro.config.ts).
+const pagePath = Astro.url.pathname.replace(/\.html$/, '').replace(/\/(index)?$/, '') || '/'
+const pageUrl = canonical && Astro.site ? new URL(pagePath, Astro.site).href : undefined
+const imageUrl = image && Astro.site ? new URL(image, Astro.site).href : undefined
+// Structured data for the home page only, and only once the public URL is known.
+const jsonLd =
+  pageUrl && pagePath === '/'
+    ? JSON.stringify({ '@context': 'https://schema.org', '@type': 'WebSite', name: 'Overlap', url: pageUrl, description })
+    : undefined
+---
+
+<!doctype html>
+<!-- data-theme: the Bubble UI (soap-bubble) components read their light/dark material from the
+     nearest [data-theme]. -->
+<html lang="en" data-theme="light">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <meta name="theme-color" content="#f5f1ea" />
+    {/* Light only: no dark palette exists for the page or the glass components. */}
+    <meta name="color-scheme" content="light" />
+    {pageUrl && <link rel="canonical" href={pageUrl} />}
+    {!canonical && <meta name="robots" content="noindex" />}
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Overlap" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    {pageUrl && <meta property="og:url" content={pageUrl} />}
+    {
+      imageUrl && (
+        <>
+          <meta property="og:image" content={imageUrl} />
+          <meta property="og:image:width" content="1200" />
+          <meta property="og:image:height" content="630" />
+          <meta property="og:image:alt" content={imageAlt} />
+          <meta name="twitter:image:alt" content={imageAlt} />
+        </>
+      )
+    }
+    <meta name="twitter:card" content={imageUrl ? 'summary_large_image' : 'summary'} />
+    {/* PNG for engines that cannot draw SVG icons; the SVG comes last for those that take the last icon. */}
+    <link rel="icon" type="image/png" sizes="96x96" href="/favicon.png" />
+    <link rel="icon" type="image/svg+xml" href="/icon.svg" />
+    {/* Above-the-fold faces: the display face (one variable file) and the body text weight. */}
+    <Font cssVariable="--font-bricolage" preload />
+    <Font cssVariable="--font-dm-sans" preload={[{ weight: 400 }]} />
+    {/* The skull wall's fallback face: never preloaded, only fetched once the wall is on the page (after
+        the skull ask) and only where the device lacks the glyph. */}
+    <Font cssVariable="--font-skull" />
+    {jsonLd && <script is:inline type="application/ld+json" set:html={jsonLd} />}
+    <slot name="head" />
+  </head>
+  <body>
+    <slot />
+  </body>
+</html>

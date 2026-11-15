@@ -1,0 +1,347 @@
+/*
+ * The /get-started page (src/pages/get-started.astro, PhotoPanel.astro, LoginCard.astro): what
+ * the utilities in the markup cannot express. Colours are the theme tokens of
+ * src/styles/global.css. Unlayered, like the other component CSS, so these rules win over
+ * Tailwind's layered utilities where both set a property.
+ *
+ * From 960px: a stage the height of the viewport with one dark frame in it; the photo covers the
+ * frame from its left edge to a little way under the card, which is inset on the right. Narrower:
+ * one column that scrolls, the photo a banner on top and the card over its bottom edge.
+ * The frame grows with the card, so a card taller than the viewport scrolls with the page; the
+ * lockup and the tagline then stay in view (.gs-photo-copy is sticky) and the scrim with them.
+ */
+.gs-stage {
+  /* Where the sharp person stands in the picture (x y). With object-fit: cover, object-position puts
+     that point of the picture at the same point of the photo's box, so they stay in view at every
+     size. Tune it whenever src/assets/get-started-crowd.webp changes. */
+  --gs-photo-focus: 66% 48%;
+  /* The share of the photo's width that is clear to the left of that person (their left side is
+     at 61% or more at every size). On wide screens the tagline keeps to it: there the text can
+     stand as high as the person's legs. Tune it with --gs-photo-focus. */
+  --gs-photo-clear: 0.58;
+  /* Forest, nearly black: the frame behind the photo and the scrim over it. */
+  --gs-night: #0a1f1b;
+  /* The scrim: dark from the bottom, under the tagline (gone by 58% of the height), and lighter from
+     the top, under the lockup. White text sits only on these. */
+  --gs-scrim:
+    linear-gradient(
+      to top,
+      color-mix(in srgb, var(--gs-night) 92%, transparent) 0%,
+      color-mix(in srgb, var(--gs-night) 80%, transparent) 26%,
+      color-mix(in srgb, var(--gs-night) 45%, transparent) 44%,
+      transparent 58%
+    ),
+    linear-gradient(to bottom, color-mix(in srgb, var(--gs-night) 60%, transparent) 0%, transparent 28%);
+  /* The decorative circles of the promo block, and the strip they take on its right. */
+  --gs-art: 76px;
+
+  display: flex;
+  flex-direction: column;
+  min-height: 100svh;
+}
+
+.gs-frame {
+  position: relative;
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  background: var(--color-card);
+}
+
+/* ---------------------------------------------------------------- photo */
+.gs-photo-panel {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  color: #fff;
+}
+.gs-photo {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+  background: var(--gs-night);
+}
+.gs-photo picture,
+.gs-photo img {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+.gs-photo img {
+  max-width: none;
+  object-fit: cover;
+  object-position: var(--gs-photo-focus);
+}
+/* The scrim (--gs-scrim) over the whole photo. From 960px it is drawn by .gs-photo-copy instead. */
+.gs-photo::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: var(--gs-scrim);
+}
+/* What stands on the photo: the lockup at the top, the tagline at the bottom. */
+.gs-photo-copy {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 32px;
+}
+
+/* The City of Espoo lockup (EspooLockup.tsx), white, as in the landing page's header (.logo in
+   hero.css): 40px high, 32px on phones, never under 28px; its clear space (0.41 of its height) is
+   inside the panel's padding. */
+.gs-home {
+  --espoo-lockup-height: 32px;
+  display: inline-flex;
+  align-items: center;
+  align-self: flex-start;
+  min-height: 44px;
+  border-radius: 4px;
+  color: #fff;
+  line-height: 1;
+  text-decoration: none;
+}
+
+/* ----------------------------------------------------------------- card */
+.gs-card {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+/* On a tablet the card is wide: its content keeps a form's width. */
+.gs-card > * {
+  width: 100%;
+  max-width: 30rem;
+  margin-inline: auto;
+}
+
+.gs-input {
+  transition:
+    border-color 0.15s,
+    box-shadow 0.15s;
+}
+.gs-input:focus {
+  border-color: var(--color-forest);
+}
+
+.gs-button {
+  transition: background-color 0.15s;
+}
+.gs-button:hover {
+  background-color: color-mix(in srgb, var(--color-forest) 82%, #000);
+}
+.gs-button:active {
+  background-color: color-mix(in srgb, var(--color-forest) 70%, #000);
+}
+
+/* The promo block: its link covers the whole block. The circles (the product's mark, as in the
+   app's login header) take a strip on the right that the text never enters. */
+.gs-promo {
+  isolation: isolate;
+  padding-right: calc(var(--gs-art) + 16px);
+}
+.gs-promo-link::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+}
+.gs-promo:hover .gs-promo-link {
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+.gs-promo-art {
+  position: absolute;
+  inset: 0 0 0 auto;
+  z-index: -1;
+  width: var(--gs-art);
+}
+.gs-promo-lime,
+.gs-promo-coral {
+  position: absolute;
+  border-radius: 9999px;
+}
+.gs-promo-lime {
+  top: -36px;
+  right: -44px;
+  width: 120px;
+  height: 120px;
+  background: color-mix(in srgb, var(--color-lime) 90%, transparent);
+}
+.gs-promo-coral {
+  top: 40px;
+  right: -16px;
+  width: 92px;
+  height: 92px;
+  background: var(--color-coral);
+  opacity: 0.8;
+  mix-blend-mode: screen;
+}
+
+/* ---------------------------------------------------------------- focus */
+.gs-link:focus-visible,
+.gs-input:focus-visible,
+.gs-button:focus-visible {
+  outline: 2px solid var(--color-forest);
+  outline-offset: 3px;
+}
+.gs-home:focus-visible,
+.gs-promo-link:focus-visible {
+  outline: 2px solid #fff;
+  outline-offset: 3px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .gs-input,
+  .gs-button {
+    transition: none;
+  }
+}
+
+/* --------------------------------------------------------------- narrow */
+@media (max-width: 959.98px) {
+  .gs-frame {
+    /* Edge to edge: no stage and no rounded frame on phones and tablets. */
+    border-radius: 0;
+  }
+  /* The banner is short, so the tagline takes a larger part of it: the scrim reaches higher. */
+  .gs-stage {
+    --gs-scrim:
+      linear-gradient(
+        to top,
+        color-mix(in srgb, var(--gs-night) 92%, transparent) 0%,
+        color-mix(in srgb, var(--gs-night) 82%, transparent) 35%,
+        color-mix(in srgb, var(--gs-night) 50%, transparent) 58%,
+        transparent 78%
+      ),
+      linear-gradient(to bottom, color-mix(in srgb, var(--gs-night) 60%, transparent) 0%, transparent 28%);
+  }
+  .gs-photo-panel {
+    min-height: max(260px, 40svh);
+    /* The card covers the bottom 24px of the banner. */
+    padding: max(14px, env(safe-area-inset-top)) max(20px, env(safe-area-inset-right)) 52px
+      max(20px, env(safe-area-inset-left));
+  }
+  .gs-card {
+    flex: 1;
+    margin-top: -24px;
+    padding: 24px max(24px, env(safe-area-inset-right)) max(24px, env(safe-area-inset-bottom))
+      max(24px, env(safe-area-inset-left));
+    border-bottom-right-radius: 0;
+    border-bottom-left-radius: 0;
+  }
+  /* The footer row (and the © line) at the bottom of the page. */
+  .gs-card-foot {
+    margin-top: auto;
+  }
+}
+
+/* ----------------------------------------------------------------- wide */
+@media (min-width: 960px) {
+  .gs-stage {
+    /* The card's width; the photo's `sizes` (PhotoPanel.astro) follows it. */
+    --gs-card-w: clamp(420px, 36vw, 540px);
+    /* The card's inset from the frame, and how far the photo runs on under the card. */
+    --gs-inset: 16px;
+    --gs-under: 40px;
+    /* The lockup's and the tagline's distance from the frame's edges. */
+    --gs-edge: 44px;
+    /* The least space between the tagline's column and the card. */
+    --gs-gap: 48px;
+    /* The paper above and below the frame. */
+    --gs-pad-top: max(12px, env(safe-area-inset-top));
+    --gs-pad-bottom: max(12px, env(safe-area-inset-bottom));
+
+    padding: var(--gs-pad-top) max(12px, env(safe-area-inset-right)) var(--gs-pad-bottom)
+      max(12px, env(safe-area-inset-left));
+  }
+  .gs-frame {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) var(--gs-card-w);
+    padding: var(--gs-inset);
+    /* clip, not hidden: hidden would make the frame the scroll container of the sticky
+       .gs-photo-copy, which would then never stick. (hidden for browsers without clip.) */
+    overflow: hidden;
+    overflow: clip;
+    background: var(--gs-night);
+  }
+  /* The panel takes the left column; the photo is placed in the frame, from its left edge to
+     --gs-under past the card's left edge, so there is no seam. */
+  .gs-photo-panel {
+    position: static;
+    padding: calc(var(--gs-edge) - var(--gs-inset));
+    padding-right: var(--gs-gap);
+  }
+  .gs-photo {
+    inset: 0 auto 0 0;
+    width: calc(100% - var(--gs-inset) - var(--gs-card-w) + var(--gs-under));
+  }
+  /* The part under the card fades into the frame, so where the photo ends (seen above and below
+     the card) is soft. */
+  .gs-photo::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to left, var(--gs-night), transparent var(--gs-under));
+  }
+  /* The lockup and the tagline take the height the frame has in a window it fits, and stay there
+     (sticky) while a taller frame scrolls: on a short screen the card is taller than the window,
+     and the tagline would otherwise be below the fold. */
+  .gs-photo-copy {
+    position: sticky;
+    top: calc(var(--gs-pad-top) + var(--gs-edge));
+    flex: none;
+    height: calc(100svh - var(--gs-pad-top) - var(--gs-pad-bottom) - 2 * var(--gs-edge));
+    min-height: fit-content;
+  }
+  /* The scrim goes with them, so the text keeps its dark ground wherever the frame has scrolled to:
+     it is the size of the window (from the copy out to the frame's left edge, the photo's right end
+     and the window's top and bottom) and the frame clips what is outside it. */
+  .gs-photo::after {
+    content: none;
+  }
+  .gs-photo-copy::before {
+    content: '';
+    position: absolute;
+    inset: calc(-1 * (var(--gs-pad-top) + var(--gs-edge))) calc(-1 * (var(--gs-gap) + var(--gs-under)))
+      calc(-1 * (var(--gs-pad-bottom) + var(--gs-edge))) calc(-1 * var(--gs-edge));
+    z-index: -1;
+    background: var(--gs-scrim);
+    pointer-events: none;
+  }
+  /* The tagline stays to the left of the sharp person: --gs-photo-clear of the photo's width (the
+     copy's own width plus what lies between it and the photo's two ends), less the left edge. */
+  .gs-pitch {
+    max-width: calc(var(--gs-photo-clear) * (100% + var(--gs-edge) + var(--gs-gap) + var(--gs-under)) - var(--gs-edge));
+  }
+  /* The tagline in two lines at every width: its usual size, or less where the clear part of the
+     photo is narrower than its longer line. "Stand out in the" is 6.9em wide at the largest size
+     and 7.05em at the smallest (the face's optical size), so 7.3em with some room; 7.6em is too
+     narrow for the whole tagline in one line. The photo is as wide as the window less the card
+     (its other offsets cancel out). */
+  .gs-tagline {
+    max-width: 7.6em;
+    font-size: min(
+      clamp(2.25rem, 1.2rem + 3vw, 3.75rem),
+      (var(--gs-photo-clear) * (100vw - var(--gs-card-w)) - var(--gs-edge)) / 7.3
+    );
+  }
+  .gs-home {
+    --espoo-lockup-height: 40px;
+  }
+  .gs-card {
+    gap: 16px;
+    /* Less above and below on short screens, so the card fits a 900px-high window. */
+    padding: clamp(24px, 4.5svh, 48px) clamp(28px, 4vw, 56px);
+  }
+  /* Vertically centred while there is room; the footer links stay at the bottom. */
+  .gs-card-body {
+    margin-block: auto;
+  }
+}

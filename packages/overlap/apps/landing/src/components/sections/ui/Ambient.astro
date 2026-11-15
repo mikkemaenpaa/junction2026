@@ -1,0 +1,130 @@
+---
+// The hero's floating event cards, held still behind a section: the same pictures its depth
+// field flies through, each at a depth, like a photograph focused on the middle distance (far
+// cards small and pale, mid cards sharp, near cards large and out of focus). Decorative only.
+//
+// The section that renders it must be `position: relative; isolation: isolate` (Tailwind:
+// `relative isolate`): the layer fills the section, sits behind its content (z-index -1 inside
+// the section's own stacking context) and clips the cards to the section's box.
+//
+// The cards drift vertically as the section scrolls through the viewport, more the nearer they
+// are: the still version of the hero's "scroll rushes the cards". They move only with the
+// visitor's own scrolling, never on their own, because the hero's pause button does not reach
+// the sections below it.
+import { EVENTS, EVENT_SHAPES, eventImage } from '@/data/events'
+
+export type AmbientCard = {
+  /** Event id (src/data/events.ts). */
+  event: string
+  depth: 'near' | 'mid' | 'far'
+  /** left and top: any CSS length, percentage or calc(). */
+  x: string
+  y: string
+  /** Width in px; the height follows the card's shape. */
+  w: number
+  /** Rotation in degrees. */
+  r?: number
+  /** Extra classes, e.g. 'max-lg:hidden' to keep a card to wide screens. */
+  class?: string
+}
+
+interface Props {
+  cards: AmbientCard[]
+}
+
+const { cards } = Astro.props
+
+const images = cards.map((card) => {
+  const event = EVENTS.find((e) => e.id === card.event)
+  if (!event) throw new Error(`Ambient: unknown event id "${card.event}" (see src/data/events.ts).`)
+  return { card, src: eventImage(event), ...EVENT_SHAPES[event.shape] }
+})
+---
+
+<div class="ambient" aria-hidden="true">
+  {
+    images.map(({ card, src, width, height }) => (
+      <img
+        class:list={['ambient-card', card.depth, card.class]}
+        src={src}
+        alt=""
+        width={width}
+        height={height}
+        loading="lazy"
+        decoding="async"
+        style={`--x:${card.x};--y:${card.y};--w:${card.w}px;--r:${card.r ?? 0}deg`}
+      />
+    ))
+  }
+</div>
+
+<style>
+  /* overflow: clip, not hidden: hidden makes this a scroll container, and view() below would then
+     track it instead of the page, which freezes the cards. */
+  .ambient {
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    overflow: clip;
+    pointer-events: none;
+  }
+  .ambient-card {
+    position: absolute;
+    top: var(--y);
+    left: var(--x);
+    width: var(--w);
+    max-width: none;
+    height: auto;
+    rotate: var(--r);
+    /* Proportional to the width, so small cards do not turn into pills: the hero's 12px at 220px. */
+    border-radius: calc(var(--w) * 0.055);
+    /* Shown while the image loads. */
+    background: var(--color-line);
+  }
+  @supports (corner-shape: squircle) {
+    .ambient-card {
+      /* The hero's 17px squircle at 220px. */
+      border-radius: calc(var(--w) * 0.078);
+      corner-shape: squircle;
+    }
+  }
+
+  .far {
+    --shift: 14px;
+    opacity: 0.42;
+    filter: blur(0.6px);
+  }
+  .mid {
+    --shift: 34px;
+    opacity: 0.86;
+    box-shadow: 0 24px 50px -24px rgb(17 32 28 / 0.4);
+  }
+  .near {
+    --shift: 64px;
+    opacity: 0.6;
+    filter: blur(7px);
+  }
+
+  /* Parallax driven by the page's scroll position, where the browser supports it and the
+     visitor has not asked for less motion. Longhands, not the `animation` shorthand: the CSS
+     minifier folds a shorthand and animation-timeline into one `animation: ... view()`, which
+     browsers reject. */
+  @media (prefers-reduced-motion: no-preference) {
+    @supports (animation-timeline: view()) {
+      .ambient-card {
+        animation-name: ambient-drift;
+        animation-timing-function: linear;
+        animation-fill-mode: both;
+        animation-timeline: view();
+      }
+    }
+  }
+  @keyframes ambient-drift {
+    from {
+      translate: 0 var(--shift);
+    }
+    to {
+      translate: 0 calc(-1 * var(--shift));
+    }
+  }
+</style>

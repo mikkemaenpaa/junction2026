@@ -1,0 +1,10 @@
+{
+  "description": "Connects job seekers and companies with relevant events and talent matches based on profiles, preferences, skills, and fit ratings.",
+  "robots": {
+    "index": false
+  },
+  "accessibility": {
+    "addBypassLinks": false,
+    "ignoreReducedMotion": false
+  }
+}

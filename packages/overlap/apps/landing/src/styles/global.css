@@ -1,0 +1,188 @@
+/*
+ * Tailwind v4 entry (no tailwind.config.js). The palette is the one of the Overlap app
+ * (apps/app/src/index.css). Font families come from Astro's Fonts API (`fonts` in
+ * astro.config.ts), which defines --font-bricolage and --font-dm-sans on :root, including
+ * metric-matched fallback faces.
+ */
+@import 'tailwindcss' source(none);
+/* Enter/exit animations used by the shadcn/ui primitives (tooltip). */
+@import 'tw-animate-css';
+
+/* shadcn/ui primitives use `dark:` classes. Dark mode follows the same [data-theme] attribute the
+   Bubble UI (soap-bubble) components read; BaseLayout sets data-theme="light". */
+@custom-variant dark (&:where([data-theme='dark'], [data-theme='dark'] *));
+
+/* Scan src/ only (not public/, configs or docs) for class names. */
+@source '..';
+/* The ReactDrops components style themselves with their own CSS files and use no utility
+   classes; their words ("static", "filter", "block"...) would only add stray utilities. */
+@source not '../components/chromatic-*';
+@source not '../components/depth-*';
+@source not '../components/liquid-glass-orb*';
+@source not '../components/soap-bubble';
+
+/* `static`: always emit these as variables on :root, so component CSS and inline styles can use
+   them even where no utility class does. */
+@theme static {
+  --color-paper: #f5f1ea;
+  --color-card: #fffdf9;
+  --color-ink: #11201c;
+  --color-mute: #6b7a74;
+  --color-line: #e3ddd1;
+  --color-forest: #0e3b33;
+  --color-lime: #d9f26b;
+  --color-coral: #ff7a59;
+  --color-good: #1f9d6b;
+}
+
+@theme inline {
+  --font-display: var(--font-bricolage);
+  --font-sans: var(--font-dm-sans);
+
+  /* The semantic names the shadcn/ui primitives and prompt-kit use (bg-background, border-input,
+     text-muted-foreground...), mapped onto the palette above. Aliases only, no new colours.
+     (--color-card is the palette's own card colour.) */
+  --color-background: var(--color-paper);
+  --color-foreground: var(--color-ink);
+  --color-card-foreground: var(--color-ink);
+  --color-popover: var(--color-card);
+  --color-popover-foreground: var(--color-ink);
+  --color-primary: var(--color-forest);
+  --color-primary-foreground: var(--color-paper);
+  --color-secondary: var(--color-line);
+  --color-secondary-foreground: var(--color-ink);
+  --color-muted: var(--color-line);
+  --color-muted-foreground: var(--color-mute);
+  --color-accent: var(--color-line);
+  --color-accent-foreground: var(--color-ink);
+  --color-destructive: var(--color-coral);
+  --color-border: var(--color-line);
+  --color-input: var(--color-line);
+  --color-ring: var(--color-forest);
+}
+
+/* The hero's glass material, shared with the sections below it. Copied from hero.css (--ink-soft
+   and --glass-line on .hero); change them together. `static` puts them on :root as well, so the
+   glass utilities below can use them anywhere. */
+@theme static {
+  --color-ink-soft: color-mix(in srgb, var(--color-ink) 74%, var(--color-paper));
+  --color-glass-line: color-mix(in srgb, var(--color-line) 85%, transparent);
+}
+
+@layer base {
+  html {
+    color-scheme: light;
+    background-color: var(--color-paper);
+  }
+
+  body {
+    background-color: var(--color-paper);
+    color: var(--color-ink);
+    font-family: var(--font-sans);
+    -webkit-tap-highlight-color: transparent;
+  }
+}
+
+/*
+ * Corners: a plain border-radius for every browser and, where the engine supports
+ * corner-shape: squircle, a larger radius drawn as a squircle (which looks smaller than a
+ * circular radius of the same size, hence ~1.35x).
+ */
+@utility squircle-sm {
+  border-radius: 8px;
+  @supports (corner-shape: squircle) {
+    border-radius: 11px;
+    corner-shape: squircle;
+  }
+}
+@utility squircle-md {
+  border-radius: 12px;
+  @supports (corner-shape: squircle) {
+    border-radius: 16px;
+    corner-shape: squircle;
+  }
+}
+@utility squircle-lg {
+  border-radius: 16px;
+  @supports (corner-shape: squircle) {
+    border-radius: 22px;
+    corner-shape: squircle;
+  }
+}
+@utility squircle-xl {
+  border-radius: 22px;
+  @supports (corner-shape: squircle) {
+    border-radius: 30px;
+    corner-shape: squircle;
+  }
+}
+@utility squircle-2xl {
+  border-radius: 28px;
+  @supports (corner-shape: squircle) {
+    border-radius: 38px;
+    corner-shape: squircle;
+  }
+}
+
+/*
+ * Glass: the hero's frosted material for the sections below it. The panel is hero.css's .ask-box
+ * and the pill its .ask-chip (static, without the hover and press states); change them together.
+ * These set the material only, no padding or layout, so spacing utilities combine with them.
+ */
+@utility glass {
+  border: 1px solid var(--color-glass-line);
+  border-radius: 26px;
+  background: color-mix(in srgb, var(--color-card) 76%, transparent);
+  -webkit-backdrop-filter: blur(22px) saturate(1.5);
+  backdrop-filter: blur(22px) saturate(1.5);
+  box-shadow:
+    inset 0 1px 0 rgb(255 255 255 / 0.7),
+    0 24px 60px -28px rgb(17 32 28 / 0.45);
+  @supports (corner-shape: squircle) {
+    border-radius: 36px;
+    corner-shape: squircle;
+  }
+}
+/* The same panel in forest, for dark surfaces. */
+@utility glass-dark {
+  border: 1px solid rgb(255 255 255 / 0.12);
+  border-radius: 26px;
+  background: color-mix(in srgb, var(--color-forest) 93%, transparent);
+  -webkit-backdrop-filter: blur(22px) saturate(1.5);
+  backdrop-filter: blur(22px) saturate(1.5);
+  box-shadow:
+    inset 0 1px 0 rgb(255 255 255 / 0.16),
+    0 24px 60px -28px rgb(17 32 28 / 0.6);
+  color: #fff;
+  @supports (corner-shape: squircle) {
+    border-radius: 36px;
+    corner-shape: squircle;
+  }
+}
+/* A quiet tile for rows inside a glass panel, with the hero's card corner. No backdrop filter:
+   nested backdrop filters are costly and would blur what is behind twice. */
+@utility glass-tile {
+  border: 1px solid var(--color-glass-line);
+  border-radius: 12px;
+  background: color-mix(in srgb, var(--color-card) 72%, transparent);
+  @supports (corner-shape: squircle) {
+    border-radius: 17px;
+    corner-shape: squircle;
+  }
+}
+@utility glass-chip {
+  display: inline-flex;
+  align-items: center;
+  min-height: 36px;
+  padding-inline: 14px;
+  border: 1px solid var(--color-glass-line);
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--color-card) 80%, transparent);
+  -webkit-backdrop-filter: blur(12px);
+  backdrop-filter: blur(12px);
+  color: var(--color-ink);
+  font-size: 0.875rem;
+  font-weight: 500;
+  line-height: 1;
+  white-space: nowrap;
+}

@@ -1,0 +1,23 @@
+/* Tailwind v4 entry (config lives here; no tailwind.config.js). */
+@import 'tailwindcss';
+
+@theme {
+  --color-ink: #0f172a;
+  --color-muted: #64748b;
+  --color-line: #e2e8f0;
+  --color-surface: #ffffff;
+  --color-canvas: #f8fafc;
+  /* Espoo blue, as on espoo.fi. */
+  --color-accent: #0050bb;
+  --color-accent-soft: #e6eefb;
+  --color-verified: #047857;
+  --color-verified-soft: #d1fae5;
+  --color-claimed: #b45309;
+  --color-claimed-soft: #fef3c7;
+}
+
+body {
+  background: var(--color-canvas);
+  color: var(--color-ink);
+  font-family: ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+}

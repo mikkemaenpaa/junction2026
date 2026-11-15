@@ -1,0 +1,539 @@
+[
+  {
+    "name": "Amertat Energy Oy",
+    "url": "https://www.amertate.com/",
+    "status": "ok",
+    "summary": "Amertate designs and supplies small vertical-axis wind turbines for residential, commercial, and agricultural sites.",
+    "fields": {
+      "embedded": 0.5,
+      "research": 0.3,
+      "ai": 0.2
+    },
+    "soughtSkills": ["AI-driven pitch control", "hybrid VAWT design", "blade load testing"]
+  },
+  {
+    "name": "Aveksana",
+    "url": "https://aveksana.com/",
+    "status": "ok",
+    "summary": "Aveksana provides a research methodology platform that helps students, researchers, and R&D teams define defensible topics, bound scope, and clarify research contributions before writing.",
+    "fields": {
+      "research": 0.7000000000000001,
+      "ai": 0.20000000000000004,
+      "business": 0.10000000000000002
+    },
+    "soughtSkills": []
+  },
+  {
+    "name": "Certiud",
+    "url": "https://www.certiud.fi/",
+    "status": "ok",
+    "summary": "Certiud is a Finland-based consulting firm that helps companies execute strategy, manage projects, grow through digital channels, and expand internationally.",
+    "fields": {
+      "business": 0.7000000000000001,
+      "research": 0.20000000000000004,
+      "ai": 0.10000000000000002
+    },
+    "soughtSkills": [
+      "Project Management",
+      "Business Strategy Analysis",
+      "Marketing Strategy",
+      "Digital Marketing",
+      "International Expansion",
+      "Research",
+      "Roadmapping",
+      "Feasibility analysis",
+      "Agile sprints",
+      "Data-driven decision making",
+      "Growth for Tech"
+    ]
+  },
+  {
+    "name": "Chipmetrics Oy",
+    "url": "https://chipmetrics.com/",
+    "status": "ok",
+    "summary": "Chipmetrics develops test chips and wafers, plus analysis services, for 3D thin-film metrology and semiconductor process control.",
+    "fields": {
+      "semiconductors": 0.65,
+      "research": 0.25,
+      "space": 0.1
+    },
+    "soughtSkills": []
+  },
+  {
+    "name": "ElFys Oy",
+    "url": "https://www.elfys.fi/",
+    "status": "ok",
+    "summary": "ElFys designs, develops, and manufactures customized and standard photodetectors, including black silicon photodiodes, for light-detection applications.",
+    "fields": {
+      "photonics": 0.55,
+      "semiconductors": 0.3,
+      "research": 0.15
+    },
+    "soughtSkills": [
+      "photodetector technology",
+      "black silicon fabrication processes",
+      "silicon material characterization",
+      "device processing",
+      "modeling",
+      "semiconductor manufacturing technology",
+      "MEMS process development",
+      "materials characterization",
+      "advanced applied spectroscopy",
+      "surface passivation via thin film coatings",
+      "detector manufacturing processes",
+      "semiconductor-based optoelectronic devices"
+    ]
+  },
+  {
+    "name": "Finders Seekers",
+    "url": "https://www.findersseekers.io/",
+    "status": "ok",
+    "summary": "Finders Seekers provides tech recruitment and employer branding services to help deep tech companies attract and hire talent.",
+    "fields": {
+      "business": 0.7000000000000001,
+      "research": 0.20000000000000004,
+      "quantum": 0.10000000000000002
+    },
+    "soughtSkills": [
+      "Tech recruitment",
+      "Employer branding",
+      "Employer value proposition (EVP) research",
+      "Tech leadership hiring",
+      "Embedded recruitment",
+      "Headhunting",
+      "International hiring",
+      "Relocation"
+    ]
+  },
+  {
+    "name": "Hipped",
+    "url": "https://www.hipped.io/",
+    "status": "ok",
+    "summary": "Hipped provides a trust-based recruitment platform that connects companies with pre-vetted candidates endorsed by recruiters and industry experts.",
+    "fields": {
+      "business": 1
+    },
+    "soughtSkills": []
+  },
+  {
+    "name": "ICT DIRECT Finland",
+    "url": "https://www.ictdirect.io/",
+    "status": "ok",
+    "summary": "ICT DIRECT provides recruitment, executive search and staffing services for IT and technology professionals, leaders and managers.",
+    "fields": {
+      "business": 0.7000000000000001,
+      "embedded": 0.20000000000000004,
+      "ai": 0.10000000000000002
+    },
+    "soughtSkills": ["IT leadership", "IT architecture", "information security", "cloud"]
+  },
+  {
+    "name": "Inquest Oy",
+    "url": "https://insightquestor.com/",
+    "status": "ok",
+    "summary": "Insight Questor builds an explainable AI financial analytics platform that provides stock and cryptocurrency forecasts, market sentiment analysis, and portfolio risk insights for retail investors.",
+    "fields": {
+      "ai": 0.5,
+      "research": 0.3,
+      "business": 0.2
+    },
+    "soughtSkills": [
+      "artificial intelligence",
+      "machine learning",
+      "NLP",
+      "sentiment analysis",
+      "factor models",
+      "probabilistic scenario generation",
+      "explainable AI",
+      "data pipelines",
+      "model monitoring",
+      "portfolio risk analysis",
+      "financial analysis",
+      "product engineering"
+    ]
+  },
+  {
+    "name": "JMP Ventures Oy",
+    "url": "https://jmpventures.org/",
+    "status": "ok",
+    "summary": "JMP Ventures applies complex-systems physics to diagnose operational constraints and guide AI, data, and process improvements for deep-tech and engineering-driven organizations.",
+    "fields": {
+      "business": 0.45,
+      "ai": 0.3,
+      "research": 0.25
+    },
+    "soughtSkills": [
+      "Experimental particle physics",
+      "control systems",
+      "quantum computing hardware",
+      "systems thinking",
+      "industrial AI",
+      "data systems",
+      "cloud",
+      "cybersecurity",
+      "Lean Six Sigma",
+      "electronics engineering",
+      "ISO Standards"
+    ]
+  },
+  {
+    "name": "Lotus Sirius Oy",
+    "url": "https://www.lotussirius.com/",
+    "status": "ok",
+    "summary": "Lotus Sirius delivers offline-capable AI, post-quantum secure supply chain and digital twin command systems for maritime, defence and critical infrastructure.",
+    "fields": {
+      "ai": 0.5,
+      "embedded": 0.3,
+      "research": 0.2
+    },
+    "soughtSkills": [
+      "AI/ML",
+      "on-prem inference",
+      "training",
+      "federated model updates",
+      "hardware-attested runtime",
+      "threat modelling",
+      "effects-based architecture",
+      "model-build-test cycles",
+      "field commissioning"
+    ]
+  },
+  {
+    "name": "Kvanttinova Oy",
+    "url": "https://www.kvanttinova.fi/",
+    "status": "ok",
+    "summary": "Kvanttinova brings together companies, researchers, talent, investors, and partners across microelectronics, photonics, and quantum technologies, providing shared facilities and R&D collaboration to move technologies toward production.",
+    "fields": {
+      "semiconductors": 0.4,
+      "photonics": 0.3,
+      "quantum": 0.3
+    },
+    "soughtSkills": [
+      "Chip design",
+      "Specialized chip design",
+      "Chip prototyping",
+      "Pilot production",
+      "Materials development",
+      "Process development",
+      "Characterization",
+      "Packaging & assembly",
+      "System integration",
+      "MEMS",
+      "RF & wireless",
+      "Power electronics"
+    ]
+  },
+  {
+    "name": "Kyocera Technologies Oy",
+    "url": "https://kyoceratechnologies.com/",
+    "status": "ok",
+    "summary": "Kyocera Technologies develops MEMS technologies, from R&D and engineering through mass production, to enable future electronics.",
+    "fields": {
+      "semiconductors": 0.5,
+      "research": 0.3,
+      "embedded": 0.2
+    },
+    "soughtSkills": []
+  },
+  {
+    "name": "Metacell",
+    "url": "https://metacell.fi/",
+    "status": "ok",
+    "summary": "Metacell develops a microbial strain-engineering platform that uses high-throughput screening to improve filamentous fermentation for complex active pharmaceutical ingredient manufacturing.",
+    "fields": {
+      "research": 0.5,
+      "ai": 0.3,
+      "business": 0.2
+    },
+    "soughtSkills": [
+      "ultra-high-throughput screening (uHTS)",
+      "cell-sorting",
+      "bioinformatics",
+      "ultra-high-throughput automation",
+      "strain engineering",
+      "gene cluster engineering",
+      "filamentous fermentation"
+    ]
+  },
+  {
+    "name": "Nordic Clean Tech Oy",
+    "url": "https://nordicclean.tech/",
+    "status": "ok",
+    "summary": "Nordic Clean Tech provides cleanroom turnkey solutions, qualification, regulatory validation, testing, training and AI-supported compliance services for critical industries.",
+    "fields": {
+      "business": 0.4,
+      "research": 0.35,
+      "semiconductors": 0.25
+    },
+    "soughtSkills": [
+      "ISO 14644",
+      "GMP",
+      "FDA",
+      "GDP",
+      "cleanroom qualification",
+      "cleanroom validation",
+      "environmental monitoring",
+      "equipment & process validation",
+      "audit-prep & gap analysis",
+      "project management",
+      "AI-supported validation",
+      "intelligent testing protocols"
+    ]
+  },
+  {
+    "name": "Nordic Semiconductor Oy",
+    "url": "https://www.nordicsemi.com/",
+    "status": "ok",
+    "summary": "Nordic Semiconductor makes low-power wireless semiconductor products and cloud services for IoT devices.",
+    "fields": {
+      "semiconductors": 0.5,
+      "embedded": 0.35,
+      "ai": 0.15
+    },
+    "soughtSkills": [
+      "Bluetooth LE",
+      "Wi-Fi",
+      "Zigbee",
+      "Thread",
+      "Matter",
+      "nRF Connect SDK",
+      "Zephyr RTOS",
+      "embedded AI",
+      "machine learning",
+      "FOTA"
+    ]
+  },
+  {
+    "name": "OneFab Nordic Oy",
+    "url": "https://onefabnordic.fi/",
+    "status": "ok",
+    "summary": "OneFab Nordic provides micro- and nano-device prototyping, integration, packaging, and characterization services.",
+    "fields": {
+      "semiconductors": 0.4,
+      "embedded": 0.2,
+      "research": 0.4
+    },
+    "soughtSkills": [
+      "micro- and nano-device prototyping",
+      "fabrication methods",
+      "device assembly",
+      "packaging",
+      "system-level integration",
+      "testing",
+      "measurement",
+      "high-frequency RF filters",
+      "micro- and nano-sensors",
+      "optical device integration"
+    ]
+  },
+  {
+    "name": "QMill",
+    "url": "https://qmill.com/en",
+    "status": "ok",
+    "summary": "QMill develops quantum algorithms and software solutions for quantum-safe security and optimization using current and near-future quantum hardware.",
+    "fields": {
+      "quantum": 0.55,
+      "ai": 0.25,
+      "research": 0.2
+    },
+    "soughtSkills": [
+      "quantum research",
+      "software development",
+      "quantum algorithms",
+      "AI",
+      "quantum computing",
+      "classical computing",
+      "quantum circuits",
+      "circuit compression"
+    ]
+  },
+  {
+    "name": "QuTwo",
+    "url": "https://www.qutwo.com/",
+    "status": "ok",
+    "summary": "QuTwo builds Qutwo OS, an intelligence layer for industrial AI that enables enterprise R&D on classical, hybrid, and full quantum AI systems.",
+    "fields": {
+      "ai": 0.65,
+      "quantum": 0.35
+    },
+    "soughtSkills": []
+  },
+  {
+    "name": "sansaino",
+    "url": "https://www.sansaino.com/",
+    "status": "ok",
+    "summary": "sansaino operates a talent marketplace connecting companies building data centers and IT critical infrastructure with verified professionals for projects and full-time roles.",
+    "fields": {
+      "business": 0.5,
+      "embedded": 0.3,
+      "ai": 0.2
+    },
+    "soughtSkills": [
+      "Cybersecurity",
+      "Network & Connectivity Infrastructure",
+      "Technical Sales & Solutions Engineering",
+      "Application Development",
+      "Backup, Recovery & Business Continuity",
+      "Databases & Data Management",
+      "Cloud Infrastructure, DevOps & Reliability",
+      "AI, ML & Data Science",
+      "Project & Program Management",
+      "Data Center Operations"
+    ]
+  },
+  {
+    "name": "Smartly.io",
+    "url": "https://www.smartly.io/careers",
+    "status": "ok",
+    "summary": "Smartly provides an AI-powered advertising platform that helps brands plan, create, launch, manage, and optimize cross-channel ads.",
+    "fields": {
+      "ai": 0.5,
+      "business": 0.3,
+      "research": 0.2
+    },
+    "soughtSkills": [
+      "AI",
+      "coding",
+      "product development",
+      "engineering",
+      "design",
+      "problem-solving",
+      "advertising workflows"
+    ]
+  },
+  {
+    "name": "TELUS International AI Finland Oy",
+    "url": "https://www.telusdigital.com/",
+    "status": "ok",
+    "summary": "TELUS Digital designs, builds and delivers AI-fueled digital solutions, including AI services, digital products and customer experience transformation for global brands.",
+    "fields": {
+      "ai": 0.5,
+      "research": 0.3,
+      "business": 0.2
+    },
+    "soughtSkills": [
+      "AI engineering",
+      "machine learning",
+      "generative AI",
+      "agentic AI",
+      "data analytics",
+      "intelligent automation",
+      "full-stack engineering",
+      "Web & Mobile App Development",
+      "Experience Design",
+      "AI moderation",
+      "data labeling",
+      "forward-deployed engineering"
+    ]
+  },
+  {
+    "name": "Texas Instruments Finland Oy",
+    "url": "https://www.ti.com/",
+    "status": "ok",
+    "summary": "Texas Instruments develops semiconductor products, including analog and embedded processing products, for automotive, industrial, data center and personal electronics systems.",
+    "fields": {
+      "semiconductors": 0.65,
+      "embedded": 0.25,
+      "research": 0.1
+    },
+    "soughtSkills": [
+      "analog",
+      "embedded processing",
+      "semiconductor technology",
+      "agentic AI",
+      "CCStudio™ ecosystem",
+      "MCUs",
+      "wireless connectivity",
+      "radar devices",
+      "Zephyr RTOS",
+      "real-time control",
+      "industrial automation"
+    ]
+  },
+  {
+    "name": "Vexlum Oy",
+    "url": "https://vexlum.com/",
+    "status": "ok",
+    "summary": "Vexlum develops high-power, low-noise semiconductor laser systems based on VECSEL technology for applications in quantum technology, medicine and the semiconductor industry.",
+    "fields": {
+      "photonics": 0.5,
+      "semiconductors": 0.3,
+      "research": 0.2
+    },
+    "soughtSkills": []
+  },
+  {
+    "name": "VitalSigns",
+    "url": "https://www.vitalsigns.fi/",
+    "status": "ok",
+    "summary": "VitalSigns develops a smart, connected diagnostic device that captures, documents, and analyses multiple bio-signals simultaneously.",
+    "fields": {
+      "embedded": 0.3888888888888889,
+      "ai": 0.33333333333333337,
+      "research": 0.2777777777777778
+    },
+    "soughtSkills": [
+      "embedded software",
+      "AI",
+      "motion algorithms",
+      "cloud backend",
+      "cloud infrastructure",
+      "system backend",
+      "hardware",
+      "software",
+      "medical devices",
+      "clinical research"
+    ]
+  },
+  {
+    "name": "VTT Oy",
+    "url": "https://www.vttresearch.com/fi",
+    "status": "ok",
+    "summary": "VTT is a research and innovation organisation that develops deep technology and turns it into solutions, breakthroughs and scalable business with customers and partners.",
+    "fields": {
+      "research": 0.45,
+      "semiconductors": 0.3,
+      "photonics": 0.25
+    },
+    "soughtSkills": [
+      "applied research",
+      "science",
+      "technology",
+      "product development",
+      "microelectronics",
+      "integrated photonics",
+      "microfabrication",
+      "quantum computing",
+      "hyperspectral imaging",
+      "remote sensing",
+      "process modelling",
+      "robotics"
+    ]
+  },
+  {
+    "name": "Zero Gravity",
+    "url": "https://www.zerogravity.fi",
+    "status": "ok",
+    "summary": "Zero Gravity develops thermal infrared payloads for CubeSats and satellite-imagery analytics software for smart cities, infrastructure, and environmental monitoring.",
+    "fields": {
+      "space": 0.35000000000000003,
+      "photonics": 0.30000000000000004,
+      "ai": 0.20000000000000004,
+      "research": 0.15000000000000002
+    },
+    "soughtSkills": [
+      "thermal infrared imaging",
+      "thermal optics",
+      "CubeSat payload development",
+      "Earth observation",
+      "satellite imagery analytics",
+      "UrbanAI",
+      "EdgeAI onboard processing",
+      "AI-based super-resolution",
+      "optics",
+      "photonics",
+      "holography",
+      "metrology"
+    ]
+  }
+]
