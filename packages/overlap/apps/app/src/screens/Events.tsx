@@ -73,7 +73,7 @@ export function ShortlistCta() {
       onClick={() => s.go({ name: 'shortlist' })}
       className="rise relative block w-full overflow-hidden rounded-[28px] bg-lime p-5 text-left text-forest transition active:scale-[.985]"
     >
-      <div className="absolute -right-6 -top-6 size-28 rounded-full bg-coral/80 mix-blend-multiply" />
+      <div className="absolute -right-6 -top-6 size-28 rounded-full bg-coral" />
       <span className="relative inline-flex rounded-full bg-forest px-2.5 py-1 text-xs font-medium text-lime">
         {EVENT_NAME}
       </span>
