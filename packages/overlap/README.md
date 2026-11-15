@@ -8,8 +8,9 @@ workspace on the [Vite+](https://viteplus.dev) toolchain (`vp`) with two apps:
 | `apps/app`     | `@overlap/app`     | The web app: React 19, Vite, Tailwind CSS v4. Built and hosted by Figma Make (`.figma/`).                       |
 | `apps/landing` | `@overlap/landing` | The landing page: Astro 7 (static), React islands, Tailwind CSS v4. Served by an assets-only Cloudflare Worker. |
 
-`scripts/build-site.mjs` combines the two into one deployable site: the landing page at `/` and
-the app at `/app/`.
+`scripts/build-site.mjs` combines the two into one deployable site, served at
+https://junction2026.com/submission: the landing page at `/submission` and the app at
+`/submission/app/`.
 
 ## Commands
 
@@ -27,7 +28,7 @@ vp test                 # unit tests (Vitest)
 vp check                # format check, lint and type check of the whole workspace
 vp run check            # astro check of the landing page + vp check + vp test
 vp fmt                  # format
-vp run deploy:landing   # build the composed site and deploy it
+vp run deploy:landing   # build the composed site and deploy it to junction2026.com/submission
 ```
 
 Without the global CLI, use `pnpm install` and `pnpm run <script>` (`pnpm test` for the tests);
@@ -62,11 +63,36 @@ backend's `PRESELECT_ALLOWED_ORIGINS`; neither is set up.
 
 ## The composed site
 
-`vp run build:site` (or `pnpm run build:site`) runs `scripts/build-site.mjs`:
+`vp run build:site` (or `pnpm run build:site`) runs `scripts/build-site.mjs`. It builds for
+`SITE_URL` (the origin, for canonical and Open Graph URLs) and `SITE_BASE` (the path the site is
+served below). Unset, they are `https://junction2026.com` and `/submission/`
+(`scripts/site-target.mjs`); `SITE_BASE` also takes `/submission` or `submission`, and `/` (or an
+empty value) builds for the root of an origin. The script:
 
-1. builds `apps/app` with `APP_BASE=/app/`, so its URLs start with `/app/`;
-2. builds `apps/landing` (`astro build` empties `apps/landing/dist` first);
-3. copies `apps/app/dist` to `apps/landing/dist/app`.
+1. builds `apps/app` with `APP_BASE=/submission/app/`, so its URLs start with that;
+2. builds `apps/landing` with `SITE_URL` and `SITE_BASE` (`astro build` empties
+   `apps/landing/dist` first). Astro's `base` prefixes its own output; every other root-relative
+   URL of the landing page goes through `sitePath` (`src/lib/base.ts`);
+3. moves the landing build below the base, because the Worker looks up a request's full path in
+   `dist/`, and reads `_headers` and `.assetsignore` only at its root:
+
+   ```text
+   dist/
+     _headers           rule paths prefixed: /* -> /submission*, /app/ -> /submission/app/, ...
+     .assetsignore
+     404.html           for paths the route matches outside the base (/submissions)
+     submission.html    the home page, /submission (no trailing slash)
+     submission/        get-started.html, 404.html, _astro/, events/, og.png, icons
+       app/             the app (step 4), /submission/app/
+   ```
+
+   No `robots.txt`: it only counts at the root of an origin;
+
+4. copies `apps/app/dist` to `apps/landing/dist/submission/app`.
+
+A root build (`SITE_BASE=/`) skips step 3: the landing page at `/` (`dist/index.html`), the app at
+`/app/`, `_headers` and `robots.txt` as in `public/`. `astro dev` and a plain `astro build` are at
+`/`. Paths of the landing page in the rest of this README are written for a root build.
 
 `APP_BASE` (default `/`) only applies when `FIGMA_PUBLIC_URL` is unset, so Figma Make builds of
 the app are unchanged. The landing page's "Get started" buttons go to `/get-started`
@@ -82,27 +108,39 @@ When the platform is on another origin (`PUBLIC_PRESELECT_URL`, else `PUBLIC_APP
 `apps/landing/wrangler.jsonc` defines an assets-only Worker (`overlap-landing`: no Worker code, no
 bindings) that serves `apps/landing/dist`:
 
-- `html_handling: "auto-trailing-slash"`: landing pages without a trailing slash (`/about` from
-  `about.html`), folders with one. `/app` redirects to `/app/`, where the app's relative URLs
-  (`manifest.webmanifest`, `icon.svg`) and its service worker scope (`/app/`) resolve.
-- `not_found_handling: "404-page"`: unknown paths, also under `/app/`, get the landing page's
-  `404.html` with a 404 status.
-- `apps/landing/public/_headers`: security headers and caching. The landing page's
-  Content-Security-Policy covers every path; `/app/` (the app's page) replaces it with the app's
-  own policy, which allows Google Fonts (`fonts.googleapis.com`, `fonts.gstatic.com`).
-  `/app/assets/*` is cached as immutable; `/app/` and `/app/sw.js` revalidate on every load.
+- `routes`: `junction2026.com/submission*` only. junction2026.com itself is another Worker (a
+  custom domain, from another repository); a route runs in front of it, so this Worker gets
+  `/submission` and everything below it and nothing else. `workers_dev` and `preview_urls` are off.
+  The route and the defaults in `scripts/site-target.mjs` must agree (`src/config.test.ts` checks).
+- `html_handling: "auto-trailing-slash"`: landing pages without a trailing slash
+  (`/submission/get-started` from `submission/get-started.html`, the home page `/submission` from
+  `submission.html`; `/submission/` redirects to `/submission`), folders with one.
+  `/submission/app` redirects to `/submission/app/`, where the app's relative URLs
+  (`manifest.webmanifest`, `icon.svg`) and its service worker scope resolve.
+- `not_found_handling: "404-page"`: unknown paths, also under the app, get the nearest `404.html`
+  (the landing page's) with a 404 status.
+- `apps/landing/public/_headers`: security headers and caching, written for a root build. The
+  landing page's Content-Security-Policy covers every path; `/app/` (the app's page) replaces it
+  with the app's own policy, which allows Google Fonts (`fonts.googleapis.com`,
+  `fonts.gstatic.com`). `/app/assets/*` is cached as immutable; `/app/` and `/app/sw.js` revalidate
+  on every load. `build:site` prefixes the rule paths with the base in `dist/_headers`.
 
 ## Deploying
 
 ```sh
 pnpm --filter @overlap/landing exec wrangler login   # once; or set CLOUDFLARE_API_TOKEN and CLOUDFLARE_ACCOUNT_ID
-SITE_URL=https://your.domain vp run deploy:landing   # build:site && wrangler deploy
+vp run deploy:landing                                # build:site && wrangler deploy
 vp run --filter @overlap/landing preview             # local: build:site && wrangler dev
 ```
 
-`SITE_URL` sets Astro's `site`; without it the pages have no canonical or `og:url` tags. Add
-`PUBLIC_APP_URL=https://app.example.com/` to deploy the landing page alone. The Worker is served
-on `workers.dev` until a route or custom domain is added to `wrangler.jsonc`.
+The deploy needs no extra environment: the site is built for https://junction2026.com/submission
+and the Worker is attached to the route `junction2026.com/submission*` (the junction2026.com zone
+must be on the same Cloudflare account). The home page is https://junction2026.com/submission. Locally,
+`preview` serves it at http://localhost:8787/submission; other paths there get the 404 page.
+`SITE_URL` sets Astro's `site`; set it to an empty value for pages without canonical or `og:url`
+tags. Add `PUBLIC_APP_URL=https://app.example.com/` to deploy the landing page alone. To deploy
+somewhere else, change the route in `wrangler.jsonc` and the defaults in `scripts/site-target.mjs`
+together.
 
 ## Tests
 
@@ -114,7 +152,9 @@ they test as `*.test.ts`, never under `src/pages/` (Astro would route them). The
 imported by any page, so they are not part of the build.
 
 `apps/landing/src/data/events.test.ts` covers the search and the demo data of
-`apps/landing/src/data/events.ts`.
+`apps/landing/src/data/events.ts`. `scripts/` is a test project too: `scripts/site-target.test.ts`
+covers the base and `_headers` helpers of the build script. `apps/landing/src/config.test.ts` also
+checks that the Worker route, the default base and the app's path agree across files.
 
 ## The landing page
 

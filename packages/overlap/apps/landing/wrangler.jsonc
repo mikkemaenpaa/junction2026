@@ -2,19 +2,34 @@
   "$schema": "node_modules/wrangler/config-schema.json",
   // Assets-only Worker: no `main` script, no adapter and no bindings. Every request is served
   // straight from the static files in dist/, so no Worker code ever runs. dist/ is the composed
-  // site from the root `build:site` script: the landing page plus the app in dist/app/.
+  // site from the root `build:site` script, built by default for https://junction2026.com/submission:
+  // the landing page in dist/submission/ (its home page is dist/submission.html) and the app in
+  // dist/submission/app/.
   "name": "overlap-landing",
   "compatibility_date": "2026-11-13",
+  // junction2026.com itself is another Worker (a custom domain, from another repository). This route
+  // runs in front of it for /submission and everything below it, and only there. The pattern also
+  // matches /submissions and the like, which get dist/404.html. Keep the host and path in step with
+  // DEFAULT_SITE_URL and DEFAULT_SITE_BASE in scripts/site-target.mjs (src/config.test.ts checks).
+  "routes": [{ "pattern": "junction2026.com/submission*", "zone_name": "junction2026.com" }],
+  // Served on the route only: no workers.dev address and no preview URLs.
+  "workers_dev": false,
+  "preview_urls": false,
   "assets": {
     "directory": "./dist",
-    // Unknown paths get dist/404.html with a 404 status.
+    // Unknown paths get the nearest 404.html with a 404 status: dist/submission/404.html below the
+    // base, dist/404.html (the same page) elsewhere.
     "not_found_handling": "404-page",
     // Files without, folders with a trailing slash:
-    // - landing pages (`build.format: "file"`, `trailingSlash: "never"` in astro.config.ts): /about
-    //   is served from about.html; /about/ and /about.html redirect to /about.
-    // - the app: /app/ is served from app/index.html; /app and /app/index.html redirect to /app/.
-    //   The slash matters: the app's relative URLs (manifest.webmanifest, icon.svg) and its service
-    //   worker scope resolve against /app/.
+    // - landing pages (`build.format: "file"`, `trailingSlash: "never"` in astro.config.ts):
+    //   /submission/get-started is served from submission/get-started.html, the home page
+    //   /submission from submission.html; /submission/ and /submission/get-started.html redirect to
+    //   them.
+    // - the app: /submission/app/ is served from submission/app/index.html; /submission/app and
+    //   /submission/app/index.html redirect to /submission/app/. The slash matters: the app's
+    //   relative URLs (manifest.webmanifest, icon.svg) and its service worker scope resolve against
+    //   /submission/app/.
+    // A root build (`SITE_BASE=/ vp run build:site`) has the same shape without /submission.
     "html_handling": "auto-trailing-slash",
   },
   // Don't send Wrangler usage metrics for this project.

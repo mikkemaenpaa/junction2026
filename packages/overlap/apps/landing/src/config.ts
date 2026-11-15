@@ -1,11 +1,19 @@
 // Site-wide settings for the landing page.
+import { sitePath } from '@/lib/base'
 
 /**
- * The Overlap app. By default the app is served by the same Worker
- * under /app/ (see the root `build:site` script); set PUBLIC_APP_URL at build time to point at
- * another deployment instead.
+ * The app's path below the site's base: /app/ at the root, /submission/app/ on junction2026.com.
+ * Also APP_PATH in scripts/site-target.mjs (which `build:site` builds the app for) and the /app/
+ * rules of public/_headers; config.test.ts fails when they differ.
  */
-export const APP_URL: string = import.meta.env.PUBLIC_APP_URL || '/app/'
+export const APP_PATH = '/app/'
+
+/**
+ * The Overlap app. By default the app is served by the same Worker at APP_PATH below the site's
+ * base (see the root `build:site` script); set PUBLIC_APP_URL at build time to point at another
+ * deployment instead.
+ */
+export const APP_URL: string = import.meta.env.PUBLIC_APP_URL || sitePath(APP_PATH)
 
 /**
  * The pre-selection app (apps/preselect), which reads the profiles typed in the ask box. In
@@ -17,7 +25,7 @@ export const PRESELECT_URL: string = (
 ).replace(/\/+$/, '')
 
 /** Where every "Get started" goes: the login-style page in front of the platform (src/pages/get-started.astro). */
-export const GET_STARTED_URL = '/get-started'
+export const GET_STARTED_URL = sitePath('/get-started')
 
 /**
  * The platform that "Log in" and "Sign up here" on /get-started open: the pre-selection app's

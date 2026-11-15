@@ -2,6 +2,8 @@ import react from '@astrojs/react'
 import tailwindcss from '@tailwindcss/vite'
 import { defineConfig, fontProviders } from 'astro/config'
 
+import { normalizeBase } from '../../scripts/site-target.mjs'
+
 // Google Fonts' "latin" unicode-range (also used by @fontsource), so each face covers exactly the
 // characters of the latin subset file.
 const LATIN =
@@ -10,9 +12,15 @@ const LATIN =
 // Fully static build: no adapter. `dist/` is served as-is by an assets-only Cloudflare Worker
 // (see wrangler.jsonc). React is only used for islands.
 export default defineConfig({
-  // The public origin, for canonical and Open Graph URLs. No domain is decided yet: build with
-  // SITE_URL=https://example.com to emit them (BaseLayout omits them while it is unset).
+  // The public origin, for canonical and Open Graph URLs: build with SITE_URL=https://example.com to
+  // emit them (BaseLayout omits them while it is unset). The root `build:site` script sets it to
+  // https://junction2026.com unless it is set (scripts/site-target.mjs).
   site: process.env.SITE_URL || undefined,
+  // The path the site is served below: SITE_BASE, "/" when unset (`astro dev`, `astro build`).
+  // `build:site` sets /submission (junction2026.com/submission) unless SITE_BASE is set. Astro
+  // prefixes its own output (_astro/, fonts, images); every other root-relative URL the pages emit
+  // goes through `sitePath` (src/lib/base.ts). With trailingSlash "never", BASE_URL is "/submission".
+  base: normalizeBase(process.env.SITE_BASE),
   output: 'static',
 
   // URL shape: /about served from about.html, no trailing slash. This matches

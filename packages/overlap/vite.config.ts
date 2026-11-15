@@ -21,7 +21,7 @@ export default defineConfig({
   // `vp test` at the root runs the tests of these packages, each with the `test` block of its own
   // vite.config.ts.
   test: {
-    projects: ['apps/landing'],
+    projects: ['apps/landing', 'scripts'],
   },
   fmt: {
     // The style of the Figma Make template (apps/app/vite.config.ts).

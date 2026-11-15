@@ -1,6 +1,7 @@
 // Demo events for the landing page. The first six are the same events as the app's mock data
 // (apps/app/src/lib/data.ts); the rest extend the set so the depth field has enough variety.
 // `fit` is a demo fit rating (0-100) for an example profile: the landing page has no account.
+import { sitePath } from '@/lib/base'
 
 export type EventTone = 'forest' | 'card' | 'lime' | 'coral' | 'ink'
 export type EventShape = 'portrait' | 'landscape' | 'square'
@@ -451,8 +452,8 @@ export const EVENTS: readonly LandingEvent[] = [
   },
 ]
 
-/** Public URL of an event's generated card image. */
-export const eventImage = (event: Pick<LandingEvent, 'id'>) => `/events/${event.id}.webp`
+/** Public URL of an event's generated card image (src/pages/events/[id].webp.ts), below the site's base. */
+export const eventImage = (event: Pick<LandingEvent, 'id'>) => sitePath(`/events/${event.id}.webp`)
 
 export type EventFilter = { query: string; onlineOnly: boolean; minFit: number }
 

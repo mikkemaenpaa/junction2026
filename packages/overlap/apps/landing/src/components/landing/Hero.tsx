@@ -13,6 +13,7 @@ import {
 import { PromptInput, PromptInputAction, PromptInputActions, PromptInputTextarea } from '@/components/ui/prompt-input'
 import type { EventInfo } from '@/data/event'
 import { ASK_SUGGESTIONS, EVENTS, SKULL_ASK, eventImage } from '@/data/events'
+import { sitePath } from '@/lib/base'
 import { EspooLockup } from './EspooLockup'
 import { GetStarted } from './GetStarted'
 import { PLATFORMS } from './platform-icons'
@@ -131,7 +132,7 @@ export default function Hero({ getStartedUrl, event }: HeroProps) {
           closing section, whose artwork is static, uses the captured backdrop (FinalCta.tsx). */}
       <SoapBubbleMaterial {...GLASS}>
         <header className="site-header" data-scrolled={scrolled ? '' : undefined}>
-          <a className="logo" href="/">
+          <a className="logo" href={sitePath('/')}>
             <EspooLockup />
           </a>
           <nav className="site-tools" aria-label="Page">

@@ -2,13 +2,14 @@
 // Served by the Worker for every unknown path (not_found_handling: "404-page").
 import { APP_URL } from '@/config'
 import BaseLayout from '@/layouts/BaseLayout.astro'
+import { sitePath } from '@/lib/base'
 ---
 
 <BaseLayout title="Page not found · Overlap" canonical={false}>
   <div class="flex min-h-svh flex-col">
     <header class="flex h-16 items-center px-3.5 sm:h-[72px] sm:px-5">
       <a
-        href="/"
+        href={sitePath('/')}
         class="nf-link inline-flex items-center gap-2 font-display text-[1.3125rem] leading-none font-extrabold tracking-[-0.03em] text-forest sm:text-2xl"
         aria-label="overlap, home"
       >
@@ -36,7 +37,7 @@ import BaseLayout from '@/layouts/BaseLayout.astro'
         This page doesn’t exist, or it has moved. The events are still where you left them.
       </p>
       <div class="mt-8 flex flex-wrap items-center justify-center gap-3">
-        <a href="/" class="nf-link squircle-md bg-forest px-5 py-3.5 text-[15px] leading-none font-medium text-white">
+        <a href={sitePath('/')} class="nf-link squircle-md bg-forest px-5 py-3.5 text-[15px] leading-none font-medium text-white">
           Back to the home page
         </a>
         <a

@@ -3,11 +3,12 @@
 import { Font } from 'astro:assets'
 // First, so component styles follow it in the stylesheet.
 import '@/styles/global.css'
+import { sitePath } from '@/lib/base'
 
 interface Props {
   title?: string
   description?: string
-  /** Share image (1200 x 630), as a path under public/ such as "/og.png". */
+  /** Share image (1200 x 630), as a path under public/ such as "/og.png" (the site's base is added). */
   image?: string
   /** Text alternative for the share image. Defaults to the title. */
   imageAlt?: string
@@ -24,13 +25,14 @@ const {
 } = Astro.props
 
 // The page's public URL without ".html" and without trailing slash (build.format "file" +
-// trailingSlash "never"). Only known once `site` is set (SITE_URL, see astro.config.ts).
+// trailingSlash "never"), the site's base included: the home page is "/" at the root and
+// "/submission" below that base. Only known once `site` is set (SITE_URL, see astro.config.ts).
 const pagePath = Astro.url.pathname.replace(/\.html$/, '').replace(/\/(index)?$/, '') || '/'
 const pageUrl = canonical && Astro.site ? new URL(pagePath, Astro.site).href : undefined
-const imageUrl = image && Astro.site ? new URL(image, Astro.site).href : undefined
+const imageUrl = image && Astro.site ? new URL(sitePath(image), Astro.site).href : undefined
 // Structured data for the home page only, and only once the public URL is known.
 const jsonLd =
-  pageUrl && pagePath === '/'
+  pageUrl && pagePath === sitePath('/')
     ? JSON.stringify({ '@context': 'https://schema.org', '@type': 'WebSite', name: 'Overlap', url: pageUrl, description })
     : undefined
 ---
@@ -67,8 +69,8 @@ const jsonLd =
     }
     <meta name="twitter:card" content={imageUrl ? 'summary_large_image' : 'summary'} />
     {/* PNG for engines that cannot draw SVG icons; the SVG comes last for those that take the last icon. */}
-    <link rel="icon" type="image/png" sizes="96x96" href="/favicon.png" />
-    <link rel="icon" type="image/svg+xml" href="/icon.svg" />
+    <link rel="icon" type="image/png" sizes="96x96" href={sitePath('/favicon.png')} />
+    <link rel="icon" type="image/svg+xml" href={sitePath('/icon.svg')} />
     {/* Above-the-fold faces: the display face (one variable file) and the body text weight. */}
     <Font cssVariable="--font-bricolage" preload />
     <Font cssVariable="--font-dm-sans" preload={[{ weight: 400 }]} />

@@ -4,11 +4,12 @@
 // hero's chip and send button states.
 import { EspooLockup } from '@/components/landing/EspooLockup'
 import { GET_STARTED_URL } from '@/config'
+import { sitePath } from '@/lib/base'
 
 const LINKS = [
-  { href: '/#how', label: 'How it works' },
-  { href: '/#talent', label: 'For talent' },
-  { href: '/#companies', label: 'For companies' },
+  { href: sitePath('/#how'), label: 'How it works' },
+  { href: sitePath('/#talent'), label: 'For talent' },
+  { href: sitePath('/#companies'), label: 'For companies' },
   { href: GET_STARTED_URL, label: 'Get started', accent: true },
 ]
 ---
@@ -26,7 +27,7 @@ const LINKS = [
       'min-[800px]:grid-cols-[1fr_auto] min-[800px]:items-center min-[800px]:gap-x-8 min-[800px]:gap-y-4',
     ]}
   >
-    <a href="/" class="footer-logo justify-self-start">
+    <a href={sitePath('/')} class="footer-logo justify-self-start">
       <EspooLockup />
     </a>
     <p class="text-[15px] text-ink-soft min-[800px]:col-start-1 min-[800px]:row-start-2">

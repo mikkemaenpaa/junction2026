@@ -5,6 +5,7 @@
 import { Picture } from 'astro:assets'
 import crowd from '@/assets/get-started-crowd.webp'
 import { EspooLockup } from '@/components/landing/EspooLockup'
+import { sitePath } from '@/lib/base'
 
 // The photo's rendered width: the full width on phones and tablets; from 960px the viewport less the
 // card (--gs-card-w: clamp(420px, 36vw, 540px), get-started.css), which the photo's other offsets
@@ -34,7 +35,7 @@ const SIZES = [
 
   {/* On wide screens this stays in view while a card taller than the window scrolls (get-started.css). */}
   <div class="gs-photo-copy">
-    <a class="gs-home" href="/">
+    <a class="gs-home" href={sitePath('/')}>
       <EspooLockup />
     </a>
 

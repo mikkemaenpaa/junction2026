@@ -2,7 +2,14 @@ import { readFileSync } from 'node:fs'
 
 import { describe, expect, it } from 'vite-plus/test'
 
-import { HANDOFF_PARAM, HANDOFF_VALUE, platformEntryFields, platformEntryUrl } from './config'
+import { APP_PATH, DEFAULT_SITE_BASE, DEFAULT_SITE_URL, normalizeBase } from '../../../scripts/site-target.mjs'
+import {
+  APP_PATH as LANDING_APP_PATH,
+  HANDOFF_PARAM,
+  HANDOFF_VALUE,
+  platformEntryFields,
+  platformEntryUrl,
+} from './config'
 
 describe('the platform entry URL from /get-started', () => {
   it('adds the handoff to a relative URL', () => {
@@ -57,5 +64,29 @@ describe('the handoff', () => {
   it('has the same query name and value in the app (apps/app/src/lib/handoff.ts)', () => {
     expect(constant('HANDOFF_PARAM')).toBe(HANDOFF_PARAM)
     expect(constant('HANDOFF_VALUE')).toBe(HANDOFF_VALUE)
+  })
+})
+
+describe('the deploy target', () => {
+  // The Worker route, the base `build:site` builds for and the app's path are written in several
+  // files that share no code. Keep them in step.
+  const read = (file: string) => readFileSync(new URL(file, import.meta.url), 'utf8')
+  const wrangler = read('../wrangler.jsonc')
+  const routes = [...wrangler.matchAll(/"pattern":\s*"([^"]*)",\s*"zone_name":\s*"([^"]*)"/g)]
+
+  it('has one Worker route, for the default origin and base (scripts/site-target.mjs)', () => {
+    const site = new URL(DEFAULT_SITE_URL)
+    expect(site.pathname, 'DEFAULT_SITE_URL is an origin').toBe('/')
+    expect(routes.map(([, pattern, zone]) => [pattern, zone])).toEqual([
+      [`${site.host}${normalizeBase(DEFAULT_SITE_BASE).slice(0, -1)}*`, site.host],
+    ])
+  })
+
+  it('has the same app path in the build script, config.ts and public/_headers', () => {
+    expect(LANDING_APP_PATH).toBe(APP_PATH)
+    const rules = read('../public/_headers')
+      .split(/\r?\n/)
+      .filter((line) => line.startsWith('/'))
+    expect(rules).toEqual(expect.arrayContaining([APP_PATH, `${APP_PATH}sw.js`, `${APP_PATH}assets/*`]))
   })
 })

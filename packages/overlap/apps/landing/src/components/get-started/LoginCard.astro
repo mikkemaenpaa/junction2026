@@ -5,10 +5,11 @@
 // the Overlap app's own login; "Sign up here" is a link to the same URL. Layout: get-started.css.
 import { ArrowLeft, ChevronRight } from 'lucide-react'
 import { PLATFORM_URL, platformEntryFields, platformEntryUrl } from '@/config'
+import { sitePath } from '@/lib/base'
 
 const LINKS = [
-  { href: '/#how', label: 'How it works' },
-  { href: '/#talent', label: 'For talent' },
+  { href: sitePath('/#how'), label: 'How it works' },
+  { href: sitePath('/#talent'), label: 'For talent' },
 ]
 
 const label = 'text-[13px] leading-none font-medium'
@@ -19,7 +20,7 @@ const quietLink = 'gs-link inline-flex min-h-11 items-center rounded-md underlin
 
 <div class="gs-card squircle-xl bg-card">
   <div class="flex justify-end">
-    <a href="/" class={`${quietLink} gap-1.5 text-sm font-medium text-ink/75`}>
+    <a href={sitePath('/')} class={`${quietLink} gap-1.5 text-sm font-medium text-ink/75`}>
       <ArrowLeft size={16} aria-hidden="true" />
       Back to home
     </a>
@@ -76,7 +77,7 @@ const quietLink = 'gs-link inline-flex min-h-11 items-center rounded-md underlin
       </div>
       <h2 class="font-display text-lg leading-tight font-bold">Hosting an event?</h2>
       <p class="mt-1.5 text-[13px] leading-[1.45] text-white/75">List it on Overlap and meet the talent that fits your team.</p>
-      <a href="/#companies" class="gs-promo-link mt-3 inline-flex items-center gap-1 rounded-md text-sm font-medium">
+      <a href={sitePath('/#companies')} class="gs-promo-link mt-3 inline-flex items-center gap-1 rounded-md text-sm font-medium">
         For companies
         <ChevronRight size={16} aria-hidden="true" />
       </a>
