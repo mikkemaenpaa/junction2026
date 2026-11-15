@@ -36,8 +36,8 @@ pnpm --filter @overlap/preselect run dev             # http://localhost:4322
 ```
 
 `.env` is never committed. The LinkedIn values in it are only needed for the LinkedIn sign-in.
-The organiser view is empty at first: collect data with the scripts below, or send a profile from
-the landing page (`pnpm run dev:landing` starts both).
+The test applicants come with the repository (`data/applicants.json`). Collect them again with the
+scripts below, or send a profile from the landing page (`pnpm run dev:landing` starts both).
 
 ## Commands
 
@@ -64,8 +64,8 @@ node scripts/collect.ts     # every seed as an applicant (data/applicants.json);
 node scripts/judge-fields.ts # add the model's field judgement to applicants collected before it existed
 ```
 
-Without `data/applicants.json` the organiser view is empty until someone applies from the landing
-page.
+`data/applicants.json` is committed with the test applicants already read. Without it the
+organiser view is empty until someone applies from the landing page.
 
 ### Test applicants
 
@@ -75,14 +75,15 @@ was found under. They were picked from public listing pages by `scripts/discover
 them, marked `off`, are portfolios from outside deep tech and should end up with no score. The
 file holds addresses only, nothing that was read from them.
 
-To get the same test applicants on your own machine, with a Context.dev key in `.env`:
+They are read already: `data/applicants.json` is committed. To read them again on your own
+machine, with a Context.dev key in `.env`:
 
 ```sh
 node scripts/collect.ts
 ```
 
 It reads every address the way an application would be read and saves the result to
-`data/applicants.json`, which stays out of git. Expect a few minutes and roughly 800 to 1,000
+`data/applicants.json`, adding to what is there. Expect a few minutes and roughly 800 to 1,000
 credits. About 34 of the addresses are refused (mostly GitHub organisations, not people), and
 the scores will not match another machine's exactly: the pages change, and the model's judgement
 of the fields varies a little between reads. Running `scripts/discover.ts` again replaces the

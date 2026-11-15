@@ -50,8 +50,8 @@ cp apps/preselect/.env.example apps/preselect/.env   # then put the Context.dev 
 pnpm --filter @overlap/preselect run dev             # http://localhost:4322
 ```
 
-The organiser view is empty at first: the collected applicant data is not in the repository.
-See [apps/preselect/README.md](apps/preselect/README.md) for the scripts that collect it.
+The test applicants are in the repository (`apps/preselect/data/applicants.json`). See
+[apps/preselect/README.md](apps/preselect/README.md) for the scripts that collect them again.
 
 `pnpm run dev:landing` starts this app next to the landing page and the app. The landing page's
 ask box passes a public profile on to it (`PRESELECT_URL` in `apps/landing/src/config.ts`,
